@@ -52,15 +52,17 @@ class PlayState extends FlxState
 			_player._left = true;
 		}
 		
-		if (FlxG.keys.pressed.SPACE)
+		if (FlxG.keys.pressed.Z)
 		{
 			if (_player._left)
 			{
 				_player.setPosition(_mom.x - 50, 260);
+				_mom.angularVelocity += 1;
 			}
 			else
 			{
 				_player.setPosition(_mom.x + 150, 260);
+				_mom.angularVelocity -= 1;
 			}
 		}
 		else
