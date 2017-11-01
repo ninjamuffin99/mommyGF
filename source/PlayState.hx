@@ -40,7 +40,7 @@ class PlayState extends FlxState
 		
 		_timer -= FlxG.elapsed;
 		_timerText.text = "0:" + Math.ffloor(_timer);
-		
+		#if desktop
 		if (FlxG.keys.pressed.RIGHT)
 		{
 			_player.setPosition(_mom.x + 250, 260);
@@ -76,8 +76,8 @@ class PlayState extends FlxState
 				_player.setPosition(_mom.x + 250, 260);
 			}
 		}
-		
-		#if html5
+		#end
+		#if (html5 || mobile)
 		mobileControls();
 		#end
 		
