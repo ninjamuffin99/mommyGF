@@ -40,7 +40,7 @@ class PlayState extends FlxState
 		
 		_timer -= FlxG.elapsed;
 		_timerText.text = "0:" + Math.ffloor(_timer);
-		#if desktop
+		#if (web || desktop)
 		if (FlxG.keys.pressed.RIGHT)
 		{
 			_player.setPosition(_mom.x + 250, 260);
@@ -79,6 +79,8 @@ class PlayState extends FlxState
 		#end
 		#if (html5 || mobile)
 		mobileControls();
+		#else
+		mouseControls();
 		#end
 		
 	}
@@ -90,10 +92,11 @@ class PlayState extends FlxState
 			if (touch.screenX >= FlxG.width / 2)
 			{
 				_player._left = false;
+				
 				if (touch.justPressed) 
 				{
-					_player.setPosition(_mom.x - 50, 260);
-					_mom.angularVelocity += 4;
+					_player.setPosition(_mom.x + 150, 260);
+					_mom.angularVelocity -= 4;
 				}
 			}
 			else
@@ -102,13 +105,14 @@ class PlayState extends FlxState
 				
 				if (touch.justPressed) 
 				{
-					_player.setPosition(_mom.x + 150, 260);
-					_mom.angularVelocity -= 4;
+					_player.setPosition(_mom.x - 50, 260);
+					_mom.angularVelocity += 4;
 				}
+				
 			}
 			if (touch.justReleased) 
 			{
-				if (touch.screenX >= FlxG.width / 2)
+				if (!_player._left)
 				{
 					_player.setPosition(_mom.x + 250, 260);
 				}
@@ -118,6 +122,42 @@ class PlayState extends FlxState
 				}
 			}
 		}
+	}
+	
+	private function mouseControls():Void
+	{
+		if (FlxG.mouse.screenX >= FlxG.width/2)
+			{
+				_player._left = false;
+					
+				if (FlxG.mouse.justPressed) 
+				{
+					_player.setPosition(_mom.x + 150, 260);
+					_mom.angularVelocity -= 4;
+				}
+			}
+			else
+			{
+				_player._left = true;
+				
+				if (FlxG.mouse.justPressed) 
+				{
+					_player.setPosition(_mom.x - 50, 260);
+					_mom.angularVelocity += 4;
+				}
+			
+			}
+			if (FlxG.mouse.justReleased) 
+			{
+				if (!_player._left)
+				{
+					_player.setPosition(_mom.x + 250, 260);
+				}
+				else
+				{
+					_player.setPosition(_mom.x - 150, 260);
+				}
+			}
 	}
 	
 }

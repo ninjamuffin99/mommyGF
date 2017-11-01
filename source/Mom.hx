@@ -22,16 +22,16 @@ class Mom extends FlxSprite
 	{
 		super(X, Y);
 		makeGraphic(Std.int(FlxG.width * 0.17), Std.int(FlxG.height * 0.7), FlxColor.GREEN);
-		maxVelocity.x = 200;
-		acceleration.x = 2;
 		
+		initSpeed();
 		_lean = angle;
 		swapRotating();
 	}
 	
-	private function initSpeed():Void
+	public function initSpeed():Void
 	{
-		
+		maxVelocity.x = 200;
+		acceleration.x = 2;
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -49,7 +49,7 @@ class Mom extends FlxSprite
 		
 		if (_lean >= 60 || _lean <= -60)
 		{
-			//fall();
+			fall();
 		}
 	}
 	
@@ -63,6 +63,7 @@ class Mom extends FlxSprite
 	{
 		FlxG.camera.shake(0.05, 0.02);
 		
+		_lean = 0;
 		_fallenDown = true;
 		angularAcceleration = 0;
 		angle = 0;
