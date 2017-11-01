@@ -52,17 +52,17 @@ class PlayState extends FlxState
 			_player._left = true;
 		}
 		
-		if (FlxG.keys.pressed.Z)
+		if (FlxG.keys.justPressed.Z)
 		{
 			if (_player._left)
 			{
 				_player.setPosition(_mom.x - 50, 260);
-				_mom.angularVelocity += 1;
+				_mom.angularVelocity += 4;
 			}
 			else
 			{
 				_player.setPosition(_mom.x + 150, 260);
-				_mom.angularVelocity -= 1;
+				_mom.angularVelocity -= 4;
 			}
 		}
 		else
@@ -77,5 +77,47 @@ class PlayState extends FlxState
 			}
 		}
 		
+		#if html5
+		mobileControls();
+		#end
+		
 	}
+	
+	private function mobileControls():Void
+	{
+		for (touch in FlxG.touches.list)
+		{
+			if (touch.screenX >= FlxG.width / 2)
+			{
+				_player._left = false;
+				if (touch.justPressed) 
+				{
+					_player.setPosition(_mom.x - 50, 260);
+					_mom.angularVelocity += 4;
+				}
+			}
+			else
+			{
+				_player._left = true;
+				
+				if (touch.justPressed) 
+				{
+					_player.setPosition(_mom.x + 150, 260);
+					_mom.angularVelocity -= 4;
+				}
+			}
+			if (touch.justReleased) 
+			{
+				if (touch.screenX >= FlxG.width / 2)
+				{
+					_player.setPosition(_mom.x + 250, 260);
+				}
+				else
+				{
+					_player.setPosition(_mom.x - 150, 260);
+				}
+			}
+		}
+	}
+	
 }
