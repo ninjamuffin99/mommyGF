@@ -1,6 +1,7 @@
 package;
 
 import flixel.FlxG;
+import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.text.FlxText;
@@ -13,7 +14,7 @@ class PlayState extends FlxState
 	private var _mom:Mom;
 	private var _player:Player;
 	
-	private var _timer:Float = 60;
+	private var _timer:Float = 180;
 	private var _timerText:FlxText;
 	
 	
@@ -47,7 +48,13 @@ class PlayState extends FlxState
 		FlxG.watch.addQuick("momm y", _mom.y);
 		
 		_timer -= FlxG.elapsed;
-		_timerText.text = "0:" + Math.ffloor(_timer);
+		_timerText.text = "seconds " + Math.ffloor(_timer);
+		
+		if (FlxG.keys.justPressed.L)
+		{
+			_timer = 30;
+		}
+		
 		#if (web || desktop)
 		if (FlxG.keys.pressed.RIGHT)
 		{
@@ -62,16 +69,16 @@ class PlayState extends FlxState
 		
 		if (FlxG.keys.justPressed.Z)
 		{
+			sfxHit();
 			if (_player._left)
 			{
 				_player.setPosition(_mom.x - 50, 260);
-				_mom.angularVelocity += 4;
 			}
 			else
 			{
 				_player.setPosition(_mom.x + 150, 260);
-				_mom.angularVelocity -= 4;
 			}
+			
 		}
 		else
 		{
@@ -88,8 +95,17 @@ class PlayState extends FlxState
 		#if (html5 || mobile)
 		mobileControls();
 		#else
-		mouseControls();
+		//mouseControls();
 		#end
+		
+		if (_player._left)
+		{
+			_player.facing = FlxObject.LEFT;
+		}
+		else
+		{
+			_player.facing = FlxObject.RIGHT;
+		}
 		
 	}
 	
@@ -104,6 +120,8 @@ class PlayState extends FlxState
 				if (touch.justPressed) 
 				{
 					_player.setPosition(_mom.x + 150, 260);
+					
+					sfxHit();
 				}
 			}
 			else
@@ -113,6 +131,7 @@ class PlayState extends FlxState
 				if (touch.justPressed) 
 				{
 					_player.setPosition(_mom.x - 50, 260);
+					sfxHit();
 				}
 				
 			}
@@ -139,6 +158,7 @@ class PlayState extends FlxState
 				if (FlxG.mouse.justPressed) 
 				{
 					_player.setPosition(_mom.x + 150, 260);
+					sfxHit();
 				}
 			}
 			else
@@ -148,6 +168,7 @@ class PlayState extends FlxState
 				if (FlxG.mouse.justPressed) 
 				{
 					_player.setPosition(_mom.x - 50, 260);
+					sfxHit();
 				}
 			}
 			if (FlxG.mouse.justReleased) 
@@ -161,6 +182,18 @@ class PlayState extends FlxState
 					_player.setPosition(_mom.x - 150, 260);
 				}
 			}
+	}
+	
+	private function sfxHit():Void
+	{
+		if (_timer >= 30)
+		{
+			FlxG.sound.play("assets/sounds/mom-game/Mom Game/Normal Sounds/smack " + FlxG.random.int(1, 3) + ".mp3", 0.7);
+		}
+		else
+		{
+			FlxG.sound.play("assets/sounds/mom-game/Mom Game/HYPER Sounds/hyper (" + FlxG.random.int(1, 5) + ").wav", 0.8);
+		}
 	}
 	
 }

@@ -21,8 +21,12 @@ class Mom extends FlxSprite
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
 		super(X, Y);
-		loadGraphic(AssetPaths.momIdle__png, true, 794, 1144);
+		loadGraphic(AssetPaths.momTemp__png, true, 860, 1146);
+		
 		animation.add("idle", [0, 1, 2, 3, 4, 5, 6, 7], 8);
+		animation.add("fallLeft", [8, 9, 10], 12);
+		animation.add("fallRight", [11, 12, 13], 12);
+		
 		animation.play("idle");
 		setGraphicSize(Std.int(width / 2));
 		updateHitbox();

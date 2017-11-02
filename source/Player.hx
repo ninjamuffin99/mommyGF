@@ -2,6 +2,7 @@ package;
 
 import flash.display.BitmapData;
 import flixel.FlxG;
+import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import openfl.Assets;
@@ -20,7 +21,17 @@ class Player extends FlxSprite
 	{
 		super(X, Y);
 		
-		makeGraphic(100, 400);
+		loadGraphic(AssetPaths.tempKidsShit__png, true, 1327, 717);
+		animation.add("idle", [0, 0, 1, 2, 3, 4, 5, 5, 6, 7, 8, 9], 12);
+		animation.play("idle");
+		
+		setGraphicSize(Std.int(width / 2));
+		updateHitbox();
+		width = width / 2;
+		centerOffsets();
+		
+		setFacingFlip(FlxObject.LEFT, false, false);
+		setFacingFlip(FlxObject.RIGHT, true, false);
 		
 	}
 	override public function update(elapsed:Float):Void 
