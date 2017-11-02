@@ -21,7 +21,7 @@ class PlayState extends FlxState
 	{
 		
 		
-		_mom = new Mom(300, 100);
+		_mom = new Mom(300, 20);
 		add(_mom);
 		
 		_player = new Player(50, 260);
@@ -33,6 +33,7 @@ class PlayState extends FlxState
 		_timerText.scrollFactor.x = 0;
 		
 		FlxG.camera.follow(_mom);
+		FlxG.camera.maxScrollY = FlxG.height;
 		
 		super.create();
 	}
@@ -42,6 +43,8 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
+		
+		FlxG.watch.addQuick("momm y", _mom.y);
 		
 		_timer -= FlxG.elapsed;
 		_timerText.text = "0:" + Math.ffloor(_timer);
@@ -101,7 +104,6 @@ class PlayState extends FlxState
 				if (touch.justPressed) 
 				{
 					_player.setPosition(_mom.x + 150, 260);
-					_mom.angularVelocity -= 4;
 				}
 			}
 			else
@@ -111,7 +113,6 @@ class PlayState extends FlxState
 				if (touch.justPressed) 
 				{
 					_player.setPosition(_mom.x - 50, 260);
-					_mom.angularVelocity += 4;
 				}
 				
 			}
@@ -138,7 +139,6 @@ class PlayState extends FlxState
 				if (FlxG.mouse.justPressed) 
 				{
 					_player.setPosition(_mom.x + 150, 260);
-					_mom.angularVelocity -= 4;
 				}
 			}
 			else
@@ -148,9 +148,7 @@ class PlayState extends FlxState
 				if (FlxG.mouse.justPressed) 
 				{
 					_player.setPosition(_mom.x - 50, 260);
-					_mom.angularVelocity += 4;
 				}
-			
 			}
 			if (FlxG.mouse.justReleased) 
 			{

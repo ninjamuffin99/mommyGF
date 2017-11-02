@@ -21,7 +21,11 @@ class Mom extends FlxSprite
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
 		super(X, Y);
-		makeGraphic(Std.int(FlxG.width * 0.17), Std.int(FlxG.height * 0.7), FlxColor.GREEN);
+		loadGraphic(AssetPaths.momIdle__png, true, 794, 1144);
+		animation.add("idle", [0, 1, 2, 3, 4, 5, 6, 7], 8);
+		animation.play("idle");
+		setGraphicSize(Std.int(width / 2));
+		updateHitbox();
 		
 		initSpeed();
 		_lean = angle;
@@ -38,7 +42,7 @@ class Mom extends FlxSprite
 	{
 		super.update(elapsed);
 		
-		_lean = angle;
+		//_lean = angle;
 		FlxG.watch.addQuick("Angle:", _lean);
 		
 		_timer += FlxG.elapsed;
@@ -56,7 +60,8 @@ class Mom extends FlxSprite
 	private function swapRotating():Void
 	{
 		_timer = 0;
-		angularAcceleration = FlxG.random.float(-20, 20);
+		//old rotatinbg logic
+		//angularAcceleration = FlxG.random.float(-20, 20);
 	}
 	
 	private function fall():Void
@@ -65,7 +70,6 @@ class Mom extends FlxSprite
 		
 		_lean = 0;
 		_fallenDown = true;
-		angularAcceleration = 0;
 		angle = 0;
 		velocity.x = 0;
 		acceleration.x = 0;

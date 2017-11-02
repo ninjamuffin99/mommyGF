@@ -20,11 +20,7 @@ class Player extends FlxSprite
 	{
 		super(X, Y);
 		
-		var playerClip = Assets.getMovieClip("collLib:idkClip");
-		var bitmapDate:BitmapData = new BitmapData(Std.int(playerClip.width), Std.int(playerClip.height));
-		bitmapDate.draw(playerClip);
-		
-		loadGraphic(bitmapDate, false, Std.int(playerClip.width), Std.int(playerClip.height));
+		makeGraphic(100, 400);
 		
 	}
 	override public function update(elapsed:Float):Void 
