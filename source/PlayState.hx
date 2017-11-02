@@ -6,6 +6,7 @@ import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
+import openfl.Assets;
 
 class PlayState extends FlxState
 {
@@ -15,8 +16,10 @@ class PlayState extends FlxState
 	private var _timer:Float = 60;
 	private var _timerText:FlxText;
 	
+	
 	override public function create():Void
 	{
+		
 		
 		_mom = new Mom(300, 100);
 		add(_mom);
@@ -29,12 +32,12 @@ class PlayState extends FlxState
 		
 		_timerText.scrollFactor.x = 0;
 		
-		//var boy 
-		
 		FlxG.camera.follow(_mom);
 		
 		super.create();
 	}
+	
+	
 
 	override public function update(elapsed:Float):Void
 	{
