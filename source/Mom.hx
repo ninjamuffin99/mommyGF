@@ -30,6 +30,7 @@ class Mom extends FlxSprite
 		animation.play("idle");
 		setGraphicSize(Std.int(width / 2));
 		updateHitbox();
+		origin.y = 1000;
 		
 		initSpeed();
 		_lean = angle;
@@ -39,7 +40,7 @@ class Mom extends FlxSprite
 	public function initSpeed():Void
 	{
 		maxVelocity.x = 200;
-		acceleration.x = 2;
+		//acceleration.x = 2;
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -47,7 +48,7 @@ class Mom extends FlxSprite
 		super.update(elapsed);
 		
 		//_lean = angle;
-		FlxG.watch.addQuick("Angle:", _lean);
+		FlxG.watch.addQuick("Angle:", angle);
 		
 		_timer += FlxG.elapsed;
 		if (_timer >= _timerRandom && !_fallenDown)
@@ -59,13 +60,26 @@ class Mom extends FlxSprite
 		{
 			fall();
 		}
+		
+		if (angle >= 20)
+		{
+			animation.play("fallRight");
+		}
+		else if (angle <= -20)
+		{
+			animation.play("fallLeft");
+		}
+		else
+		{
+			animation.play("idle");
+		}
 	}
 	
 	private function swapRotating():Void
 	{
 		_timer = 0;
 		//old rotatinbg logic
-		//angularAcceleration = FlxG.random.float(-20, 20);
+		angularAcceleration = FlxG.random.float(-20, 20);
 	}
 	
 	private function fall():Void

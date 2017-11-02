@@ -20,9 +20,9 @@ class PlayState extends FlxState
 	
 	override public function create():Void
 	{
+		FlxG.sound.playMusic("assets/music/Music/Main Theme.mp3");
 		
-		
-		_mom = new Mom(300, 20);
+		_mom = new Mom(300, -165);
 		add(_mom);
 		
 		_player = new Player(50, 260);
@@ -35,6 +35,7 @@ class PlayState extends FlxState
 		
 		FlxG.camera.follow(_mom);
 		FlxG.camera.maxScrollY = FlxG.height;
+		FlxG.camera.minScrollY = 0;
 		
 		super.create();
 	}
@@ -46,50 +47,66 @@ class PlayState extends FlxState
 		super.update(elapsed);
 		
 		FlxG.watch.addQuick("momm y", _mom.y);
+		FlxG.watch.addQuick("player X", _player.x);
 		
 		_timer -= FlxG.elapsed;
 		_timerText.text = "seconds " + Math.ffloor(_timer);
 		
 		if (FlxG.keys.justPressed.L)
 		{
-			_timer = 30;
+			_timer = 35;
+			FlxG.sound.music.stop();
+			FlxG.sound.play("assets/sounds/speedUp.mp3", 1, false, null, true, function(){FlxG.sound.playMusic("assets/music/Music/HYPER Theme.mp3");});
+			
 		}
 		
 		#if (web || desktop)
+		
+		if (FlxG.keys.justPressed.ENTER)
+		{
+			openSubState(new PauseSubState());
+		}
+		
+		
 		if (FlxG.keys.pressed.RIGHT)
 		{
-			_player.setPosition(_mom.x + 250, 260);
+			_player.setPosition(_mom.x + 500, 260);
 			_player._left = false;
 		}
 		if (FlxG.keys.pressed.LEFT)
 		{
-			_player.setPosition(_mom.x - 150, 260);
+			_player.setPosition(_mom.x - 300, 260);
 			_player._left = true;
 		}
 		
-		if (FlxG.keys.justPressed.Z)
+		if (FlxG.keys.pressed.Z)
 		{
-			sfxHit();
+			if (FlxG.keys.justPressed.Z)
+			{
+				sfxHit();
+			}
 			if (_player._left)
 			{
-				_player.setPosition(_mom.x - 50, 260);
+				_player.setPosition(_mom.x - 200, 260);
+				_mom.angularVelocity += 4;
 			}
 			else
 			{
-				_player.setPosition(_mom.x + 150, 260);
+				_player.setPosition(_mom.x + 300, 260);
+				_mom.angularVelocity -= 4;
 			}
-			
 		}
 		else
 		{
 			if (_player._left)
 			{
-				_player.setPosition(_mom.x - 150, 260);
+				_player.setPosition(_mom.x - 300, 260);
 			}
 			else
 			{
-				_player.setPosition(_mom.x + 250, 260);
+				_player.setPosition(_mom.x + 400, 260);
 			}
+			_player.animation.play("idle");
 		}
 		#end
 		#if (html5 || mobile)
@@ -186,9 +203,10 @@ class PlayState extends FlxState
 	
 	private function sfxHit():Void
 	{
+		FlxG.log.add("SFX");
 		if (_timer >= 30)
 		{
-			FlxG.sound.play("assets/sounds/mom-game/Mom Game/Normal Sounds/smack " + FlxG.random.int(1, 3) + ".mp3", 0.7);
+			FlxG.sound.play("assets/sounds/smack " + FlxG.random.int(1, 3) + ".mp3", 0.7);
 		}
 		else
 		{

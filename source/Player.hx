@@ -16,6 +16,7 @@ class Player extends FlxSprite
 {
 	public var _left:Bool = true;
 	
+	private var prevAnim:Int = FlxG.random.int(1, 3);
 
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
@@ -24,6 +25,11 @@ class Player extends FlxSprite
 		loadGraphic(AssetPaths.tempKidsShit__png, true, 1327, 717);
 		animation.add("idle", [0, 0, 1, 2, 3, 4, 5, 5, 6, 7, 8, 9], 12);
 		animation.play("idle");
+		
+		animation.add("poke1", [14], 30, false, true);
+		animation.add("poke2", [15], 30, false, true);
+		animation.add("poke3", [16], 30, false, true);
+		
 		
 		setGraphicSize(Std.int(width / 2));
 		updateHitbox();
@@ -36,8 +42,15 @@ class Player extends FlxSprite
 	}
 	override public function update(elapsed:Float):Void 
 	{
+		
 		super.update(elapsed);
 		
+		if (FlxG.keys.justPressed.Z)
+		{
+			animation.play("poke" + prevAnim, false);
+			//generates new animation for next time?
+			prevAnim = FlxG.random.int(1, 3, [prevAnim]);
+		}
 	}
 	
 }
