@@ -1,0 +1,158 @@
+{
+    "ANIMATION": {
+        "name": "mom-game-assets",
+        "SYMBOL_name": "Mom Walking",
+        "TIMELINE": {
+            "LAYERS": [
+                {
+                    "Layer_name": "Layer 1",
+                    "Frames": [
+                        {
+                            "index": 0,
+                            "duration": 3,
+                            "elements": [
+                                {
+                                    "ATLAS_SPRITE_instance": {
+                                        "name": "0000",
+                                        "Position": {
+                                            "x": -340,
+                                            "y": -492
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "index": 3,
+                            "duration": 3,
+                            "elements": [
+                                {
+                                    "ATLAS_SPRITE_instance": {
+                                        "name": "0001",
+                                        "Position": {
+                                            "x": -308,
+                                            "y": -482
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "index": 6,
+                            "duration": 3,
+                            "elements": [
+                                {
+                                    "ATLAS_SPRITE_instance": {
+                                        "name": "0002",
+                                        "Position": {
+                                            "x": -308,
+                                            "y": -468
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "index": 9,
+                            "duration": 3,
+                            "elements": [
+                                {
+                                    "ATLAS_SPRITE_instance": {
+                                        "name": "0003",
+                                        "Position": {
+                                            "x": -342,
+                                            "y": -509
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "index": 12,
+                            "duration": 3,
+                            "elements": [
+                                {
+                                    "ATLAS_SPRITE_instance": {
+                                        "name": "0004",
+                                        "Position": {
+                                            "x": -383,
+                                            "y": -515
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "index": 15,
+                            "duration": 3,
+                            "elements": [
+                                {
+                                    "ATLAS_SPRITE_instance": {
+                                        "name": "0005",
+                                        "Position": {
+                                            "x": -396,
+                                            "y": -513
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "index": 18,
+                            "duration": 3,
+                            "elements": [
+                                {
+                                    "ATLAS_SPRITE_instance": {
+                                        "name": "0006",
+                                        "Position": {
+                                            "x": -384,
+                                            "y": -542
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "index": 21,
+                            "duration": 3,
+                            "elements": [
+                                {
+                                    "ATLAS_SPRITE_instance": {
+                                        "name": "0007",
+                                        "Position": {
+                                            "x": -360,
+                                            "y": -504
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Layer_name": "Layer 2",
+                    "Frames": [
+                        {
+                            "index": 0,
+                            "duration": 24,
+                            "elements": [
+                                {
+                                    "ATLAS_SPRITE_instance": {
+                                        "name": "0008",
+                                        "Position": {
+                                            "x": -396,
+                                            "y": -540
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "metadata": {
+        "framerate": 24
+    }
+}
