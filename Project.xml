@@ -80,5 +80,5 @@
 	
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
 	<haxelib name="swf"/>
-	
+	<library id="collLib" path="assets/images/library.swf" type="swf"/>
 </project>

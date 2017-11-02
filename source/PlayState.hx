@@ -29,6 +29,8 @@ class PlayState extends FlxState
 		
 		_timerText.scrollFactor.x = 0;
 		
+		//var boy 
+		
 		FlxG.camera.follow(_mom);
 		
 		super.create();
