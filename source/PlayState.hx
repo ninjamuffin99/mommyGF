@@ -202,6 +202,7 @@ class PlayState extends FlxState
 		{
 			_cat._punched = true;
 			_cat.fly(_cat.velocity.x * 0.5, -400);
+			FlxG.sound.play(AssetPaths.oof__mp3);
 		}
 	}
 	
