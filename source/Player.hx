@@ -22,13 +22,14 @@ class Player extends FlxSprite
 	{
 		super(X, Y);
 		
-		loadGraphic(AssetPaths.tempKidsShit__png, true, 1327, 717);
+		loadGraphic(AssetPaths.tempKidsShit__png, true, 1327, 800);
 		animation.add("idle", [0, 0, 1, 2, 3, 4, 5, 5, 6, 7, 8, 9], 12);
 		animation.play("idle");
 		
 		animation.add("poke1", [14], 30, false, true);
 		animation.add("poke2", [15], 30, false, true);
 		animation.add("poke3", [16], 30, false, true);
+		animation.add("punch", [17, 18], 12, false);
 		
 		
 		setGraphicSize(Std.int(width / 2));
@@ -51,6 +52,8 @@ class Player extends FlxSprite
 			//generates new animation for next time?
 			prevAnim = FlxG.random.int(1, 3, [prevAnim]);
 		}
+		
+		FlxG.watch.addQuick("current animation:", animation.curAnim.name);
 	}
 	
 }

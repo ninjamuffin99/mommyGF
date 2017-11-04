@@ -108,6 +108,23 @@ class PlayState extends FlxState
 			}
 			_player.animation.play("idle");
 		}
+		
+		if (FlxG.keys.justPressed.UP)
+		{
+			punch();
+			_player.y = 200;
+		}
+		
+		if (FlxG.keys.pressed.UP)
+		{
+			_player.setPosition(_player.x, 215);
+			_player.animation.play("punch");
+		}
+		if (FlxG.keys.justReleased.UP)
+		{
+			_player.y = 260;
+		}
+		
 		#end
 		#if (html5 || mobile)
 		mobileControls();
@@ -123,6 +140,10 @@ class PlayState extends FlxState
 		{
 			_player.facing = FlxObject.RIGHT;
 		}
+	}
+	
+	private function punch():Void
+	{
 		
 	}
 	
