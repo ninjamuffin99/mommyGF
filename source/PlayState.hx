@@ -13,10 +13,15 @@ class PlayState extends FlxState
 {
 	private var _mom:Mom;
 	private var _player:Player;
+	private var _playerPunchHitBox:FlxObject;
+	private var _cat:Cat;
+	private var _catLeft:Bool = false;
 	
 	private var _timer:Float = 180;
 	private var _timerText:FlxText;
 	
+	private var _timerCat:Float = 10;
+	private var _catActive:Bool = false;
 	
 	override public function create():Void
 	{
@@ -25,8 +30,14 @@ class PlayState extends FlxState
 		_mom = new Mom(300, -165);
 		add(_mom);
 		
+		_cat = new Cat(0 - 200, 110);
+		add(_cat);
+		
 		_player = new Player(50, 260);
 		add(_player);
+		
+		_playerPunchHitBox = new FlxObject(_player.x + 60, _player.y, 75, 75);
+		add(_playerPunchHitBox);
 		
 		_timerText = new FlxText(10, FlxG.height - 35, 0, Std.string(Math.ffloor(_timer)), 20);
 		add(_timerText);
@@ -49,8 +60,39 @@ class PlayState extends FlxState
 		FlxG.watch.addQuick("momm y", _mom.y);
 		FlxG.watch.addQuick("player X", _player.x);
 		
+		if (FlxG.keys.justPressed.C)
+		{
+			spawnCat();
+			//_cat.fly(400, -400);
+		}
+		
 		_timer -= FlxG.elapsed;
 		_timerText.text = "seconds " + Math.ffloor(_timer);
+		
+		_timerCat -= FlxG.elapsed;
+		
+		if (_timerCat <= 0)
+		{
+			_timerCat = FlxG.random.float(8, 15);
+			spawnCat();
+		}
+		
+		if (_catActive)
+		{
+			if (_cat.animation.frameIndex == 31)
+			{
+				if (_catLeft)
+				{
+					_cat.fly(400, -400);
+				}
+				else
+				{
+					_cat.fly( -400, -400);
+				}
+				_catActive = false;
+			}
+			
+		}
 		
 		if (FlxG.keys.justPressed.L)
 		{
@@ -111,18 +153,28 @@ class PlayState extends FlxState
 		
 		if (FlxG.keys.justPressed.UP)
 		{
+			
+			if (_player._left)
+			{
+				_player.setPosition(_player.x + 70, 155);
+				_playerPunchHitBox.setPosition(_player.x + 175, _player.y + 25);
+			}
+			else
+			{
+				_player.setPosition(_player.x - 70, 155);
+				_playerPunchHitBox.setPosition(_player.x + 75, _player.y + 25);
+			}
 			punch();
-			_player.y = 200;
 		}
 		
 		if (FlxG.keys.pressed.UP)
 		{
-			_player.setPosition(_player.x, 215);
 			_player.animation.play("punch");
 		}
 		if (FlxG.keys.justReleased.UP)
 		{
 			_player.y = 260;
+			_playerPunchHitBox.active = false;
 		}
 		
 		#end
@@ -144,7 +196,38 @@ class PlayState extends FlxState
 	
 	private function punch():Void
 	{
+		_playerPunchHitBox.active = true;
 		
+		if (FlxG.overlap(_cat, _playerPunchHitBox))
+		{
+			_cat._punched = true;
+			_cat.fly(_cat.velocity.x * 0.5, -400);
+		}
+	}
+	
+	private function spawnCat():Void
+	{
+		_cat._punched = false;
+		_catLeft = FlxG.random.bool();
+		_cat.y = 140;
+		_cat.acceleration.y = 0;
+		_cat.velocity.x = _cat.velocity.y = 0;
+		_cat.angularVelocity = 0;
+		_cat.angle = 0;
+		
+		if (_catLeft)
+		{
+			_cat.facing = FlxObject.RIGHT;
+			_cat.x = 10 - _cat.width;
+			
+		}
+		else
+		{
+			_cat.facing = FlxObject.LEFT;
+			_cat.x = FlxG.width - 60;
+		}
+		_cat.animation.play("peek");
+		_catActive = true;
 	}
 	
 	private function mobileControls():Void

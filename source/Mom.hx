@@ -61,11 +61,11 @@ class Mom extends FlxSprite
 			fall();
 		}
 		
-		if (angle >= 20)
+		if (angle >= 10)
 		{
 			animation.play("fallRight");
 		}
-		else if (angle <= -20)
+		else if (angle <= -10)
 		{
 			animation.play("fallLeft");
 		}
