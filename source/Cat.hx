@@ -44,7 +44,7 @@ class Cat extends FlxSprite
 		
 		if (_punched)
 		{
-			angularVelocity = velocity.x * FlxG.random.float(-2, 2);
+			angularVelocity = velocity.x * -0.9;
 			animation.play("punched");
 		}
 		if (!_punched && velocity.x != 0)
