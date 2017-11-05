@@ -97,6 +97,21 @@ class PlayState extends FlxState
 			
 		}
 		
+		controls();
+		
+		if (_player._left)
+		{
+			_player.facing = FlxObject.LEFT;
+		}
+		else
+		{
+			_player.facing = FlxObject.RIGHT;
+		}
+	}
+	
+	private function controls():Void
+	{
+		
 		if (FlxG.keys.justPressed.L)
 		{
 			_timer = 35;
@@ -194,15 +209,6 @@ class PlayState extends FlxState
 		#else
 		//mouseControls();
 		#end
-		
-		if (_player._left)
-		{
-			_player.facing = FlxObject.LEFT;
-		}
-		else
-		{
-			_player.facing = FlxObject.RIGHT;
-		}
 	}
 	
 	private function punch():Void
