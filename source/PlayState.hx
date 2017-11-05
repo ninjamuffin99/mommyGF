@@ -113,12 +113,12 @@ class PlayState extends FlxState
 		}
 		
 		
-		if (FlxG.keys.pressed.RIGHT)
+		if (FlxG.keys.pressed.RIGHT && !FlxG.keys.pressed.Z)
 		{
 			_player.setPosition(_mom.x + 500, _playerY);
 			_player._left = false;
 		}
-		if (FlxG.keys.pressed.LEFT)
+		if (FlxG.keys.pressed.LEFT && !FlxG.keys.pressed.Z)
 		{
 			_player.setPosition(_mom.x - 300, _playerY);
 			_player._left = true;
@@ -129,6 +129,14 @@ class PlayState extends FlxState
 			if (FlxG.keys.justPressed.Z)
 			{
 				sfxHit();
+				if (_player._left)
+				{
+					_mom.angularVelocity += 20;
+				}
+				else
+				{
+					_mom.angularVelocity -= 20;
+				}
 			}
 			if (_player._left)
 			{
@@ -205,6 +213,7 @@ class PlayState extends FlxState
 		{
 			_cat._punched = true;
 			_cat.fly(_cat.velocity.x * 0.5, -400);
+			sfxHit();
 			FlxG.sound.play(AssetPaths.oof__mp3);
 		}
 	}

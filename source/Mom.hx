@@ -49,6 +49,7 @@ class Mom extends FlxSprite
 		
 		//_lean = angle;
 		FlxG.watch.addQuick("Angle:", angle);
+		FlxG.watch.addQuick("SPin Speed", angularVelocity);
 		
 		_timer += FlxG.elapsed;
 		if (_timer >= _timerRandom && !_fallenDown)
