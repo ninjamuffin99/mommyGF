@@ -102,7 +102,7 @@ class PlayState extends FlxState
 		
 		_timerCat -= FlxG.elapsed;
 		
-		if (_timerCat <= 0)
+		if (_timerCat <= 0 && _cat.y >= FlxG.height)
 		{
 			_timerCat = FlxG.random.float(8, 15);
 			spawnCat();
@@ -262,7 +262,17 @@ class PlayState extends FlxState
 		if (FlxG.overlap(_cat, _playerPunchHitBox))
 		{
 			_cat._punched = true;
-			_cat.fly(_cat.velocity.x * 0.5, -400);
+			if (_cat._timesPunched >= 1)
+			{
+				_cat.fly(-_cat.velocity.x, FlxG.random.float(-400, -450));
+			}
+			else
+			{
+				_cat.fly(_cat.velocity.x, -400);
+			}
+			
+			_cat._timesPunched += 1;
+			
 			sfxHit();
 			FlxG.sound.play(AssetPaths.oof__mp3);
 		}

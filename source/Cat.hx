@@ -12,6 +12,7 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
 class Cat extends FlxSprite 
 {
 	public var _punched:Bool = false;
+	public var _timesPunched:Int = 0;
 
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
@@ -42,6 +43,11 @@ class Cat extends FlxSprite
 	override public function update(elapsed:Float):Void 
 	{
 		super.update(elapsed);
+		
+		if (y >= FlxG.height)
+		{
+			_timesPunched = 0;
+		}
 		
 		if (_punched)
 		{
