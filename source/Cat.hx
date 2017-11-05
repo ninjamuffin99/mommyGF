@@ -25,6 +25,7 @@ class Cat extends FlxSprite
 		updateHitbox();
 		
 		width = width / 2;
+		centerOffsets();
 		
 		setFacingFlip(FlxObject.LEFT, false, false);
 		setFacingFlip(FlxObject.RIGHT, true, false);

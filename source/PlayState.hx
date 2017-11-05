@@ -14,6 +14,9 @@ class PlayState extends FlxState
 	private var _mom:Mom;
 	private var _player:Player;
 	private var _playerPunchHitBox:FlxObject;
+	private var _playerY:Float = 200;
+	
+	
 	private var _cat:Cat;
 	private var _catLeft:Bool = false;
 	
@@ -33,7 +36,7 @@ class PlayState extends FlxState
 		_cat = new Cat(0 - 200, 110);
 		add(_cat);
 		
-		_player = new Player(50, 260);
+		_player = new Player(50, _playerY);
 		add(_player);
 		
 		_playerPunchHitBox = new FlxObject(_player.x + 60, _player.y, 75, 75);
@@ -57,8 +60,8 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		
-		FlxG.watch.addQuick("momm y", _mom.y);
-		FlxG.watch.addQuick("player X", _player.x);
+		FlxG.watch.addQuick("momm y", _mom.getPosition());
+		FlxG.watch.addQuick("player pos", _player.getPosition());
 		
 		if (FlxG.keys.justPressed.C)
 		{
@@ -112,12 +115,12 @@ class PlayState extends FlxState
 		
 		if (FlxG.keys.pressed.RIGHT)
 		{
-			_player.setPosition(_mom.x + 500, 260);
+			_player.setPosition(_mom.x + 500, _playerY);
 			_player._left = false;
 		}
 		if (FlxG.keys.pressed.LEFT)
 		{
-			_player.setPosition(_mom.x - 300, 260);
+			_player.setPosition(_mom.x - 300, _playerY);
 			_player._left = true;
 		}
 		
@@ -129,12 +132,12 @@ class PlayState extends FlxState
 			}
 			if (_player._left)
 			{
-				_player.setPosition(_mom.x - 200, 260);
+				_player.setPosition(_mom.x - 200, _playerY);
 				_mom.angularVelocity += 4;
 			}
 			else
 			{
-				_player.setPosition(_mom.x + 300, 260);
+				_player.setPosition(_mom.x + 300, _playerY);
 				_mom.angularVelocity -= 4;
 			}
 		}
@@ -142,11 +145,11 @@ class PlayState extends FlxState
 		{
 			if (_player._left)
 			{
-				_player.setPosition(_mom.x - 300, 260);
+				_player.setPosition(_mom.x - 300, _playerY);
 			}
 			else
 			{
-				_player.setPosition(_mom.x + 400, 260);
+				_player.setPosition(_mom.x + 400, _playerY);
 			}
 			_player.animation.play("idle");
 		}
@@ -156,12 +159,12 @@ class PlayState extends FlxState
 			
 			if (_player._left)
 			{
-				_player.setPosition(_player.x + 70, 155);
+				_player.setPosition(_player.x + 70, _playerY - 100);
 				_playerPunchHitBox.setPosition(_player.x + 175, _player.y + 25);
 			}
 			else
 			{
-				_player.setPosition(_player.x - 70, 155);
+				_player.setPosition(_player.x - 70, _playerY - 100);
 				_playerPunchHitBox.setPosition(_player.x + 75, _player.y + 25);
 			}
 			punch();
@@ -173,7 +176,7 @@ class PlayState extends FlxState
 		}
 		if (FlxG.keys.justReleased.UP)
 		{
-			_player.y = 260;
+			_player.y = _playerY;
 			_playerPunchHitBox.active = false;
 		}
 		
@@ -219,13 +222,13 @@ class PlayState extends FlxState
 		if (_catLeft)
 		{
 			_cat.facing = FlxObject.RIGHT;
-			_cat.x = 10 - _cat.width;
+			_cat.x = 70 - _cat.width;
 			
 		}
 		else
 		{
 			_cat.facing = FlxObject.LEFT;
-			_cat.x = FlxG.width - 60;
+			_cat.x = FlxG.width;
 		}
 		_cat.animation.play("peek");
 		_catActive = true;
@@ -241,7 +244,7 @@ class PlayState extends FlxState
 				
 				if (touch.justPressed) 
 				{
-					_player.setPosition(_mom.x + 150, 260);
+					_player.setPosition(_mom.x + 150, _playerY);
 					
 					sfxHit();
 				}
@@ -252,7 +255,7 @@ class PlayState extends FlxState
 				
 				if (touch.justPressed) 
 				{
-					_player.setPosition(_mom.x - 50, 260);
+					_player.setPosition(_mom.x - 50, _playerY);
 					sfxHit();
 				}
 				
@@ -261,11 +264,11 @@ class PlayState extends FlxState
 			{
 				if (!_player._left)
 				{
-					_player.setPosition(_mom.x + 250, 260);
+					_player.setPosition(_mom.x + 250, _playerY);
 				}
 				else
 				{
-					_player.setPosition(_mom.x - 150, 260);
+					_player.setPosition(_mom.x - 150, _playerY);
 				}
 			}
 		}
@@ -279,7 +282,7 @@ class PlayState extends FlxState
 					
 				if (FlxG.mouse.justPressed) 
 				{
-					_player.setPosition(_mom.x + 150, 260);
+					_player.setPosition(_mom.x + 150, _playerY);
 					sfxHit();
 				}
 			}
@@ -289,7 +292,7 @@ class PlayState extends FlxState
 				
 				if (FlxG.mouse.justPressed) 
 				{
-					_player.setPosition(_mom.x - 50, 260);
+					_player.setPosition(_mom.x - 50, _playerY);
 					sfxHit();
 				}
 			}
@@ -297,11 +300,11 @@ class PlayState extends FlxState
 			{
 				if (!_player._left)
 				{
-					_player.setPosition(_mom.x + 250, 260);
+					_player.setPosition(_mom.x + 250, _playerY);
 				}
 				else
 				{
-					_player.setPosition(_mom.x - 150, 260);
+					_player.setPosition(_mom.x - 150, _playerY);
 				}
 			}
 	}
