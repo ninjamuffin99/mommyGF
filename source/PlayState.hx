@@ -12,6 +12,13 @@ import openfl.Assets;
 class PlayState extends FlxState
 {
 	private var _mom:Mom;
+	private var _distanceBar:FlxSprite;
+	private var _momIcon:FlxSprite;
+	
+	private var _distanceGoal:Float = 1000;
+	private var _distaceGoalText:FlxText;
+	
+	
 	private var _player:Player;
 	private var _playerPunchHitBox:FlxObject;
 	private var _playerY:Float = 200;
@@ -45,11 +52,29 @@ class PlayState extends FlxState
 		_timerText = new FlxText(10, FlxG.height - 35, 0, Std.string(Math.ffloor(_timer)), 20);
 		add(_timerText);
 		
+		_distanceBar = new FlxSprite(175, 6);
+		_distanceBar.loadGraphic("assets/images/Distance Bar.png", false, 1387, 56);
+		_distanceBar.setGraphicSize(Std.int(_distanceBar.width / 2));
+		_distanceBar.updateHitbox();
+		add(_distanceBar);
+		
+		_momIcon = new FlxSprite(185, 3);
+		_momIcon.loadGraphic("assets/images/momshit/Mom Icon0001.png", false, 44, 100);
+		_momIcon.setGraphicSize(Std.int(_momIcon.width / 2));
+		_momIcon.updateHitbox();
+		add(_momIcon);
+		
+		_distaceGoalText = new FlxText(25, 15, 0, "", 20);
+		add(_distaceGoalText);
+		
+		
+		_distanceBar.scrollFactor.x = 0;
 		_timerText.scrollFactor.x = 0;
 		
 		FlxG.camera.follow(_mom);
 		FlxG.camera.maxScrollY = FlxG.height;
 		FlxG.camera.minScrollY = 0;
+		FlxG.camera.bgColor = 0xFF111111;
 		
 		super.create();
 	}
@@ -63,11 +88,14 @@ class PlayState extends FlxState
 		FlxG.watch.addQuick("momm y", _mom.getPosition());
 		FlxG.watch.addQuick("player pos", _player.getPosition());
 		
-		if (FlxG.keys.justPressed.C)
+		
+		if (_mom.animation.curAnim.name == "idle")
 		{
-			spawnCat();
-			//_cat.fly(400, -400);
+			_mom._distanceX += 1;
 		}
+		
+		_momIcon.x = FlxMath.remapToRange(_mom._distanceX,  0, _distanceGoal, _distanceBar.x + 10, _distanceBar.x + _distanceBar.width - 10);
+		FlxG.watch.addQuick("momsii", _momIcon.x);
 		
 		_timer -= FlxG.elapsed;
 		_timerText.text = "seconds " + Math.ffloor(_timer);
@@ -111,6 +139,22 @@ class PlayState extends FlxState
 	
 	private function controls():Void
 	{
+		if (FlxG.keys.pressed.W)
+		{
+			_distanceGoal += 10;
+		}
+		if (FlxG.keys.pressed.S)
+		{
+			_distanceGoal -= 10;
+		}
+		
+		_distaceGoalText.text = "Distance \nneeded: " + _distanceGoal;
+		
+		if (FlxG.keys.justPressed.C)
+		{
+			spawnCat();
+			//_cat.fly(400, -400);
+		}
 		
 		if (FlxG.keys.justPressed.L)
 		{

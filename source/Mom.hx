@@ -15,6 +15,7 @@ class Mom extends FlxSprite
 	private var _timerRandom:Float = FlxG.random.float(1, 4);
 	
 	public var _lean:Float;
+	public var _distanceX:Float = 0;
 
 	public var _fallenDown:Bool = false;
 	
