@@ -53,12 +53,18 @@ class Mom extends FlxSprite
 		FlxG.watch.addQuick("SPin Speed", angularVelocity);
 		
 		_timer += FlxG.elapsed;
+		
+		if (_fallenDown)
+		{
+			angle = 90;
+		}
+		
 		if (_timer >= _timerRandom && !_fallenDown)
 		{
 			swapRotating();
 		}
 		
-		if (_lean >= 60 || _lean <= -60)
+		if ((angle >= 30 || angle <= -30) && !_fallenDown)
 		{
 			fall();
 		}
@@ -90,7 +96,7 @@ class Mom extends FlxSprite
 		
 		_lean = 0;
 		_fallenDown = true;
-		angle = 0;
+		angle = 90;
 		velocity.x = 0;
 		acceleration.x = 0;
 	}

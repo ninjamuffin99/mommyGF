@@ -15,7 +15,7 @@ class PlayState extends FlxState
 	private var _distanceBar:FlxSprite;
 	private var _momIcon:FlxSprite;
 	
-	private var _distanceGoal:Float = 1000;
+	private var _distanceGoal:Float = 5000;
 	private var _distaceGoalText:FlxText;
 	
 	
