@@ -44,7 +44,7 @@ class PlayState extends FlxState
 		_mom = new Mom(300, -165);
 		add(_mom);
 		
-		_cat = new Cat(0 - 200, 110);
+		_cat = new Cat(0 - 200, FlxG.height);
 		add(_cat);
 		
 		_player = new Player(50, _playerY);
@@ -74,11 +74,13 @@ class PlayState extends FlxState
 		_distanceBar.updateHitbox();
 		add(_distanceBar);
 		
-		_momIcon = new FlxSprite(185, 3);
+		_momIcon = new FlxSprite(0, 3);
 		_momIcon.loadGraphic("assets/images/momshit/Mom Icon0001.png", false, 44, 100);
 		_momIcon.setGraphicSize(Std.int(_momIcon.width / 2));
 		_momIcon.updateHitbox();
 		add(_momIcon);
+		
+		_momIcon.x = _distanceBar.x + _momIcon.width;
 		
 		_distaceGoalText = new FlxText(25, 15, 0, "", 20);
 		add(_distaceGoalText);
