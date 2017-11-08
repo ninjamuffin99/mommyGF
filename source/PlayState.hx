@@ -98,6 +98,8 @@ class PlayState extends FlxState
 		FlxG.watch.addQuick("momm y", _mom.getPosition());
 		FlxG.watch.addQuick("player pos", _player.getPosition());
 		
+		FlxG.sound.music.volume = Global.musicVolume;
+		
 		if (_timer <= 0)
 		{
 			FlxG.switchState(new GameOverState());
@@ -120,9 +122,12 @@ class PlayState extends FlxState
 		_timer -= FlxG.elapsed;
 		_timerText.text = "seconds " + Math.ffloor(_timer);
 		
-		_timerCat -= FlxG.elapsed;
+		if (_cat.y >= FlxG.height)
+		{
+			_timerCat -= FlxG.elapsed;
+		}
 		
-		if (_timerCat <= 0 && _cat.y >= FlxG.height)
+		if (_timerCat <= 0)
 		{
 			_timerCat = FlxG.random.float(8, 15);
 			spawnCat();
