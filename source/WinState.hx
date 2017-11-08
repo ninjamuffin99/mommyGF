@@ -13,10 +13,10 @@ class WinState extends FlxState
 
 	override public function create():Void 
 	{
-		var _winText:FlxText = new FlxText(0, 0, 0, "GG MOM IS DED AND YOU PLAY SOME VERY FUN VIDEO GAMES \nLIKE SUPER SMASH BROTHERS BRAWL FOR \nTHE NINTENDO WII", 20);
+		var _winText:FlxText = new FlxText(0, 0, 0, "GG MOM IS DED AND YOU PLAY SOME VERY FUN VIDEO GAMES \nLIKE SUPER SMASH BROTHERS BRAWL FOR \nTHE NINTENDO WII\n\nPRESS ENTER TO GO BACK", 20);
 		_winText.screenCenter();
 		add(_winText);
-		_winText.angularVelocity = 2;
+		_winText.angularVelocity = 5;
 		
 		
 		super.create();
@@ -26,7 +26,7 @@ class WinState extends FlxState
 	{
 		super.update(elapsed);
 		
-		if (FlxG.keys.justPressed.ANY)
+		if (FlxG.keys.justReleased.ENTER)
 		{
 			FlxG.switchState(new PlayState());
 		}

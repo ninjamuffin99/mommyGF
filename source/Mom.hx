@@ -19,6 +19,8 @@ class Mom extends FlxSprite
 
 	public var _fallenDown:Bool = false;
 	
+	public var _fallAngle:Float = 45;
+	
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
 		super(X, Y);
@@ -74,7 +76,7 @@ class Mom extends FlxSprite
 			swapRotating();
 		}
 		
-		if ((angle >= 30 || angle <= -30) && !_fallenDown)
+		if ((angle >= _fallAngle || angle <= -_fallAngle) && !_fallenDown)
 		{
 			fall();
 		}
