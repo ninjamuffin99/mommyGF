@@ -35,7 +35,6 @@ class PauseSubState extends FlxSubState
 		add(_soundVolumeSlider);
 		
 		_soundVolumeSlider.clickSound = "assets/sounds/oof.mp3";
-		_soundVolumeSlider.valueLabel = "Master Volume";
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -44,7 +43,7 @@ class PauseSubState extends FlxSubState
 		
 		FlxG.watch.add(Global, "musicVolume");
 		FlxG.sound.music.volume = Global.musicVolume;
-		FlxG.sound.volume = Global.soundFXVolume;
+		FlxG.sound.volume = Global.masterVolume;
 		
 		if (FlxG.keys.justPressed.ENTER)
 		{
