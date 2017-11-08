@@ -96,6 +96,16 @@ class PlayState extends FlxState
 		FlxG.watch.addQuick("momm y", _mom.getPosition());
 		FlxG.watch.addQuick("player pos", _player.getPosition());
 		
+		if (_timer <= 0)
+		{
+			FlxG.switchState(new GameOverState());
+		}
+		
+		if (_mom._distanceX >= _distanceGoal)
+		{
+			FlxG.switchState(new WinState());
+		}
+		
 		
 		if (_mom.animation.curAnim.name == "idle")
 		{
