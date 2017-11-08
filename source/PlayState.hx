@@ -14,6 +14,10 @@ class PlayState extends FlxState
 	private var _mom:Mom;
 	private var _distanceBar:FlxSprite;
 	private var _momIcon:FlxSprite;
+	private var _pickupMom:Float = 0;
+	private var _pickupMomNeeded:Float = 15;
+	
+	
 	
 	private var _distanceGoal:Float = 5000;
 	private var _distaceGoalText:FlxText;
@@ -49,6 +53,18 @@ class PlayState extends FlxState
 		_playerPunchHitBox = new FlxObject(_player.x + 60, _player.y, 75, 75);
 		add(_playerPunchHitBox);
 		
+		createHUD();
+		
+		FlxG.camera.follow(_mom);
+		FlxG.camera.maxScrollY = FlxG.height;
+		FlxG.camera.minScrollY = 0;
+		FlxG.camera.bgColor = 0xFF111111;
+		
+		super.create();
+	}
+	
+	private function createHUD():Void
+	{
 		_timerText = new FlxText(10, FlxG.height - 35, 0, Std.string(Math.ffloor(_timer)), 20);
 		add(_timerText);
 		
@@ -70,15 +86,7 @@ class PlayState extends FlxState
 		
 		_distanceBar.scrollFactor.x = 0;
 		_timerText.scrollFactor.x = 0;
-		
-		FlxG.camera.follow(_mom);
-		FlxG.camera.maxScrollY = FlxG.height;
-		FlxG.camera.minScrollY = 0;
-		FlxG.camera.bgColor = 0xFF111111;
-		
-		super.create();
 	}
-	
 	
 
 	override public function update(elapsed:Float):Void
@@ -126,6 +134,20 @@ class PlayState extends FlxState
 		}
 		
 		controls();
+		
+		if (_player._pickingUpMom)
+		{
+			_player.x = _mom.x - 50;
+			
+			if (_pickupMom >= _pickupMomNeeded)
+			{
+				_mom._fallenDown = false;
+				_mom.angle = 0;
+				_player._pickingUpMom = false;
+				_pickupMom = 0;
+			}
+			
+		}
 		
 		if (_player._left)
 		{
@@ -247,12 +269,31 @@ class PlayState extends FlxState
 			_playerPunchHitBox.active = false;
 		}
 		
+		if (FlxG.keys.justPressed.DOWN && _mom._fallenDown)
+		{
+			_player._pickingUpMom = true;
+		}
+		
+		
+		if (_player._pickingUpMom && FlxG.keys.justPressed.LEFT)
+		{
+			sfxHit();
+			
+			_pickupMom += 1;
+			FlxG.camera.shake(0.02, 0.02);
+		}
+		
+		
+		
 		#end
 		#if (html5 || mobile)
 		mobileControls();
 		#else
 		//mouseControls();
 		#end
+		
+		
+		
 	}
 	
 	private function punch():Void

@@ -15,6 +15,8 @@ import openfl.display.Bitmap;
 class Player extends FlxSprite 
 {
 	public var _left:Bool = true;
+	public var _pickingUpMom:Bool = false;
+	
 	
 	private var prevAnim:Int = FlxG.random.int(1, 3);
 

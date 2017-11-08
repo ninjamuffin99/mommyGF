@@ -56,7 +56,17 @@ class Mom extends FlxSprite
 		
 		if (_fallenDown)
 		{
-			angle = 90;
+			if (angle >= 0)
+			{
+				angle = 90;
+			}
+			else
+			{
+				angle = -90;
+			}
+			
+			angularVelocity = 0;
+			
 		}
 		
 		if (_timer >= _timerRandom && !_fallenDown)
@@ -96,7 +106,6 @@ class Mom extends FlxSprite
 		
 		_lean = 0;
 		_fallenDown = true;
-		angle = 90;
 		velocity.x = 0;
 		acceleration.x = 0;
 	}
