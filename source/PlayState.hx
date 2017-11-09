@@ -59,7 +59,7 @@ class PlayState extends FlxState
 		//FlxG.camera.follow(_mom);
 		FlxG.camera.maxScrollY = FlxG.height;
 		FlxG.camera.minScrollY = 0;
-		FlxG.camera.bgColor = 0xFF111111;
+		FlxG.camera.bgColor = 0xFF222222;
 		
 		super.create();
 	}
