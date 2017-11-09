@@ -111,12 +111,6 @@ class PlayState extends FlxState
 			FlxG.switchState(new WinState());
 		}
 		
-		
-		if (_mom.animation.curAnim.name == "idle")
-		{
-			_mom._distanceX += 1;
-		}
-		
 		if (FlxG.overlap(_cat, _mom) && !_cat._punched && !_momCatOverlap)
 		{
 			_mom.angularVelocity += _cat.velocity.x * FlxG.random.float(0.2, 0.5);
@@ -238,11 +232,11 @@ class PlayState extends FlxState
 				sfxHit();
 				if (_player._left)
 				{
-					_mom.angularVelocity += 20;
+					_mom.angularVelocity += 40;
 				}
 				else
 				{
-					_mom.angularVelocity -= 20;
+					_mom.angularVelocity -= 40;
 				}
 			}
 			if (_player._left)

@@ -9,7 +9,7 @@ import flixel.util.FlxColor;
  * ...
  * @author ninjaMuffin
  */
-class Mom extends FlxSprite 
+class Mom extends FlxSprite
 {
 	private var _timer:Float = 0;
 	private var _timerRandom:Float = FlxG.random.float(1, 4);
@@ -95,6 +95,11 @@ class Mom extends FlxSprite
 		else
 		{
 			animation.play("idle");
+		}
+		
+		if (animation.curAnim.name == "idle")
+		{
+			_distanceX += 1;
 		}
 	}
 	
