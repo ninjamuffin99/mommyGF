@@ -33,6 +33,7 @@ class Mom extends FlxSprite
 		animation.play("idle");
 		setGraphicSize(Std.int(width / 2));
 		updateHitbox();
+		width = width * 0.75;
 		origin.y = 1000;
 		
 		initSpeed();

@@ -56,7 +56,7 @@ class PlayState extends FlxState
 		
 		createHUD();
 		
-		FlxG.camera.follow(_mom);
+		//FlxG.camera.follow(_mom);
 		FlxG.camera.maxScrollY = FlxG.height;
 		FlxG.camera.minScrollY = 0;
 		FlxG.camera.bgColor = 0xFF111111;
@@ -119,7 +119,8 @@ class PlayState extends FlxState
 		
 		if (FlxG.overlap(_cat, _mom) && !_cat._punched && !_momCatOverlap)
 		{
-			_mom.angularVelocity += _cat.velocity.x * 0.24;
+			_mom.angularVelocity += _cat.velocity.x * FlxG.random.float(0.2, 0.5);
+			sfxHit();
 			_momCatOverlap = true;
 		}
 		
@@ -357,13 +358,13 @@ class PlayState extends FlxState
 		if (_catLeft)
 		{
 			_cat.facing = FlxObject.RIGHT;
-			_cat.x = 70 - _cat.width;
+			_cat.x = 35 - _cat.width;
 			
 		}
 		else
 		{
 			_cat.facing = FlxObject.LEFT;
-			_cat.x = FlxG.width;
+			_cat.x = FlxG.width - 35;
 		}
 		_cat.animation.play("peek");
 		_catActive = true;
