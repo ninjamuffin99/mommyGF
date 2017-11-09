@@ -7,6 +7,7 @@ import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
+import flixel.util.FlxTimer;
 import openfl.Assets;
 
 class PlayState extends FlxState
@@ -17,6 +18,7 @@ class PlayState extends FlxState
 	private var _pickupMom:Float = 0;
 	private var _pickupMomNeeded:Float = 15;
 	private var _momCatOverlap:Bool = false;
+	private var _pickupTimeBuffer:Float = 0;
 	
 	
 	
@@ -96,12 +98,9 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		
-		FlxG.watch.addQuick("momm y", _mom.getPosition());
-		FlxG.watch.addQuick("player pos", _player.getPosition());
-		
 		FlxG.sound.music.volume = Global.musicVolume;
 		
-		if (_timer <= 0)
+		if (_timer <= 0 || _mom._timesFell >= 5)
 		{
 			FlxG.switchState(new GameOverState());
 		}
@@ -119,7 +118,7 @@ class PlayState extends FlxState
 		}
 		
 		_momIcon.x = FlxMath.remapToRange(_mom._distanceX,  0, _distanceGoal, _distanceBar.x + 10, _distanceBar.x + _distanceBar.width - 10);
-		FlxG.watch.addQuick("momsii", _momIcon.x);
+		
 		
 		_timer -= FlxG.elapsed;
 		_timerText.text = "seconds " + Math.ffloor(_timer);
@@ -157,16 +156,39 @@ class PlayState extends FlxState
 		
 		if (_player._pickingUpMom)
 		{
-			_player.x = _mom.x - 50;
-			
 			if (_pickupMom >= _pickupMomNeeded)
 			{
 				_mom._fallenDown = false;
 				_mom.angle = 0;
-				_player._pickingUpMom = false;
+				_mom.angularAcceleration = 0;
+				_mom.angularVelocity = 0;
 				_pickupMom = 0;
+				
+			}
+			else
+			{
+				_player.x = _mom.x - 50;
 			}
 			
+			if (!_mom._fallenDown)
+			{
+				_pickupTimeBuffer += FlxG.elapsed;
+			}
+		}
+		
+		if (_pickupTimeBuffer >= 0.5)
+		{
+			_player._pickingUpMom = false;
+			_pickupTimeBuffer = 0;
+			
+			if (_player._left)
+			{
+				_player.setPosition(_mom.x - 300, _playerY);
+			}
+			else
+			{
+				_player.setPosition(_mom.x + 400, _playerY);
+			}
 		}
 		
 		if (_player._left)
@@ -225,18 +247,18 @@ class PlayState extends FlxState
 			_player._left = true;
 		}
 		
-		if (FlxG.keys.pressed.Z)
+		if (FlxG.keys.pressed.Z && !_player._pickingUpMom)
 		{
-			if (FlxG.keys.justPressed.Z)
+			if (FlxG.keys.justPressed.Z )
 			{
 				sfxHit();
 				if (_player._left)
 				{
-					_mom.angularVelocity += 40;
+					_mom.angularVelocity += 30;
 				}
 				else
 				{
-					_mom.angularVelocity -= 40;
+					_mom.angularVelocity -= 30;
 				}
 			}
 			if (_player._left)
@@ -295,7 +317,7 @@ class PlayState extends FlxState
 		}
 		
 		
-		if (_player._pickingUpMom && FlxG.keys.justPressed.LEFT)
+		if (_player._pickingUpMom && FlxG.keys.justPressed.Z)
 		{
 			sfxHit();
 			
@@ -441,7 +463,6 @@ class PlayState extends FlxState
 	
 	private function sfxHit():Void
 	{
-		FlxG.log.add("SFX");
 		if (_timer >= 30)
 		{
 			FlxG.sound.play("assets/sounds/smack " + FlxG.random.int(1, 3) + ".mp3", 0.7);
