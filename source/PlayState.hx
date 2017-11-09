@@ -16,6 +16,7 @@ class PlayState extends FlxState
 	private var _momIcon:FlxSprite;
 	private var _pickupMom:Float = 0;
 	private var _pickupMomNeeded:Float = 15;
+	private var _momCatOverlap:Bool = false;
 	
 	
 	
@@ -116,6 +117,12 @@ class PlayState extends FlxState
 			_mom._distanceX += 1;
 		}
 		
+		if (FlxG.overlap(_cat, _mom) && !_cat._punched && !_momCatOverlap)
+		{
+			_mom.angularVelocity += _cat.velocity.x * 0.24;
+			_momCatOverlap = true;
+		}
+		
 		_momIcon.x = FlxMath.remapToRange(_mom._distanceX,  0, _distanceGoal, _distanceBar.x + 10, _distanceBar.x + _distanceBar.width - 10);
 		FlxG.watch.addQuick("momsii", _momIcon.x);
 		
@@ -125,6 +132,7 @@ class PlayState extends FlxState
 		if (_cat.y >= FlxG.height)
 		{
 			_timerCat -= FlxG.elapsed;
+			_momCatOverlap = false;
 		}
 		
 		if (_timerCat <= 0)
