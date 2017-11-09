@@ -42,7 +42,7 @@ class PlayState extends FlxState
 	{
 		FlxG.sound.playMusic("assets/music/Music/Main Theme.mp3");
 		
-		_mom = new Mom(300, -165);
+		_mom = new Mom(300, -25);
 		add(_mom);
 		
 		_cat = new Cat(0 - 200, FlxG.height);
