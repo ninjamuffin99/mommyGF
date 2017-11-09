@@ -116,6 +116,10 @@ class Mom extends FlxSprite
 		{
 			_distanceX += 1;
 		}
+		if (animation.curAnim.name == "fallLeft" || animation.curAnim.name == "fallRight")
+		{
+			_distanceX += FlxG.random.float(0.25, 0.5);
+		}
 	}
 	
 	private function swapRotating():Void
