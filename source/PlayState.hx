@@ -117,7 +117,7 @@ class PlayState extends FlxState
 		
 		if (FlxG.overlap(_cat, _mom) && !_cat._punched && !_momCatOverlap)
 		{
-			_mom.body.angularVel += _cat.velocity.x * FlxG.random.float(0.2, 0.5);
+			_mom.body.angularVel += _cat.velocity.x * FlxG.random.float(0.0002, 0.005);
 			sfxHit();
 			_momCatOverlap = true;
 		}
@@ -259,22 +259,22 @@ class PlayState extends FlxState
 				sfxHit();
 				if (_player._left)
 				{
-					_mom.body.angularVel += 30;
+					_mom.body.angularVel += 1;
 				}
 				else
 				{
-					_mom.body.angularVel -= 30;
+					_mom.body.angularVel -= 1;
 				}
 			}
 			if (_player._left)
 			{
 				_player.setPosition(_mom.x - 200, _playerY);
-				_mom.body.angularVel += 4;
+				_mom.body.angularVel += 0.04;
 			}
 			else
 			{
 				_player.setPosition(_mom.x + 300, _playerY);
-				_mom.body.angularVel -= 4;
+				_mom.body.angularVel -= 0.04;
 			}
 		}
 		else
