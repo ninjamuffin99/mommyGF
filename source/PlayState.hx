@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.addons.nape.FlxNapeSpace;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
@@ -19,7 +20,6 @@ class PlayState extends FlxState
 	private var _pickupMomNeeded:Float = 15;
 	private var _momCatOverlap:Bool = false;
 	private var _pickupTimeBuffer:Float = 0;
-	
 	
 	
 	private var _distanceGoal:Float = 6000;
@@ -43,8 +43,9 @@ class PlayState extends FlxState
 	override public function create():Void
 	{
 		FlxG.sound.playMusic("assets/music/Music/Main Theme.mp3");
+		FlxNapeSpace.init();
 		
-		_mom = new Mom(300, -25);
+		_mom = new Mom(300 + 130 + 300, -25 + 1000);
 		add(_mom);
 		
 		_cat = new Cat(0 - 200, FlxG.height);
@@ -57,6 +58,8 @@ class PlayState extends FlxState
 		add(_playerPunchHitBox);
 		
 		createHUD();
+		
+		FlxNapeSpace.space.gravity.setxy(0, 0);
 		
 		//FlxG.camera.follow(_mom);
 		FlxG.camera.maxScrollY = FlxG.height;
@@ -98,6 +101,8 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		
+		FlxG.watch.addQuick("mompos", _mom.getPosition());
+		
 		FlxG.sound.music.volume = Global.musicVolume;
 		
 		if (_timer <= 0 || _mom._timesFell >= 5)
@@ -112,7 +117,7 @@ class PlayState extends FlxState
 		
 		if (FlxG.overlap(_cat, _mom) && !_cat._punched && !_momCatOverlap)
 		{
-			_mom.angularVelocity += _cat.velocity.x * FlxG.random.float(0.2, 0.5);
+			_mom.body.angularVel += _cat.velocity.x * FlxG.random.float(0.2, 0.5);
 			sfxHit();
 			_momCatOverlap = true;
 		}
@@ -161,7 +166,7 @@ class PlayState extends FlxState
 				_mom._fallenDown = false;
 				_mom.angle = 0;
 				_mom.angularAcceleration = 0;
-				_mom.angularVelocity = 0;
+				_mom.body.angularVel = 0;
 				_pickupMom = 0;
 				
 			}
@@ -254,22 +259,22 @@ class PlayState extends FlxState
 				sfxHit();
 				if (_player._left)
 				{
-					_mom.angularVelocity += 30;
+					_mom.body.angularVel += 30;
 				}
 				else
 				{
-					_mom.angularVelocity -= 30;
+					_mom.body.angularVel -= 30;
 				}
 			}
 			if (_player._left)
 			{
 				_player.setPosition(_mom.x - 200, _playerY);
-				_mom.angularVelocity += 4;
+				_mom.body.angularVel += 4;
 			}
 			else
 			{
 				_player.setPosition(_mom.x + 300, _playerY);
-				_mom.angularVelocity -= 4;
+				_mom.body.angularVel -= 4;
 			}
 		}
 		else

@@ -3,6 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
+import flixel.addons.nape.FlxNapeSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.util.FlxColor;
 
@@ -10,7 +11,7 @@ import flixel.util.FlxColor;
  * ...
  * @author ninjaMuffin
  */
-class Mom extends FlxSprite
+class Mom extends FlxNapeSprite
 {
 	private var _timer:Float = 0;
 	private var _timerRandom:Float = FlxG.random.float(1, 4);
@@ -24,9 +25,9 @@ class Mom extends FlxSprite
 	
 	public var _timesFell:Int = 0;
 	
-	public function new(?X:Float=0, ?Y:Float=0) 
+	public function new(X:Float=0, Y:Float=0, ?SimpleGraphic:FlxGraphicAsset, CreateRectangularBody:Bool=true, EnablePhysics:Bool=true) 
 	{
-		super(X, Y);
+		super(X, Y, SimpleGraphic, CreateRectangularBody, EnablePhysics);
 		loadGraphic(AssetPaths.momTemp__png, true, 860, 1676);
 		
 		animation.add("idle", [0, 1, 2, 3, 4, 5, 6, 7], 8);
@@ -36,8 +37,11 @@ class Mom extends FlxSprite
 		
 		animation.play("idle");
 		setGraphicSize(Std.int(width / 2));
+		
 		updateHitbox();
 		width = width * 0.75;
+		createRectangularBody(width);
+		body.position.x = -100;
 		origin.y = 1000;
 		
 		setFacingFlip(FlxObject.RIGHT, false, false);
@@ -46,6 +50,8 @@ class Mom extends FlxSprite
 		initSpeed();
 		_lean = angle;
 		swapRotating();
+		
+		FlxG.log.add("mom added");
 	}
 	
 	public function initSpeed():Void
@@ -126,7 +132,7 @@ class Mom extends FlxSprite
 	{
 		_timer = 0;
 		//old rotatinbg logic
-		angularAcceleration = FlxG.random.float(-20, 20);
+		//angularAcceleration = FlxG.random.float(-20, 20);
 	}
 	
 	private function fall():Void
