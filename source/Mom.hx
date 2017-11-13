@@ -21,7 +21,7 @@ class Mom extends FlxNapeSprite
 
 	public var _fallenDown:Bool = false;
 	
-	public var _fallAngle:Float = 45;
+	public var _fallAngle:Float = 0.9;
 	
 	public var _timesFell:Int = 0;
 	
@@ -65,7 +65,7 @@ class Mom extends FlxNapeSprite
 		super.update(elapsed);
 		
 		//_lean = angle;
-		FlxG.watch.addQuick("Angle:", angle);
+		FlxG.watch.addQuick("Angle:", body.rotation);
 		FlxG.watch.addQuick("SPin Speed", angularVelocity);
 		
 		
@@ -74,17 +74,17 @@ class Mom extends FlxNapeSprite
 		
 		if (_fallenDown)
 		{
-			if (angle >= 0)
+			if (body.rotation >= 0)
 			{
-				angle = 90;
+				body.rotation = 1;
 			}
 			else
 			{
-				angle = -90;
+				body.rotation = -1;
 				facing = FlxObject.LEFT;
 			}
 			
-			angularVelocity = 0;
+			body.angularVel = 0;
 			
 			if (animation.curAnim.name != "hitGround")
 			{
@@ -94,11 +94,11 @@ class Mom extends FlxNapeSprite
 		else
 		{
 			facing = FlxObject.RIGHT;
-			if (angle >= 10)
+			if (body.rotation >= 0.1)
 			{
 				animation.play("fallRight");
 			}
-			else if (angle <= -10)
+			else if (body.rotation <= -0.1)
 			{
 				animation.play("fallLeft");
 			}
@@ -113,7 +113,7 @@ class Mom extends FlxNapeSprite
 			swapRotating();
 		}
 		
-		if ((angle >= _fallAngle || angle <= -_fallAngle) && !_fallenDown)
+		if ((body.rotation >= _fallAngle || body.rotation <= -_fallAngle) && !_fallenDown)
 		{
 			fall();
 		}
