@@ -43,10 +43,12 @@ class Mom extends FlxNapeSprite
 		
 		updateHitbox();
 		width = width * 0.75;
-		createRectangularBody(width, FlxG.height - y);
+		
 		
 		//body.position.x = -100;
 		origin.y = 1000;
+		
+		createRectangularBody(width, FlxG.height - y);
 		
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
@@ -80,11 +82,11 @@ class Mom extends FlxNapeSprite
 		{
 			if (body.rotation >= 0)
 			{
-				body.rotation = 1;
+				body.rotation = 1.5;
 			}
 			else
 			{
-				body.rotation = -1;
+				body.rotation = -1.5;
 				facing = FlxObject.LEFT;
 			}
 			
