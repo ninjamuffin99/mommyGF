@@ -172,7 +172,7 @@ class PlayState extends FlxState
 			}
 			else
 			{
-				_player.x = _mom.x - 50;
+				_player.x = _mom.x;
 			}
 			
 			if (!_mom._fallenDown)
@@ -188,11 +188,11 @@ class PlayState extends FlxState
 			
 			if (_player._left)
 			{
-				_player.setPosition(_mom.x - 300, _playerY);
+				_player.setPosition(_mom.x - 100, _playerY);
 			}
 			else
 			{
-				_player.setPosition(_mom.x + 400, _playerY);
+				_player.setPosition(_mom.x + 600, _playerY);
 			}
 		}
 		
@@ -243,12 +243,12 @@ class PlayState extends FlxState
 		
 		if (FlxG.keys.pressed.RIGHT && !FlxG.keys.pressed.Z)
 		{
-			_player.setPosition(_mom.x + 500, _playerY);
+			_player.setPosition(_mom.x + 700, _playerY);
 			_player._left = false;
 		}
 		if (FlxG.keys.pressed.LEFT && !FlxG.keys.pressed.Z)
 		{
-			_player.setPosition(_mom.x - 300, _playerY);
+			_player.setPosition(_mom.x - 100, _playerY);
 			_player._left = true;
 		}
 		
@@ -268,7 +268,7 @@ class PlayState extends FlxState
 			}
 			if (_player._left)
 			{
-				_player.setPosition(_mom.x - 200, _playerY);
+				_player.setPosition(_mom.x - 100, _playerY);
 				_mom.body.angularVel += 0.04;
 			}
 			else
@@ -281,11 +281,11 @@ class PlayState extends FlxState
 		{
 			if (_player._left)
 			{
-				_player.setPosition(_mom.x - 300, _playerY);
+				_player.setPosition(_mom.x - 100, _playerY);
 			}
 			else
 			{
-				_player.setPosition(_mom.x + 400, _playerY);
+				_player.setPosition(_mom.x + 600, _playerY);
 			}
 			_player.animation.play("idle");
 		}
