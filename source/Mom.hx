@@ -43,7 +43,8 @@ class Mom extends FlxNapeSprite
 		
 		updateHitbox();
 		width = width * 0.75;
-		createRectangularBody(width);
+		createRectangularBody(width, FlxG.height - y);
+		
 		//body.position.x = -100;
 		origin.y = 1000;
 		
