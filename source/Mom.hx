@@ -6,6 +6,9 @@ import flixel.FlxSprite;
 import flixel.addons.nape.FlxNapeSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.util.FlxColor;
+import nape.geom.AABB;
+import nape.geom.Vec2;
+import nape.phys.Body;
 
 /**
  * ...
