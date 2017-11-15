@@ -105,15 +105,7 @@ class PlayState extends FlxState
 		
 		FlxG.sound.music.volume = Global.musicVolume;
 		
-		if (_timer <= 0 || _mom._timesFell >= 5)
-		{
-			FlxG.switchState(new GameOverState());
-		}
-		
-		if (_mom._distanceX >= _distanceGoal)
-		{
-			FlxG.switchState(new WinState());
-		}
+		sceneSwitchChecks();
 		
 		if (FlxG.overlap(_cat, _mom) && !_cat._punched && !_momCatOverlap)
 		{
@@ -196,14 +188,18 @@ class PlayState extends FlxState
 				_player.setPosition(_mom.x + 600, _playerY);
 			}
 		}
-		
-		if (_player._left)
+	}
+	
+	private function sceneSwitchCheck():Void
+	{
+		if (_timer <= 0 || _mom._timesFell >= 5)
 		{
-			_player.facing = FlxObject.LEFT;
+			FlxG.switchState(new GameOverState());
 		}
-		else
+		
+		if (_mom._distanceX >= _distanceGoal)
 		{
-			_player.facing = FlxObject.RIGHT;
+			FlxG.switchState(new WinState());
 		}
 	}
 	
@@ -340,7 +336,14 @@ class PlayState extends FlxState
 		//mouseControls();
 		#end
 		
-		
+		if (_player._left)
+		{
+			_player.facing = FlxObject.LEFT;
+		}
+		else
+		{
+			_player.facing = FlxObject.RIGHT;
+		}
 		
 	}
 	
