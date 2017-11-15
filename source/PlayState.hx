@@ -117,7 +117,7 @@ class PlayState extends FlxState
 		
 		if (FlxG.overlap(_cat, _mom) && !_cat._punched && !_momCatOverlap)
 		{
-			_mom.body.angularVel += _cat.velocity.x * FlxG.random.float(0.0002, 0.005);
+			_mom.body.angularVel += _cat.velocity.x * FlxG.random.float(0.001, 0.025);
 			sfxHit();
 			_momCatOverlap = true;
 		}
@@ -167,6 +167,7 @@ class PlayState extends FlxState
 				_mom.angle = 0;
 				_mom.angularAcceleration = 0;
 				_mom.body.angularVel = 0;
+				_mom.body.rotation = 0;
 				_pickupMom = 0;
 				
 			}

@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.addons.nape.FlxNapeSprite;
+import flixel.math.FlxMath;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.util.FlxColor;
 import nape.geom.AABB;
@@ -24,7 +25,7 @@ class Mom extends FlxNapeSprite
 
 	public var _fallenDown:Bool = false;
 	
-	public var _fallAngle:Float = 0.9;
+	public var _fallAngle:Float = 45 * Math.PI / 180;
 	
 	public var _timesFell:Int = 0;
 	
@@ -73,19 +74,21 @@ class Mom extends FlxNapeSprite
 		
 		//_lean = angle;
 		FlxG.watch.addQuick("Angle:", body.rotation);
-		FlxG.watch.addQuick("SPin Speed", angularVelocity);
+		FlxG.watch.addQuick("Angle in degs:", body.rotation * 180 / Math.PI);
+		FlxG.watch.addQuick("SPin Speed", body.angularVel);
 		
 		_timer += FlxG.elapsed;
 		
 		if (_fallenDown)
 		{
+			var sideways:Float = 90 * Math.PI / 180;
 			if (body.rotation >= 0)
 			{
-				body.rotation = 1.5;
+				body.rotation = sideways;
 			}
 			else
 			{
-				body.rotation = -1.5;
+				body.rotation = -sideways;
 				facing = FlxObject.LEFT;
 			}
 			
