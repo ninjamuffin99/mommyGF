@@ -105,7 +105,7 @@ class PlayState extends FlxState
 		
 		FlxG.sound.music.volume = Global.musicVolume;
 		
-		sceneSwitchChecks();
+		sceneSwitch();
 		
 		if (FlxG.overlap(_cat, _mom) && !_cat._punched && !_momCatOverlap)
 		{
@@ -190,7 +190,7 @@ class PlayState extends FlxState
 		}
 	}
 	
-	private function sceneSwitchCheck():Void
+	private function sceneSwitch():Void
 	{
 		if (_timer <= 0 || _mom._timesFell >= 5)
 		{
