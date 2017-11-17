@@ -4,9 +4,9 @@ package;
  * ...
  * @author ninjaMuffin
  */
-class Global 
+class Global
 {
 	public static var musicVolume:Float = 1;
 	public static var masterVolume:Float = 1;
-	
+	// cool beans baby
 }

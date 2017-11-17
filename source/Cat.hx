@@ -3,13 +3,14 @@ package;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
+import flixel.addons.nape.FlxNapeSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 
 /**
  * ...
  * @author ninjaMuffin
  */
-class Cat extends FlxSprite 
+class Cat extends FlxNapeSprite 
 {
 	public var _punched:Bool = false;
 	public var _timesPunched:Int = 0;
@@ -36,8 +37,8 @@ class Cat extends FlxSprite
 	public function fly(xVel:Float, yVel:Float):Void
 	{
 		acceleration.y = 800;
-		velocity.x = xVel;
-		velocity.y = yVel;
+		body.velocity.x = xVel;
+		body.velocity.y = yVel;
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -51,10 +52,10 @@ class Cat extends FlxSprite
 		
 		if (_punched)
 		{
-			angularVelocity = velocity.x * -0.9;
+			angularVelocity = body.velocity.x * -0.9;
 			animation.play("punched");
 		}
-		if (!_punched && velocity.x != 0)
+		if (!_punched && body.velocity.x != 0)
 		{
 			animation.play("fly");
 		}
