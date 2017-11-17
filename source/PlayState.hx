@@ -9,12 +9,6 @@ import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
 import flixel.util.FlxTimer;
-import nape.callbacks.CbEvent;
-import nape.callbacks.CbType;
-import nape.callbacks.InteractionCallback;
-import nape.callbacks.InteractionListener;
-import nape.callbacks.InteractionType;
-import nape.callbacks.PreListener;
 import openfl.Assets;
 
 class PlayState extends FlxState
@@ -72,19 +66,7 @@ class PlayState extends FlxState
 		FlxG.camera.minScrollY = 0;
 		FlxG.camera.bgColor = 0xFF222222;
 		
-		//FlxNapeSpace.space.listeners.add(new InteractionListener(CbEvent.BEGIN, InteractionType.SENSOR, _mom.body, onCatCollides));
-		
 		super.create();
-	}
-	
-	public function onCatCollides(clbk:InteractionCallback)
-	{
-		if (!_cat._punched && !_momCatOverlap)
-		{
-			_mom.body.angularVel += _cat.body.velocity.x * FlxG.random.float(0.001, 0.025);
-			sfxHit();
-			_momCatOverlap = true;
-		}
 	}
 	
 	private function createHUD():Void
@@ -125,7 +107,12 @@ class PlayState extends FlxState
 		
 		sceneSwitch();
 		
-		
+		if (FlxG.overlap(_cat, _mom) && !_cat._punched && !_momCatOverlap)
+		{
+			_mom.body.angularVel += _cat.velocity.x * FlxG.random.float(0.001, 0.025);
+			sfxHit();
+			_momCatOverlap = true;
+		}
 		
 		_momIcon.x = FlxMath.remapToRange(_mom._distanceX,  0, _distanceGoal, _distanceBar.x + 10, _distanceBar.x + _distanceBar.width - 10);
 		
@@ -369,11 +356,11 @@ class PlayState extends FlxState
 			_cat._punched = true;
 			if (_cat._timesPunched >= 1)
 			{
-				_cat.fly(-_cat.body.velocity.x, FlxG.random.float(-400, -450));
+				_cat.fly(-_cat.velocity.x, FlxG.random.float(-400, -450));
 			}
 			else
 			{
-				_cat.fly(_cat.body.velocity.x, -400);
+				_cat.fly(_cat.velocity.x, -400);
 			}
 			
 			_cat._timesPunched += 1;
@@ -388,9 +375,9 @@ class PlayState extends FlxState
 		_cat._punched = false;
 		_catLeft = FlxG.random.bool();
 		_cat.y = 140;
-		//_cat.acceleration.y = 0;
-		_cat.body.velocity.x = _cat.body.velocity.y = 0;
-		_cat.body.angularVel = 0;
+		_cat.acceleration.y = 0;
+		_cat.velocity.x = _cat.velocity.y = 0;
+		_cat.angularVelocity = 0;
 		_cat.angle = 0;
 		
 		if (_catLeft)
