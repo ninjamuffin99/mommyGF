@@ -18,7 +18,8 @@ import nape.phys.Body;
 class Mom extends FlxNapeSprite
 {
 	private var _timer:Float = 0;
-	private var _timerRandom:Float = FlxG.random.float(0.2, 1);
+	private var _timerRandom:Float = FlxG.random.float(1, 4);
+	private var rotateRads:Float = FlxG.random.float( -20 * Math.PI / 180, 20 * Math.PI / 180) / 60;
 	
 	public var _lean:Float;
 	public var _distanceX:Float = 0;
@@ -78,6 +79,8 @@ class Mom extends FlxNapeSprite
 		FlxG.watch.addQuick("SPin Speed", body.angularVel);
 		
 		_timer += FlxG.elapsed;
+		
+		angleAccel(rotateRads);
 		
 		if (_fallenDown)
 		{
@@ -139,9 +142,9 @@ class Mom extends FlxNapeSprite
 	private function swapRotating():Void
 	{
 		_timer = 0;
-		_timerRandom = FlxG.random.float(0.2, 1);
+		_timerRandom = FlxG.random.float(1, 4);
 		//old rotatinbg logic
-		body.angularVel += FlxG.random.float(-0.1, 0.1);
+		updateAngleAccel();
 	}
 	
 	private function fall():Void
@@ -153,6 +156,28 @@ class Mom extends FlxNapeSprite
 		velocity.x = 0;
 		acceleration.x = 0;
 		_timesFell += 1;
+	}
+	
+	/**
+	 * Function to replace the old rotate system. Call when need to update the angular acceleration of the physics body
+	 */
+	private function updateAngleAccel():Void
+	{
+		//-20 degrees, converted to rads, then divided by 60 to get a turn in degrees per second like in old dversion
+		rotateRads = FlxG.random.float( -20 * Math.PI / 180, 20 * Math.PI / 180) / 60;
+		FlxG.log.add(rotateRads);
+	}
+	
+	
+	/**
+	 * Funciton that runs every frame that adds a value to body.angularVel to simulate angular acceleration.
+	 * 
+	 * @param	rads
+	 * In rads, this value is added to ody.angularVel, every frame, so make sure its a value divided by 60 or something
+	 */
+	private function angleAccel(rads:Float):Void
+	{
+		body.angularVel += rads;
 	}
 	
 }
