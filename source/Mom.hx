@@ -18,7 +18,7 @@ import nape.phys.Body;
 class Mom extends FlxNapeSprite
 {
 	private var _timer:Float = 0;
-	private var _timerRandom:Float = FlxG.random.float(1, 4);
+	private var _timerRandom:Float = FlxG.random.float(0.2, 1;
 	
 	public var _lean:Float;
 	public var _distanceX:Float = 0;
@@ -139,8 +139,9 @@ class Mom extends FlxNapeSprite
 	private function swapRotating():Void
 	{
 		_timer = 0;
+		_timerRandom = FlxG.random.float(0.2, 1);
 		//old rotatinbg logic
-		//angularAcceleration = FlxG.random.float(-20, 20);
+		body.angularVel = FlxG.random.float(-1, 1);
 	}
 	
 	private function fall():Void
