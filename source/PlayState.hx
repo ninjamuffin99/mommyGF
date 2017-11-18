@@ -251,27 +251,31 @@ class PlayState extends FlxState
 		
 		if (FlxG.keys.pressed.Z && !_player._pickingUpMom)
 		{
+			//30 degrees, converted to rads
+			var smackPower:Float = 0.52;
+			//4 degrees, converted to rads
+			var pushMultiplier:Float = 0.07;
 			if (FlxG.keys.justPressed.Z )
 			{
 				sfxHit();
 				if (_player._left)
 				{
-					_mom.body.angularVel += 1;
+					_mom.body.angularVel += smackPower;
 				}
 				else
 				{
-					_mom.body.angularVel -= 1;
+					_mom.body.angularVel -= smackPower;
 				}
 			}
 			if (_player._left)
 			{
 				_player.setPosition(_mom.x - 100, _playerY);
-				_mom.body.angularVel += 0.04;
+				_mom.body.angularVel += pushMultiplier;
 			}
 			else
 			{
 				_player.setPosition(_mom.x + 300, _playerY);
-				_mom.body.angularVel -= 0.04;
+				_mom.body.angularVel -= pushMultiplier;
 			}
 		}
 		else
