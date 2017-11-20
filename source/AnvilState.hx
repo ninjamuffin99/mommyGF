@@ -19,6 +19,8 @@ class AnvilState extends FlxState
 	
 	override public function create():Void 
 	{
+		FlxG.camera.fade(FlxColor.BLACK, 0.3, true);
+		
 		_player = new Player(FlxG.width * 0.05, FlxG.height * 0.3);
 		add(_player);
 		

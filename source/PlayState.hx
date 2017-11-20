@@ -8,6 +8,7 @@ import flixel.addons.nape.FlxNapeSpace;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
+import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.Assets;
 
@@ -212,9 +213,10 @@ class PlayState extends FlxState
 			FlxG.switchState(new GameOverState());
 		}
 		
-		if (_mom._distanceX >= _distanceGoal)
+		if (_mom._distanceX >= _distanceGoal || FlxG.keys.justPressed.F)
 		{
-			FlxG.switchState(new WinState());
+			FlxG.camera.fade(FlxColor.BLACK, 0.3, false, function(){FlxG.switchState(new AnvilState());});
+			
 		}
 	}
 	
