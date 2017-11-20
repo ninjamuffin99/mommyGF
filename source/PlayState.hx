@@ -13,6 +13,8 @@ import openfl.Assets;
 
 class PlayState extends FlxState
 {
+	
+	//MOM SHIT
 	private var _mom:Mom;
 	private var _distanceBar:FlxSprite;
 	private var _momIcon:FlxSprite;
@@ -21,24 +23,27 @@ class PlayState extends FlxState
 	private var _momCatOverlap:Bool = false;
 	private var _pickupTimeBuffer:Float = 0;
 	
-	
-	private var _distanceGoal:Float = 6000;
-	private var _distaceGoalText:FlxText;
-	
-	
+	//KID SHIT
 	private var _player:Player;
 	private var _playerPunchHitBox:FlxObject;
 	private var _playerY:Float = 200;
 	
-	
+	//CAT SHIT
 	private var _cat:Cat;
 	private var _catLeft:Bool = false;
+	
+	//HUD SHIT
+	private var _pointsText:FlxText;
+	private var _highScoreText:FlxText;
 	
 	private var _timer:Float = 180;
 	private var _timerText:FlxText;
 	
 	private var _timerCat:Float = 10;
 	private var _catActive:Bool = false;
+	
+	private var _distanceGoal:Float = 6000;
+	private var _distaceGoalText:FlxText;
 	
 	override public function create():Void
 	{
@@ -92,6 +97,19 @@ class PlayState extends FlxState
 		add(_distaceGoalText);
 		
 		
+		_pointsText = new FlxText(0, 30, 0, "Points: " + Points.curPoints, 20);
+		_pointsText.screenCenter(X);
+		_pointsText.scrollFactor.x = 0;
+		add(_pointsText);
+		
+		_highScoreText = new FlxText(0, 52, 0, "Highscore: " + Points.highScorePoints, 20);
+		_highScoreText.screenCenter(X);
+		_highScoreText.scrollFactor.x = 0;
+		add(_highScoreText);
+		
+		Points.curPoints = 0;
+		
+		
 		_distanceBar.scrollFactor.x = 0;
 		_timerText.scrollFactor.x = 0;
 	}
@@ -114,11 +132,8 @@ class PlayState extends FlxState
 			_momCatOverlap = true;
 		}
 		
-		_momIcon.x = FlxMath.remapToRange(_mom._distanceX,  0, _distanceGoal, _distanceBar.x + 10, _distanceBar.x + _distanceBar.width - 10);
 		
-		
-		_timer -= FlxG.elapsed;
-		_timerText.text = "seconds " + Math.ffloor(_timer);
+		updateHUD();
 		
 		if (_cat.y >= FlxG.height)
 		{
@@ -201,6 +216,21 @@ class PlayState extends FlxState
 		{
 			FlxG.switchState(new WinState());
 		}
+		
+		
+	}
+	
+	private function updateHUD():Void
+	{
+		_momIcon.x = FlxMath.remapToRange(_mom._distanceX,  0, _distanceGoal, _distanceBar.x + 10, _distanceBar.x + _distanceBar.width - 10);
+		
+		
+		_timer -= FlxG.elapsed;
+		_timerText.text = "seconds " + Math.ffloor(_timer);
+		
+		_pointsText.text = "Points: " + Points.curPoints;
+		_highScoreText.text = "Highscore: " + Points.highScorePoints;
+		
 	}
 	
 	private function controls():Void
@@ -360,11 +390,16 @@ class PlayState extends FlxState
 			_cat._punched = true;
 			if (_cat._timesPunched >= 1)
 			{
-				_cat.fly(-_cat.velocity.x, FlxG.random.float(-400, -450));
+				_cat.fly( -_cat.velocity.x, FlxG.random.float( -400, -450));
+				
+				Points.addPoints(50 + (25 * (_cat._timesPunched)));
+				FlxG.log.add(25 * (_cat._timesPunched));
 			}
 			else
 			{
 				_cat.fly(_cat.velocity.x, -400);
+				
+				Points.addPoints(50);
 			}
 			
 			_cat._timesPunched += 1;
