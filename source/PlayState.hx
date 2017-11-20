@@ -216,8 +216,6 @@ class PlayState extends FlxState
 		{
 			FlxG.switchState(new WinState());
 		}
-		
-		
 	}
 	
 	private function updateHUD():Void
