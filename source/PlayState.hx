@@ -29,7 +29,9 @@ class PlayState extends FlxState
 	private var _player:Player;
 	private var _playerPunchHitBox:FlxObject;
 	private var _playerY:Float = 200;
-	
+	private var _playerTrail:FlxTrailArea;
+	private var _candyMode:Bool = false;
+	private var _candyBoost:Float = 0;
 	
 	//CAT SHIT
 	private var _cat:Cat;
@@ -62,11 +64,10 @@ class PlayState extends FlxState
 		_player = new Player(50, _playerY);
 		add(_player);
 		
-		/* Trail effect
+		//Trail effect
 		_playerTrail = new FlxTrailArea(0, 0, FlxG.width, FlxG.height, 0.75);
 		_playerTrail.add(_player);
 		add(_playerTrail);
-		*/
 		
 		_playerPunchHitBox = new FlxObject(_player.x + 60, _player.y, 75, 75);
 		add(_playerPunchHitBox);
@@ -243,30 +244,12 @@ class PlayState extends FlxState
 	
 	private function controls():Void
 	{
-		if (FlxG.keys.pressed.W)
-		{
-			_distanceGoal += 10;
-		}
-		if (FlxG.keys.pressed.S)
-		{
-			_distanceGoal -= 10;
-		}
+		
+		debugControls();
 		
 		_distaceGoalText.text = "Distance \nneeded: " + _distanceGoal;
 		
-		if (FlxG.keys.justPressed.C)
-		{
-			spawnCat();
-			//_cat.fly(400, -400);
-		}
 		
-		if (FlxG.keys.justPressed.L)
-		{
-			_timer = 35;
-			FlxG.sound.music.stop();
-			FlxG.sound.play("assets/sounds/speedUp.mp3", 1, false, null, true, function(){FlxG.sound.playMusic("assets/music/Music/HYPER Theme.mp3");});
-			
-		}
 		
 		#if (web || desktop)
 		
@@ -387,6 +370,63 @@ class PlayState extends FlxState
 			_player.facing = FlxObject.RIGHT;
 		}
 		
+	}
+	
+	private function debugControls():Void
+	{
+		
+		if (FlxG.keys.justPressed.V)
+		{
+			_candyMode = !_candyMode;
+			FlxG.camera.flash(FlxColor.WHITE, 0.075);
+		}
+		
+		if (_candyMode)
+		{
+			FlxG.timeScale = 0.1;
+			
+			if (FlxG.keys.justPressed.Z)
+			{
+				_candyBoost += FlxG.random.float(0.5, 3);
+			}
+			
+		}
+		else
+		{
+			FlxG.timeScale = 1;
+			if (_candyBoost > 0)
+			{
+				_mom._distanceX += _candyBoost * 0.1;
+				_candyBoost -= 0.6;
+			}
+			
+		}
+		
+		_playerTrail.visible = _candyMode;
+		
+		if (FlxG.keys.pressed.W)
+		{
+			_distanceGoal += 10;
+		}
+		if (FlxG.keys.pressed.S)
+		{
+			_distanceGoal -= 10;
+		}
+		
+		
+		if (FlxG.keys.justPressed.C)
+		{
+			spawnCat();
+			//_cat.fly(400, -400);
+		}
+		
+		if (FlxG.keys.justPressed.L)
+		{
+			_timer = 35;
+			FlxG.sound.music.stop();
+			FlxG.sound.play("assets/sounds/speedUp.mp3", 1, false, null, true, function(){FlxG.sound.playMusic("assets/music/Music/HYPER Theme.mp3");});
+			
+		}
 	}
 	
 	private function punch():Void

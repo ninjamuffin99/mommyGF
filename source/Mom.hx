@@ -131,11 +131,11 @@ class Mom extends FlxNapeSprite
 		
 		if (animation.curAnim.name == "idle")
 		{
-			_distanceX += 1;
+			_distanceX += 1 * FlxG.timeScale;
 		}
 		if (animation.curAnim.name == "fallLeft" || animation.curAnim.name == "fallRight")
 		{
-			_distanceX += FlxG.random.float(0.25, 0.5);
+			_distanceX += FlxG.random.float(0.25, 0.5) * FlxG.timeScale;
 		}
 	}
 	
