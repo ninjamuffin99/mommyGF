@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.addons.effects.FlxTrailArea;
 import flixel.addons.nape.FlxNapeSpace;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
@@ -28,6 +29,7 @@ class PlayState extends FlxState
 	private var _player:Player;
 	private var _playerPunchHitBox:FlxObject;
 	private var _playerY:Float = 200;
+	
 	
 	//CAT SHIT
 	private var _cat:Cat;
@@ -59,6 +61,12 @@ class PlayState extends FlxState
 		
 		_player = new Player(50, _playerY);
 		add(_player);
+		
+		/* Trail effect
+		_playerTrail = new FlxTrailArea(0, 0, FlxG.width, FlxG.height, 0.75);
+		_playerTrail.add(_player);
+		add(_playerTrail);
+		*/
 		
 		_playerPunchHitBox = new FlxObject(_player.x + 60, _player.y, 75, 75);
 		add(_playerPunchHitBox);

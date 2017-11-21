@@ -3,6 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.addons.effects.FlxTrailArea;
 import flixel.util.FlxColor;
 
 /**
@@ -12,6 +13,7 @@ import flixel.util.FlxColor;
 class AnvilState extends FlxState 
 {
 	private var _player:Player;
+	private var _playerTrail:FlxTrailArea;
 	
 	private var _rope:FlxSprite;
 	private var _ropeHP:Float = 1;
@@ -23,6 +25,11 @@ class AnvilState extends FlxState
 		
 		_player = new Player(FlxG.width * 0.05, FlxG.height * 0.3);
 		add(_player);
+		
+		_playerTrail = new FlxTrailArea(0, 0, FlxG.width, FlxG.height, 0.75);
+		_playerTrail.add(_player);
+		add(_playerTrail);
+		
 		
 		_rope = new FlxSprite(FlxG.width * 0.35);
 		_rope.loadGraphic(AssetPaths.ropeSheet__png, true, 713, 1080);
@@ -59,12 +66,14 @@ class AnvilState extends FlxState
 				
 				FlxG.log.add(Math.floor(_ropeHP));
 				FlxG.log.add(_ropeHP);
+				FlxG.camera.shake(0.02, FlxG.elapsed * 6);
 				sfxHit();
 			}
 			else
 			{
 				FlxG.sound.play(AssetPaths.PowerEcho__mp3);
 				FlxG.sound.play(AssetPaths.glassBreak__mp3, 0.4);
+				FlxG.sound.music.fadeOut(FlxG.elapsed * 10);
 				_rope.animation.play("break");
 				FlxG.camera.flash(FlxColor.WHITE);
 				sfxHit();
