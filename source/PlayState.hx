@@ -30,7 +30,11 @@ class PlayState extends FlxState
 	private var _playerPunchHitBox:FlxObject;
 	private var _playerY:Float = 200;
 	private var _playerTrail:FlxTrailArea;
+	
+	//Cnady Stuff
+	private var _candy:Candy;
 	private var _candyMode:Bool = false;
+	private var _candyTimer:Float = 1;
 	private var _candyBoost:Float = 0;
 	
 	//CAT SHIT
@@ -60,6 +64,9 @@ class PlayState extends FlxState
 		
 		_cat = new Cat(0 - 200, FlxG.height);
 		add(_cat);
+		
+		_candy = new Candy(-32);
+		add(_candy);
 		
 		_player = new Player(50, _playerY);
 		add(_player);
@@ -137,7 +144,7 @@ class PlayState extends FlxState
 		
 		if (FlxG.overlap(_cat, _mom) && !_cat._punched && !_momCatOverlap)
 		{
-			_mom.body.angularVel += _cat.velocity.x * FlxG.random.float(0.001, 0.025);
+			//_mom.body.angularVel += _cat.velocity.x * FlxG.random.float(0.001, 0.025);
 			sfxHit();
 			_momCatOverlap = true;
 		}
@@ -375,10 +382,13 @@ class PlayState extends FlxState
 	private function debugControls():Void
 	{
 		
-		if (FlxG.keys.justPressed.V)
+		if (FlxG.keys.justPressed.V || FlxG.overlap(_candy, _player))
 		{
 			_candyMode = !_candyMode;
 			FlxG.camera.flash(FlxColor.WHITE, 0.075);
+			_candy.x = -32;
+			_candy.velocity.y = 0;
+			_candy.acceleration.y = 0;
 		}
 		
 		if (_candyMode)
@@ -388,6 +398,15 @@ class PlayState extends FlxState
 			if (FlxG.keys.justPressed.Z)
 			{
 				_candyBoost += FlxG.random.float(0.5, 3);
+			}
+			
+			_candyTimer -= FlxG.elapsed;
+			
+			if (_candyTimer <= 0)
+			{
+				_candyMode = false;
+				_candyTimer = FlxG.random.float(9, 11) * 0.1;
+				FlxG.camera.flash(FlxColor.WHITE, 0.075);
 			}
 			
 		}
@@ -448,6 +467,12 @@ class PlayState extends FlxState
 				_cat.fly(_cat.velocity.x, -400);
 				
 				Points.addPoints(50);
+			}
+			
+			if (FlxG.random.bool(15))
+			{
+				_candy.setPosition(_cat.x, _cat.y);
+				_candy.acceleration.y = 600;
 			}
 			
 			_cat._timesPunched += 1;

@@ -44,7 +44,7 @@ class Mom extends FlxNapeSprite
 		setGraphicSize(Std.int(width / 2));
 		
 		updateHitbox();
-		width = width * 0.75;
+		width = width * 0.6;
 		
 		
 		//body.position.x = -100;
