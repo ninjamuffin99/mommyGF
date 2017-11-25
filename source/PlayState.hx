@@ -386,8 +386,6 @@ class PlayState extends FlxState
 	
 	private function debugControls():Void
 	{
-		
-		
 		if (!recording && !replaying)
 		{
 			startRecording();
@@ -627,6 +625,7 @@ class PlayState extends FlxState
 		
 		var save:String = FlxG.vcr.stopRecording(false);
 		FlxG.vcr.loadReplay(save, new PlayState(), ["ANY"], 0, startRecording);
+		
 	}
 	
 }
