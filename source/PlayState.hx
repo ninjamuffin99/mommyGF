@@ -54,6 +54,11 @@ class PlayState extends FlxState
 	private var _distanceGoal:Float = 6000;
 	private var _distaceGoalText:FlxText;
 	
+	//Recording/Replaying
+	private static var recording:Bool = false;
+	private static var replaying:Bool = false;
+	
+	
 	override public function create():Void
 	{
 		FlxG.sound.playMusic("assets/music/Music/Main Theme.mp3");
@@ -382,6 +387,17 @@ class PlayState extends FlxState
 	private function debugControls():Void
 	{
 		
+		
+		if (!recording && !replaying)
+		{
+			startRecording();
+		}
+		
+		if (FlxG.keys.justPressed.R && recording)
+		{
+			loadReplay();
+		}
+		
 		if (FlxG.keys.justPressed.V || FlxG.overlap(_candy, _player))
 		{
 			_candyMode = !_candyMode;
@@ -592,6 +608,25 @@ class PlayState extends FlxState
 		{
 			FlxG.sound.play("assets/sounds/mom-game/Mom Game/HYPER Sounds/hyper (" + FlxG.random.int(1, 5) + ").wav", 0.8);
 		}
+	}
+	
+	
+	private function startRecording():Void
+	{
+		recording = true;
+		replaying = false;
+		
+		FlxG.vcr.startRecording(false);
+	}
+	
+	private function loadReplay():Void
+	{
+		replaying = true;
+		recording = false;
+		
+		
+		var save:String = FlxG.vcr.stopRecording(false);
+		FlxG.vcr.loadReplay(save, new PlayState(), ["ANY"], 0, startRecording);
 	}
 	
 }
