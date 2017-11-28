@@ -30,6 +30,7 @@ class PlayState extends FlxState
 	private var _playerPunchHitBox:FlxObject;
 	private var _playerY:Float = 200;
 	private var _playerTrail:FlxTrailArea;
+	private var punchMultiplier:Float = 1;
 	
 	//Cnady Stuff
 	private var _candy:Candy;
@@ -141,52 +142,16 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		
-		FlxG.watch.addQuick("mompos", _mom.getPosition());
+		
 		
 		FlxG.sound.music.volume = Global.musicVolume;
 		
 		sceneSwitch();
-		
-		if (FlxG.overlap(_cat, _mom) && !_cat._punched && !_momCatOverlap)
-		{
-			//_mom.body.angularVel += _cat.velocity.x * FlxG.random.float(0.001, 0.025);
-			sfxHit();
-			_momCatOverlap = true;
-		}
-		
-		
-		updateHUD();
-		
-		if (_cat.y >= FlxG.height)
-		{
-			_timerCat -= FlxG.elapsed;
-			_momCatOverlap = false;
-		}
-		
-		if (_timerCat <= 0)
-		{
-			_timerCat = FlxG.random.float(8, 15);
-			spawnCat();
-		}
-		
-		if (_catActive)
-		{
-			if (_cat.animation.frameIndex == 31)
-			{
-				if (_catLeft)
-				{
-					_cat.fly(400, -400);
-				}
-				else
-				{
-					_cat.fly( -400, -400);
-				}
-				_catActive = false;
-			}
-			
-		}
-		
+		updateHUD();	
+		catManagement();
 		controls();
+		
+		watching();
 		
 		if (_player._pickingUpMom)
 		{
@@ -211,7 +176,7 @@ class PlayState extends FlxState
 			}
 		}
 		
-		if (_pickupTimeBuffer >= 0.5)
+		if (_pickupTimeBuffer >= 0.25 * FlxG.timeScale)
 		{
 			_player._pickingUpMom = false;
 			_pickupTimeBuffer = 0;
@@ -243,7 +208,7 @@ class PlayState extends FlxState
 	
 	private function updateHUD():Void
 	{
-		_momIcon.x = FlxMath.remapToRange(_mom._distanceX,  0, _distanceGoal, _distanceBar.x + 10, _distanceBar.x + _distanceBar.width - 10);
+		_momIcon.x = FlxMath.remapToRange(_mom._distanceX,  0, _distanceGoal, _distanceBar.x + 10, _distanceBar.x + _distanceBar.width - _momIcon.width - 10);
 		
 		
 		_timer -= FlxG.elapsed;
@@ -252,6 +217,45 @@ class PlayState extends FlxState
 		_pointsText.text = "Points: " + Points.curPoints;
 		_highScoreText.text = "Highscore: " + Points.highScorePoints;
 		
+	}
+	
+	private function catManagement():Void
+	{
+		if (FlxG.overlap(_cat, _mom) && !_cat._punched && !_momCatOverlap)
+		{
+			//_mom.body.angularVel += _cat.velocity.x * FlxG.random.float(0.001, 0.025);
+			sfxHit();
+			_momCatOverlap = true;
+		}
+		
+		if (_cat.y >= FlxG.height)
+		{
+			_timerCat -= FlxG.elapsed;
+			_momCatOverlap = false;
+		}
+		
+		if (_timerCat <= 0)
+		{
+			_timerCat = FlxG.random.float(8, 15);
+			spawnCat();
+		}
+		
+		if (_catActive)
+		{
+			if (_cat.animation.frameIndex == 31)
+			{
+				if (_catLeft)
+				{
+					_cat.fly(400, -400);
+				}
+				else
+				{
+					_cat.fly( -400, -400);
+				}
+				_catActive = false;
+			}
+			
+		}
 	}
 	
 	private function controls():Void
@@ -284,10 +288,10 @@ class PlayState extends FlxState
 		
 		if (FlxG.keys.pressed.Z && !_player._pickingUpMom)
 		{
-			//30 degrees, converted to rads
-			var smackPower:Float = 0.52;
-			//4 degrees, converted to rads
-			var pushMultiplier:Float = 0.07;
+			//converted to rads
+			var smackPower:Float = (40 * Math.PI / 180) * punchMultiplier;
+			//converted to rads
+			var pushMultiplier:Float = (3.5 * Math.PI / 180) * punchMultiplier;
 			if (FlxG.keys.justPressed.Z )
 			{
 				sfxHit();
@@ -299,6 +303,14 @@ class PlayState extends FlxState
 				{
 					_mom.body.angularVel -= smackPower;
 				}
+				
+				if (!_mom._fallenDown)
+				{
+					_mom._distanceX += FlxG.random.float(0, 10);
+					_mom._speedMultiplier += FlxG.random.float(0, 0.01);
+					punchMultiplier += FlxG.random.float(0, 0.035);
+				}
+				
 			}
 			if (_player._left)
 			{
@@ -384,6 +396,12 @@ class PlayState extends FlxState
 		
 	}
 	
+	private function watching():Void
+	{
+		FlxG.watch.addQuick("mompos", _mom.getPosition());
+		FlxG.watch.addQuick("Mom speed multiplier", _mom._speedMultiplier);
+	}
+	
 	private function debugControls():Void
 	{
 		if (!recording && !replaying)
@@ -429,7 +447,7 @@ class PlayState extends FlxState
 			FlxG.timeScale = 1;
 			if (_candyBoost > 0)
 			{
-				_mom._distanceX += _candyBoost * 0.1;
+				_mom._distanceX += _candyBoost * 0.075;
 				_candyBoost -= 0.6;
 			}
 			

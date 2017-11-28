@@ -23,6 +23,7 @@ class Mom extends FlxNapeSprite
 	
 	public var _lean:Float;
 	public var _distanceX:Float = 0;
+	public var _speedMultiplier:Float = 1;
 
 	public var _fallenDown:Bool = false;
 	
@@ -131,11 +132,11 @@ class Mom extends FlxNapeSprite
 		
 		if (animation.curAnim.name == "idle")
 		{
-			_distanceX += 1 * FlxG.timeScale;
+			_distanceX += 1 * _speedMultiplier * FlxG.timeScale;
 		}
 		if (animation.curAnim.name == "fallLeft" || animation.curAnim.name == "fallRight")
 		{
-			_distanceX += FlxG.random.float(0.25, 0.5) * FlxG.timeScale;
+			_distanceX += FlxG.random.float(0.25, 0.5) * _speedMultiplier * FlxG.timeScale;
 		}
 	}
 	
