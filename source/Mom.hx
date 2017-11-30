@@ -74,6 +74,9 @@ class Mom extends FlxNapeSprite
 	{
 		super.update(elapsed);
 		
+		//animation.curAnim.frameRate = Std.int(12 * _speedMultiplier);
+		FlxG.watch.addQuick("anim framerate", animation.curAnim.frameRate);
+		
 		//_lean = angle;
 		FlxG.watch.addQuick("Angle:", body.rotation);
 		FlxG.watch.addQuick("Angle in degs:", body.rotation * 180 / Math.PI);
@@ -178,7 +181,7 @@ class Mom extends FlxNapeSprite
 	 */
 	private function angleAccel(rads:Float):Void
 	{
-		body.angularVel += rads;
+		body.angularVel += rads * _speedMultiplier;
 	}
 	
 }

@@ -80,7 +80,6 @@ class AnvilState extends FlxState
 				FlxG.camera.shake();
 				_ropeBroke = true;
 			}
-			
 		}
 		
 		if (_rope.animation.frameIndex == 14)

@@ -164,6 +164,8 @@ class PlayState extends FlxState
 				_mom.body.rotation = 0;
 				_pickupMom = 0;
 				
+				resetMultipliers();
+				
 			}
 			else
 			{
@@ -306,9 +308,9 @@ class PlayState extends FlxState
 				
 				if (!_mom._fallenDown)
 				{
-					_mom._distanceX += FlxG.random.float(0, 10);
-					_mom._speedMultiplier += FlxG.random.float(0, 0.01);
-					punchMultiplier += FlxG.random.float(0, 0.035);
+					_mom._distanceX += FlxG.random.float(0, 5);
+					_mom._speedMultiplier += FlxG.random.float(0, 0.0045);
+					punchMultiplier += FlxG.random.float(0, 0.025);
 				}
 				
 			}
@@ -396,6 +398,12 @@ class PlayState extends FlxState
 		
 	}
 	
+	private function resetMultipliers():Void
+	{
+		_mom._speedMultiplier = 1;
+		punchMultiplier = 1;
+	}
+	
 	private function watching():Void
 	{
 		FlxG.watch.addQuick("mompos", _mom.getPosition());
@@ -412,6 +420,11 @@ class PlayState extends FlxState
 		if (FlxG.keys.justPressed.R && recording)
 		{
 			loadReplay();
+		}
+		
+		if (FlxG.keys.justPressed.B)
+		{
+			FlxG.sound.playMusic("assets/music/572770_Fox-trot-Fletcher.mp3");
 		}
 		
 		if (FlxG.keys.justPressed.V || FlxG.overlap(_candy, _player))
