@@ -422,11 +422,6 @@ class PlayState extends FlxState
 			loadReplay();
 		}
 		
-		if (FlxG.keys.justPressed.B)
-		{
-			FlxG.sound.playMusic("assets/music/572770_Fox-trot-Fletcher.mp3");
-		}
-		
 		if (FlxG.keys.justPressed.V || FlxG.overlap(_candy, _player))
 		{
 			_candyMode = !_candyMode;
@@ -452,6 +447,7 @@ class PlayState extends FlxState
 				_candyMode = false;
 				_candyTimer = FlxG.random.float(9, 11) * 0.1;
 				FlxG.camera.flash(FlxColor.WHITE, 0.075);
+				_mom.body.angularVel = _mom.body.angularVel * 0.07;
 			}
 			
 		}
@@ -460,8 +456,8 @@ class PlayState extends FlxState
 			FlxG.timeScale = 1;
 			if (_candyBoost > 0)
 			{
-				_mom._distanceX += _candyBoost * 0.075;
-				_candyBoost -= 0.6;
+				_mom._distanceX += _candyBoost * 0.065;
+				_candyBoost -= 0.8;
 			}
 			
 		}
