@@ -1,0 +1,13 @@
+TODO:
+	-Fix mom hitbox, so that the cat interacts with the dynamic hitbox properly
+	-Make candy pop up a bit, or have a better indicator of it coming to you
+	-Either adjust the timer so that it's less time, or make mom slower a bit or something.
+	-Make main menu options and stuff selector or something
+	-Make a better pause screen, wit a slightly transparent bg or something
+	
+	
+
+DONE?:
+	-Have some indicator that shows slo mo mode and indicates when it's about to end
+	-Fix the player position properly
+	-Add end state that game goes to once rope breaks.

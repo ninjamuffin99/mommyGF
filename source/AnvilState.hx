@@ -19,6 +19,8 @@ class AnvilState extends FlxState
 	private var _ropeHP:Float = 1;
 	private var _ropeBroke:Bool = false;
 	
+	private var _endTimer:Float = FlxG.elapsed * 24;
+	
 	override public function create():Void 
 	{
 		FlxG.camera.fade(FlxColor.BLACK, 0.3, true);
@@ -82,6 +84,11 @@ class AnvilState extends FlxState
 			}
 		}
 		
+		if (_ropeBroke)
+		{
+			finishingGame();
+		}
+		
 		if (_rope.animation.frameIndex == 14)
 		{
 			_rope.visible = false;
@@ -98,4 +105,21 @@ class AnvilState extends FlxState
 		FlxG.sound.play("assets/sounds/mom-game/Mom Game/HYPER Sounds/hyper (" + FlxG.random.int(1, 5) + ").wav", 0.8);
 	}
 	
+	private function finishingGame():Void
+	{
+		if (_rope.animation.curAnim.finished)
+		{
+			if (_endTimer <= 0)
+			{
+				FlxG.camera.fade(FlxColor.BLACK, 2, false, function(){FlxG.switchState(new WinState()); });
+			}
+			else
+			{
+				_endTimer -= FlxG.elapsed;
+			}
+			
+		}
+		
+	}
 }
+

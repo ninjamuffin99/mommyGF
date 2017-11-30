@@ -7,6 +7,8 @@ import flixel.FlxState;
 import flixel.addons.effects.FlxTrailArea;
 import flixel.addons.nape.FlxNapeSpace;
 import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
@@ -35,7 +37,7 @@ class PlayState extends FlxState
 	//Cnady Stuff
 	private var _candy:Candy;
 	private var _candyMode:Bool = false;
-	private var _candyTimer:Float = 1;
+	private var _candyTimer:Float = 0.6;
 	private var _candyBoost:Float = 0;
 	
 	//CAT SHIT
@@ -316,12 +318,12 @@ class PlayState extends FlxState
 			}
 			if (_player._left)
 			{
-				_player.setPosition(_mom.x - 100, _playerY);
+				_player.setPosition(_mom.x, _playerY);
 				_mom.body.angularVel += pushMultiplier;
 			}
 			else
 			{
-				_player.setPosition(_mom.x + 300, _playerY);
+				_player.setPosition(_mom.x + 400, _playerY);
 				_mom.body.angularVel -= pushMultiplier;
 			}
 		}
@@ -333,7 +335,7 @@ class PlayState extends FlxState
 			}
 			else
 			{
-				_player.setPosition(_mom.x + 600, _playerY);
+				_player.setPosition(_mom.x + 500, _playerY);
 			}
 			_player.animation.play("idle");
 		}
@@ -422,9 +424,12 @@ class PlayState extends FlxState
 			loadReplay();
 		}
 		
-		if (FlxG.keys.justPressed.V || FlxG.overlap(_candy, _player))
+		if ((FlxG.keys.justPressed.V && !_candyMode) || FlxG.overlap(_candy, _player))
 		{
-			_candyMode = !_candyMode;
+			FlxG.camera.color = 0xFFFEFEFE;
+			FlxTween.tween(FlxG.camera, {color:FlxColor.WHITE}, _candyTimer);
+			
+			_candyMode = true;
 			FlxG.camera.flash(FlxColor.WHITE, 0.075);
 			_candy.x = -32;
 			_candy.velocity.y = 0;
@@ -444,16 +449,17 @@ class PlayState extends FlxState
 			
 			if (_candyTimer <= 0)
 			{
+				FlxTween.tween(FlxG, {timeScale: 1}, 0.4);
 				_candyMode = false;
-				_candyTimer = FlxG.random.float(9, 11) * 0.1;
+				_candyTimer = FlxG.random.float(3, 7) * 0.1;
 				FlxG.camera.flash(FlxColor.WHITE, 0.075);
-				_mom.body.angularVel = _mom.body.angularVel * 0.07;
+				_mom.body.angularVel = _mom.body.angularVel * 0.1;
 			}
 			
 		}
 		else
 		{
-			FlxG.timeScale = 1;
+			//FlxG.timeScale = 1;
 			if (_candyBoost > 0)
 			{
 				_mom._distanceX += _candyBoost * 0.065;
@@ -477,7 +483,6 @@ class PlayState extends FlxState
 		if (FlxG.keys.justPressed.C)
 		{
 			spawnCat();
-			//_cat.fly(400, -400);
 		}
 		
 		if (FlxG.keys.justPressed.L)
