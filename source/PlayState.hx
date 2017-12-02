@@ -460,10 +460,14 @@ class PlayState extends FlxState
 		else
 		{
 			//FlxG.timeScale = 1;
-			if (_candyBoost > 0)
+			if (_candyBoost > 0 && !_mom._fallenDown)
 			{
 				_mom._distanceX += _candyBoost * 0.065;
 				_candyBoost -= 0.8;
+			}
+			else 
+			{
+				_candyBoost = 0;
 			}
 			
 		}
@@ -515,9 +519,10 @@ class PlayState extends FlxState
 				Points.addPoints(50);
 			}
 			
-			if (FlxG.random.bool(15))
+			if (FlxG.random.bool(15) && _cat._timesPunched >= 6)
 			{
 				_candy.setPosition(_cat.x, _cat.y);
+				_candy.velocity.y -= 250;
 				_candy.acceleration.y = 600;
 			}
 			
