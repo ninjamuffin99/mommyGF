@@ -4,7 +4,7 @@ TODO:
 	-Either adjust the timer so that it's less time, or make mom slower a bit or something.
 	-Make main menu options and stuff selector or something
 	-Make a better pause screen, wit a slightly transparent bg or something
-	
+	-DESIGN THING: NO IN GAME LEADERBOARD!!!! AND LITTLE ACHIEVEMENTS?? BUT MAYBE A TWITTER BUTTON?
 	
 
 DONE?:
