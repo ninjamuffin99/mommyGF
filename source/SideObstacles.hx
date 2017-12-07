@@ -7,7 +7,7 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  * ...
  * @author ninjaMuffin
  */
-class SideObstacles extends FlxSprite 
+class SideObstacles extends FlxNapeSprite 
 {
 
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 

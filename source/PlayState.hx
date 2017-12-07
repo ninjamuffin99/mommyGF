@@ -41,7 +41,7 @@ class PlayState extends FlxState
 	private var _candyBoost:Float = 0;
 	
 	//OBSTACLE SHIT
-	private var _retard:SideObstacles;
+	private var _retard:Retard;
 	
 	//CAT SHIT
 	private var _cat:Cat;
@@ -83,7 +83,7 @@ class PlayState extends FlxState
 		_player = new Player(50, _playerY);
 		add(_player);
 		
-		_retard = new SideObstacles(0, 0);
+		_retard = new Retard(100, 100);
 		add(_retard);
 		
 		//Trail effect
@@ -150,12 +150,12 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
-		
-		if (FlxG.overlap(_retard, _player))
+		/*
+		if (FlxG.overlap(_retard, _mom.body))
 		{
-			_player.paralyzed = true;
+			
 		}
-		
+		*/
 		FlxG.sound.music.volume = Global.musicVolume;
 		
 		sceneSwitch();
