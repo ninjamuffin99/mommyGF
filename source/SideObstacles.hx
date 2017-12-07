@@ -15,7 +15,6 @@ class SideObstacles extends FlxSprite
 		super(X, Y, SimpleGraphic);
 		
 		makeGraphic(100, 32);
-		
 	}
 	
 }

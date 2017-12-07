@@ -16,6 +16,7 @@ class Player extends FlxSprite
 {
 	public var _left:Bool = true;
 	public var _pickingUpMom:Bool = false;
+	public var paralyzed:Bool = true;
 	
 	
 	private var prevAnim:Int = FlxG.random.int(1, 3);
@@ -47,12 +48,16 @@ class Player extends FlxSprite
 	{
 		super.update(elapsed);
 		
-		if (FlxG.keys.justPressed.Z)
+		if (!paralyzed)
 		{
-			animation.play("poke" + prevAnim, false);
-			//generates new animation for next time?
-			prevAnim = FlxG.random.int(1, 3, [prevAnim]);
+			if (FlxG.keys.justPressed.Z)
+			{
+				animation.play("poke" + prevAnim, false);
+				//generates new animation for next time?
+				prevAnim = FlxG.random.int(1, 3, [prevAnim]);
+			}
 		}
+		
 		
 		FlxG.watch.addQuick("current animation:", animation.curAnim.name);
 	}

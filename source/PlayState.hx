@@ -40,6 +40,9 @@ class PlayState extends FlxState
 	private var _candyTimer:Float = 0.6;
 	private var _candyBoost:Float = 0;
 	
+	//OBSTACLE SHIT
+	private var _retard:SideObstacles;
+	
 	//CAT SHIT
 	private var _cat:Cat;
 	private var _catLeft:Bool = false;
@@ -67,6 +70,7 @@ class PlayState extends FlxState
 		FlxG.sound.playMusic("assets/music/Music/Main Theme.mp3");
 		FlxNapeSpace.init();
 		
+		//MAIN STUFF EHEHEH
 		_mom = new Mom(530, -25 + 1000);
 		add(_mom);
 		
@@ -78,6 +82,9 @@ class PlayState extends FlxState
 		
 		_player = new Player(50, _playerY);
 		add(_player);
+		
+		_retard = new SideObstacles(0, 0);
+		add(_retard);
 		
 		//Trail effect
 		_playerTrail = new FlxTrailArea(0, 0, FlxG.width, FlxG.height, 0.75);
@@ -144,7 +151,10 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		
-		
+		if (FlxG.overlap(_retard, _player))
+		{
+			_player.paralyzed = true;
+		}
 		
 		FlxG.sound.music.volume = Global.musicVolume;
 		
