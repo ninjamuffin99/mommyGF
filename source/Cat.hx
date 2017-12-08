@@ -14,6 +14,7 @@ class Cat extends FlxNapeSprite
 {
 	public var _punched:Bool = false;
 	public var _timesPunched:Int = 0;
+	public var flying:Bool = false;
 
 	public function new(X:Float=0, Y:Float=0, ?SimpleGraphic:FlxGraphicAsset, CreateRectangularBody:Bool=true, EnablePhysics:Bool=true) 
 	{
@@ -41,11 +42,17 @@ class Cat extends FlxNapeSprite
 		acceleration.y = 800;
 		body.velocity.x = xVel;
 		body.velocity.y = yVel;
+		flying = true;
 	}
 	
 	override public function update(elapsed:Float):Void 
 	{
 		super.update(elapsed);
+		
+		if (flying)
+		{
+			body.velocity.y += 10;
+		}
 		
 		if (y >= FlxG.height)
 		{
