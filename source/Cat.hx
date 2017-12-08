@@ -32,8 +32,11 @@ class Cat extends FlxNapeSprite
 		
 		createRectangularBody(width / 2, height / 2);
 		
+		offset.x = offset.y = 0;
 		setFacingFlip(FlxObject.LEFT, false, false);
 		setFacingFlip(FlxObject.RIGHT, true, false);
+		
+		body.allowRotation = false;
 		
 	}
 	
@@ -51,8 +54,10 @@ class Cat extends FlxNapeSprite
 		
 		if (flying)
 		{
-			body.velocity.y += 10;
+			body.velocity.y += 14;
 		}
+		
+		
 		
 		if (y >= FlxG.height)
 		{
@@ -64,7 +69,7 @@ class Cat extends FlxNapeSprite
 			angularVelocity = velocity.x * -0.9;
 			animation.play("punched");
 		}
-		if (!_punched && velocity.x != 0)
+		if (!_punched && body.velocity.x != 0)
 		{
 			animation.play("fly");
 		}

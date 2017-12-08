@@ -85,8 +85,8 @@ class PlayState extends FlxState
 		_player = new Player(50, _playerY);
 		add(_player);
 		
-		_retard = new Retard(0, 300);
-		add(_retard);
+		//_retard = new Retard(0, 300);
+		//add(_retard);
 		
 		//Trail effect
 		_playerTrail = new FlxTrailArea(0, 0, FlxG.width, FlxG.height, 0.75);
@@ -553,6 +553,8 @@ class PlayState extends FlxState
 		_cat.y = 140;
 		_cat.body.position.y = _cat.y;
 		_cat.acceleration.y = 0;
+		_cat.flying = false;
+		_cat.body.rotation = 0;
 		_cat.body.velocity.y = _cat.body.velocity.x = 0;
 		_cat.velocity.x = _cat.velocity.y = 0;
 		_cat.angularVelocity = 0;
@@ -562,14 +564,14 @@ class PlayState extends FlxState
 		if (_catLeft)
 		{
 			_cat.facing = FlxObject.RIGHT;
-			_cat.x = 35 - _cat.width;
+			_cat.x = 35;
 			_cat.body.position.x = _cat.x;
 			
 		}
 		else
 		{
 			_cat.facing = FlxObject.LEFT;
-			_cat.x = FlxG.width - 35;
+			_cat.x = FlxG.width;
 			_cat.body.position.x = _cat.x;
 		}
 		_cat.animation.play("peek");
