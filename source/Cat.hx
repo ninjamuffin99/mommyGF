@@ -3,20 +3,21 @@ package;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
+import flixel.addons.nape.FlxNapeSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 
 /**
  * ...
  * @author ninjaMuffin
  */
-class Cat extends FlxSprite 
+class Cat extends FlxNapeSprite 
 {
 	public var _punched:Bool = false;
 	public var _timesPunched:Int = 0;
 
-	public function new(?X:Float=0, ?Y:Float=0) 
+	public function new(X:Float=0, Y:Float=0, ?SimpleGraphic:FlxGraphicAsset, CreateRectangularBody:Bool=true, EnablePhysics:Bool=true) 
 	{
-		super(X, Y);
+		super(X, Y, SimpleGraphic, CreateRectangularBody, EnablePhysics);
 		
 		loadGraphic(AssetPaths.catSpriteSheet__png, true, 710, 429);
 		animation.add("punched", [0, 1], 12, false);
@@ -28,6 +29,8 @@ class Cat extends FlxSprite
 		width = width / 2;
 		centerOffsets();
 		
+		createRectangularBody(width / 2, height / 2);
+		
 		setFacingFlip(FlxObject.LEFT, false, false);
 		setFacingFlip(FlxObject.RIGHT, true, false);
 		
@@ -36,8 +39,8 @@ class Cat extends FlxSprite
 	public function fly(xVel:Float, yVel:Float):Void
 	{
 		acceleration.y = 800;
-		velocity.x = xVel;
-		velocity.y = yVel;
+		body.velocity.x = xVel;
+		body.velocity.y = yVel;
 	}
 	
 	override public function update(elapsed:Float):Void 

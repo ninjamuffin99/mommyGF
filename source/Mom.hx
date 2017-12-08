@@ -61,6 +61,8 @@ class Mom extends FlxNapeSprite
 		_lean = angle;
 		swapRotating();
 		
+		body.allowMovement = false;
+		
 		FlxG.log.add("mom added");
 	}
 	

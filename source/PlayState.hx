@@ -6,6 +6,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.effects.FlxTrailArea;
 import flixel.addons.nape.FlxNapeSpace;
+import flixel.system.debug.watch.Tracker.TrackerProfile;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -13,6 +14,7 @@ import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import nape.geom.Vec2;
 import openfl.Assets;
 
 class PlayState extends FlxState
@@ -83,7 +85,7 @@ class PlayState extends FlxState
 		_player = new Player(50, _playerY);
 		add(_player);
 		
-		_retard = new Retard(100, 100);
+		_retard = new Retard(0, 300);
 		add(_retard);
 		
 		//Trail effect
@@ -150,12 +152,7 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
-		/*
-		if (FlxG.overlap(_retard, _mom.body))
-		{
-			
-		}
-		*/
+		
 		FlxG.sound.music.volume = Global.musicVolume;
 		
 		sceneSwitch();
@@ -279,7 +276,12 @@ class PlayState extends FlxState
 		
 		_distaceGoalText.text = "Distance \nneeded: " + _distanceGoal;
 		
-		
+		//FOLLOW CAT, DELETE THIS WHEN CAT WORKS
+		if (FlxG.keys.justPressed.D)
+		{
+			FlxG.camera.follow(_cat);
+			FlxG.camera.setScrollBounds(null, null, null, null);
+		}
 		
 		#if (web || desktop)
 		
@@ -545,24 +547,30 @@ class PlayState extends FlxState
 	
 	private function spawnCat():Void
 	{
+		FlxG.log.add("Cat spawned");
 		_cat._punched = false;
 		_catLeft = FlxG.random.bool();
 		_cat.y = 140;
+		_cat.body.position.y = _cat.y;
 		_cat.acceleration.y = 0;
+		_cat.body.velocity.y = _cat.body.velocity.x = 0;
 		_cat.velocity.x = _cat.velocity.y = 0;
 		_cat.angularVelocity = 0;
 		_cat.angle = 0;
+		
 		
 		if (_catLeft)
 		{
 			_cat.facing = FlxObject.RIGHT;
 			_cat.x = 35 - _cat.width;
+			_cat.body.position.x = _cat.x;
 			
 		}
 		else
 		{
 			_cat.facing = FlxObject.LEFT;
 			_cat.x = FlxG.width - 35;
+			_cat.body.position.x = _cat.x;
 		}
 		_cat.animation.play("peek");
 		_catActive = true;
