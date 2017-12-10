@@ -71,12 +71,12 @@ class PlayState extends FlxState
 	
 	override public function create():Void
 	{
-		FlxG.sound.playMusic("assets/music/Music/Main Theme.mp3");
-		
-		//pitchedSound.MP3Pitch("https://audio.ngfiles.com/778000/778677_Alice-Mako-IM-SORRY.mp3");
-		//add(pitchedSound);
-		//pitchedSound.set_rate(0.1);
-		
+		FlxG.sound.playMusic("assets/music/Music/Main Theme.ogg", 1);
+		/*
+		pitchedSound.MP3Pitch("https://audio.ngfiles.com/778000/778677_Alice-Mako-IM-SORRY.mp3");
+		add(pitchedSound);
+		pitchedSound.set_rate(0.1);
+		*/
 		
 		FlxNapeSpace.init();
 		
@@ -161,7 +161,13 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		
-		FlxG.sound.music.volume = Global.musicVolume;
+		FlxG.sound.music.pitch = FlxG.timeScale;
+		if (FlxG.sound.music.pitch < 0.4)
+		{
+			FlxG.sound.music.pitch = 0.4;
+		}
+		//FlxG.sound.music.volume = FlxG.timeScale;
+		//FlxG.sound.music.volume = Global.musicVolume;
 		
 		sceneSwitch();
 		updateHUD();	
