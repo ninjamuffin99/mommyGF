@@ -66,10 +66,18 @@ class PlayState extends FlxState
 	private static var recording:Bool = false;
 	private static var replaying:Bool = false;
 	
+	//public var pitchedSound:SoundPitch = new SoundPitch();
+	
 	
 	override public function create():Void
 	{
 		FlxG.sound.playMusic("assets/music/Music/Main Theme.mp3");
+		
+		//pitchedSound.MP3Pitch("https://audio.ngfiles.com/778000/778677_Alice-Mako-IM-SORRY.mp3");
+		//add(pitchedSound);
+		//pitchedSound.set_rate(0.1);
+		
+		
 		FlxNapeSpace.init();
 		
 		//MAIN STUFF EHEHEH

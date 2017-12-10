@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.effects.FlxTrailArea;
+import flixel.system.FlxSound;
 import flixel.util.FlxColor;
 
 /**
@@ -75,6 +76,9 @@ class AnvilState extends FlxState
 			{
 				FlxG.sound.play(AssetPaths.PowerEcho__mp3);
 				FlxG.sound.play(AssetPaths.glassBreak__mp3, 0.4);
+				FlxG.sound.play(AssetPaths.bassDrum__mp3, 1);
+				FlxG.sound.play(AssetPaths.snapBass__mp3, 2);
+				
 				FlxG.sound.music.fadeOut(FlxG.elapsed * 10);
 				_rope.animation.play("break");
 				FlxG.camera.flash(FlxColor.WHITE);
