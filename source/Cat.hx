@@ -5,6 +5,7 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.addons.nape.FlxNapeSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
+import nape.geom.Vec2;
 
 /**
  * ...
@@ -32,11 +33,14 @@ class Cat extends FlxNapeSprite
 		
 		createRectangularBody(width / 2, height / 2);
 		
-		offset.x = offset.y = 0;
+		offset.set(width * 2, height);
+		body.translateShapes(Vec2.get(-width * 1.7, -height));
 		setFacingFlip(FlxObject.LEFT, false, false);
 		setFacingFlip(FlxObject.RIGHT, true, false);
 		
 		body.allowRotation = false;
+		
+		
 		
 	}
 	
@@ -58,7 +62,6 @@ class Cat extends FlxNapeSprite
 		}
 		
 		
-		
 		if (y >= FlxG.height)
 		{
 			_timesPunched = 0;
@@ -74,6 +77,14 @@ class Cat extends FlxNapeSprite
 			animation.play("fly");
 		}
 		
+	}
+	
+	
+	private var prevSound:Int = FlxG.random.int(1, 3);
+	public function smackedSound():Void
+	{
+		FlxG.sound.play("assets/sounds/Cat Pain " + prevSound + ".wav");
+		prevSound = FlxG.random.int(1, 3, [prevSound]);
 	}
 	
 }

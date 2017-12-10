@@ -106,7 +106,7 @@ class AnvilState extends FlxState
 	
 	private function sfxHit():Void
 	{
-		FlxG.sound.play("assets/sounds/mom-game/Mom Game/HYPER Sounds/hyper (" + FlxG.random.int(1, 5) + ").wav", 0.8);
+		FlxG.sound.play("assets/sounds/hyper (" + FlxG.random.int(1, 5) + ").mp3", 0.8);
 	}
 	
 	private function finishingGame():Void

@@ -71,7 +71,7 @@ class PlayState extends FlxState
 	
 	override public function create():Void
 	{
-		FlxG.sound.playMusic("assets/music/Music/Main Theme.ogg", 1);
+		FlxG.sound.playMusic("assets/music/Music/Main Theme.mp3", 1);
 		/*
 		pitchedSound.MP3Pitch("https://audio.ngfiles.com/778000/778677_Alice-Mako-IM-SORRY.mp3");
 		add(pitchedSound);
@@ -161,13 +161,7 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		
-		FlxG.sound.music.pitch = FlxG.timeScale;
-		if (FlxG.sound.music.pitch < 0.4)
-		{
-			FlxG.sound.music.pitch = 0.4;
-		}
-		//FlxG.sound.music.volume = FlxG.timeScale;
-		//FlxG.sound.music.volume = Global.musicVolume;
+		FlxG.sound.music.volume = Global.musicVolume;
 		
 		sceneSwitch();
 		updateHUD();	
@@ -454,6 +448,7 @@ class PlayState extends FlxState
 		{
 			FlxG.camera.color = 0xFFFEFEFE;
 			FlxTween.tween(FlxG.camera, {color:FlxColor.WHITE}, _candyTimer);
+			FlxG.sound.play("assets/sounds/Candy Mode.mp3", 0.7);
 			
 			_candyMode = true;
 			FlxG.camera.flash(FlxColor.WHITE, 0.075);
@@ -555,7 +550,7 @@ class PlayState extends FlxState
 			_cat._timesPunched += 1;
 			
 			sfxHit();
-			FlxG.sound.play(AssetPaths.oof__mp3);
+			_cat.smackedSound();
 		}
 	}
 	
@@ -564,7 +559,7 @@ class PlayState extends FlxState
 		FlxG.log.add("Cat spawned");
 		_cat._punched = false;
 		_catLeft = FlxG.random.bool();
-		_cat.y = 140;
+		_cat.y = 140 + 200;
 		_cat.body.position.y = _cat.y;
 		_cat.acceleration.y = 0;
 		_cat.flying = false;
@@ -578,14 +573,14 @@ class PlayState extends FlxState
 		if (_catLeft)
 		{
 			_cat.facing = FlxObject.RIGHT;
-			_cat.x = 35;
+			_cat.x = 35 + _cat.width * 2;
 			_cat.body.position.x = _cat.x;
 			
 		}
 		else
 		{
 			_cat.facing = FlxObject.LEFT;
-			_cat.x = FlxG.width;
+			_cat.x = FlxG.width + _cat.width * 2;
 			_cat.body.position.x = _cat.x;
 		}
 		_cat.animation.play("peek");
@@ -675,7 +670,7 @@ class PlayState extends FlxState
 		}
 		else
 		{
-			FlxG.sound.play("assets/sounds/mom-game/Mom Game/HYPER Sounds/hyper (" + FlxG.random.int(1, 5) + ").wav", 0.8);
+			FlxG.sound.play("assets/sounds/hyper (" + FlxG.random.int(1, 5) + ").mp3", 0.8);
 		}
 	}
 	
