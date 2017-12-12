@@ -63,6 +63,8 @@ class Mom extends FlxNapeSprite
 		
 		body.allowMovement = false;
 		
+		setBodyMaterial(1, 0, 0, 1);
+		
 		FlxG.log.add("mom added");
 	}
 	

@@ -84,7 +84,7 @@ class PlayState extends FlxState
 		_mom = new Mom(530, -25 + 1000);
 		add(_mom);
 		
-		_cat = new Cat(0 - 200, FlxG.height);
+		_cat = new Cat(0 - 200, FlxG.height + 10);
 		add(_cat);
 		
 		_candy = new Candy(-32);
@@ -284,13 +284,6 @@ class PlayState extends FlxState
 		
 		_distaceGoalText.text = "Distance \nneeded: " + _distanceGoal;
 		
-		//FOLLOW CAT, DELETE THIS WHEN CAT WORKS
-		if (FlxG.keys.justPressed.D)
-		{
-			FlxG.camera.follow(_cat);
-			FlxG.camera.setScrollBounds(null, null, null, null);
-		}
-		
 		#if (web || desktop)
 		
 		if (FlxG.keys.justPressed.ENTER)
@@ -310,13 +303,13 @@ class PlayState extends FlxState
 			_player._left = true;
 		}
 		
-		if (FlxG.keys.pressed.Z && !_player._pickingUpMom)
+		if (_player.poked && !_player._pickingUpMom)
 		{
 			//converted to rads
 			var smackPower:Float = (40 * Math.PI / 180) * punchMultiplier;
 			//converted to rads
 			var pushMultiplier:Float = (3.5 * Math.PI / 180) * punchMultiplier;
-			if (FlxG.keys.justPressed.Z )
+			if (_player.poked)
 			{
 				sfxHit();
 				if (_player._left)
@@ -392,7 +385,7 @@ class PlayState extends FlxState
 		}
 		
 		
-		if (_player._pickingUpMom && FlxG.keys.justPressed.Z)
+		if (_player._pickingUpMom && _player.poked)
 		{
 			sfxHit();
 			
@@ -528,14 +521,14 @@ class PlayState extends FlxState
 			_cat._punched = true;
 			if (_cat._timesPunched >= 1)
 			{
-				_cat.fly( -_cat.velocity.x, FlxG.random.float( -400, -450));
+				_cat.fly(-_cat.body.velocity.x, FlxG.random.float( -400, -450));
 				
 				Points.addPoints(50 + (25 * (_cat._timesPunched)));
 				FlxG.log.add(25 * (_cat._timesPunched));
 			}
 			else
 			{
-				_cat.fly(_cat.velocity.x, -400);
+				_cat.fly(_cat.body.velocity.x, -400);
 				
 				Points.addPoints(50);
 			}

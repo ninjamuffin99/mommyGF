@@ -18,6 +18,10 @@ class Player extends FlxSprite
 	public var _pickingUpMom:Bool = false;
 	public var paralyzed:Bool = false;
 	
+	public var sameSide:Bool = false;
+	
+	public var poked:Bool = false;
+	
 	
 	private var prevAnim:Int = FlxG.random.int(1, 3);
 
@@ -48,9 +52,27 @@ class Player extends FlxSprite
 	{
 		super.update(elapsed);
 		
+		//the p means it has been just pressed
+		var leftP:Bool = FlxG.keys.anyJustPressed(["LEFT", "A", "J"]);
+		var rightP:Bool = FlxG.keys.anyJustPressed(["RIGHT", "D", "L"]);
+		var upP:Bool = FlxG.keys.anyJustPressed(["UP", "W", "I"]);
+		
+		if (_left && leftP)
+		{
+			poked = true;
+		}
+		else if (!_left && rightP)
+		{
+			poked = true;
+		}
+		else
+		{
+			poked = false;
+		}
+		
 		if (!paralyzed)
 		{
-			if (FlxG.keys.justPressed.Z)
+			if (poked)
 			{
 				animation.play("poke" + prevAnim, false);
 				//generates new animation for next time?

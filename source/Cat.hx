@@ -5,6 +5,7 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.addons.nape.FlxNapeSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
+import nape.dynamics.InteractionFilter;
 import nape.geom.Vec2;
 
 /**
@@ -40,7 +41,7 @@ class Cat extends FlxNapeSprite
 		
 		body.allowRotation = false;
 		
-		
+		setBodyMaterial(1, 0.2, 0.4, 100);
 		
 	}
 	
@@ -69,7 +70,7 @@ class Cat extends FlxNapeSprite
 		
 		if (_punched)
 		{
-			angularVelocity = velocity.x * -0.9;
+			angularVelocity = body.velocity.x * -0.9;
 			animation.play("punched");
 		}
 		if (!_punched && body.velocity.x != 0)
