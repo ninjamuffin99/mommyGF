@@ -297,13 +297,13 @@ class PlayState extends FlxState
 			_player.setPosition(_mom.x + 700, _playerY);
 			_player._left = false;
 		}
-		if (_player.right && !_player.poking)
+		if (_player.left && !_player.poking)
 		{
 			_player.setPosition(_mom.x - 100, _playerY);
 			_player._left = true;
 		}
 		
-		if (_player.poked && !_player._pickingUpMom)
+		if (_player.poking && !_player._pickingUpMom)
 		{
 			//converted to rads
 			var smackPower:Float = (40 * Math.PI / 180) * punchMultiplier;

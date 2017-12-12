@@ -111,17 +111,13 @@ class Player extends FlxSprite
 			poked = false;
 		}
 		
-		
-		if (poked)
+		if (left && _left || right && !_left)
 		{
-			if (left || right)
-			{
-				poking = true;
-			}
-			else
-			{
-				poking = true;
-			}
+			poking = true;
+		}
+		else 
+		{
+			poking = false;
 		}
 		
 		
