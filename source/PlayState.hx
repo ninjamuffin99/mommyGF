@@ -292,12 +292,12 @@ class PlayState extends FlxState
 		}
 		
 		
-		if (FlxG.keys.pressed.RIGHT && !FlxG.keys.pressed.Z)
+		if (_player.right && !_player.poking)
 		{
 			_player.setPosition(_mom.x + 700, _playerY);
 			_player._left = false;
 		}
-		if (FlxG.keys.pressed.LEFT && !FlxG.keys.pressed.Z)
+		if (_player.right && !_player.poking)
 		{
 			_player.setPosition(_mom.x - 100, _playerY);
 			_player._left = true;

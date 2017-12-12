@@ -11,6 +11,7 @@ TODO:
 	-SCRAPPED DESIGN THING: NO IN GAME LEADERBOARD!!!! AND LITTLE ACHIEVEMENTS?? BUT MAYBE A TWITTER BUTTON?
 	-Modify the angle at which the normal walking transitions to stumbling
 	-Rewrite controls code
+	-Fix mom tip drag and stuff
 	
 
 DONE?:
