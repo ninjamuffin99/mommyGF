@@ -175,7 +175,6 @@ class PlayState extends FlxState
 		
 		_BG.x = -FlxMath.remapToRange(_mom._distanceX, 0, _distanceGoal, 0, _BG.width - FlxG.width);
 		
-		
 		FlxG.sound.music.volume = Global.musicVolume;
 		
 		sceneSwitch();
@@ -680,6 +679,13 @@ class PlayState extends FlxState
 		}
 	}
 	
+	override public function onFocusLost():Void 
+	{
+		super.onFocusLost();
+		
+		openSubState(new PauseSubState(0xAA000000));
+		
+	}
 	
 	private function startRecording():Void
 	{

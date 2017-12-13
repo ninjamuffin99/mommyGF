@@ -17,8 +17,8 @@ class PauseSubState extends FlxSubState
 	private var _musicVolumeSlider:FlxSlider;
 	private var _soundVolumeSlider:FlxSlider;
 	
-	
-	public function new(BGColor:FlxColor=FlxColor.TRANSPARENT) 
+	//the hex is an translucent black
+	public function new(BGColor:FlxColor = 0xAA000000) 
 	{
 		super(BGColor);
 		
@@ -26,7 +26,6 @@ class PauseSubState extends FlxSubState
 		_pauseText.color = FlxColor.BLUE;
 		_pauseText.screenCenter();
 		add(_pauseText);
-		
 		
 		_musicVolumeSlider = new FlxSlider(Global, "musicVolume", 100, 100, 0, 1, 500, 50, 10, FlxColor.WHITE, FlxColor.WHITE);
 		add(_musicVolumeSlider);
