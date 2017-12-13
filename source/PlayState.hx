@@ -49,6 +49,9 @@ class PlayState extends FlxState
 	private var _cat:Cat;
 	private var _catLeft:Bool = false;
 	
+	//BACKGROUND
+	private var _BG:FlxSprite;
+	
 	//HUD SHIT
 	private var _pointsText:FlxText;
 	private var _highScoreText:FlxText;
@@ -79,6 +82,14 @@ class PlayState extends FlxState
 		*/
 		
 		FlxNapeSpace.init();
+		
+		//BG
+		_BG = new FlxSprite(0, 0);
+		_BG.loadGraphic(AssetPaths.houseBG__png, false, 5500, 540);
+		_BG.setGraphicSize(0, FlxG.height);
+		_BG.updateHitbox();
+		add(_BG);
+		
 		
 		//MAIN STUFF EHEHEH
 		_mom = new Mom(530, -25 + 1000);
@@ -139,17 +150,18 @@ class PlayState extends FlxState
 		add(_distaceGoalText);
 		
 		
-		_pointsText = new FlxText(0, 30, 0, "Points: " + Points.curPoints, 20);
+		_pointsText = new FlxText(0, 30, 0, "Points: " + Points.curTime, 20);
 		_pointsText.screenCenter(X);
 		_pointsText.scrollFactor.x = 0;
 		add(_pointsText);
 		
-		_highScoreText = new FlxText(0, 52, 0, "Highscore: " + Points.highScorePoints, 20);
+		_highScoreText = new FlxText(0, 52, 0, "Highscore: " + Points.highScoreTime, 20);
 		_highScoreText.screenCenter(X);
 		_highScoreText.scrollFactor.x = 0;
 		add(_highScoreText);
 		
 		Points.curPoints = 0;
+		Points.curTime = 0;
 		
 		
 		_distanceBar.scrollFactor.x = 0;
@@ -160,6 +172,9 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
+		
+		_BG.x = -FlxMath.remapToRange(_mom._distanceX, 0, _distanceGoal, 0, _BG.width - FlxG.width);
+		
 		
 		FlxG.sound.music.volume = Global.musicVolume;
 		
@@ -233,8 +248,11 @@ class PlayState extends FlxState
 		_timer -= FlxG.elapsed;
 		_timerText.text = "seconds " + Math.ffloor(_timer);
 		
-		_pointsText.text = "Points: " + Points.curPoints;
-		_highScoreText.text = "Highscore: " + Points.highScorePoints;
+		
+		Points.curTime += FlxG.elapsed * 100 * FlxG.timeScale;
+		
+		_pointsText.text = "Points: " + Points.curTime;
+		_highScoreText.text = "Highscore: " + Points.highScoreTime;
 		
 	}
 	
@@ -454,7 +472,7 @@ class PlayState extends FlxState
 		{
 			FlxG.timeScale = 0.1;
 			
-			if (FlxG.keys.justPressed.Z)
+			if (_player.poked)
 			{
 				_candyBoost += FlxG.random.float(0.5, 3);
 			}
@@ -522,15 +540,10 @@ class PlayState extends FlxState
 			if (_cat._timesPunched >= 1)
 			{
 				_cat.fly(-_cat.body.velocity.x, FlxG.random.float( -400, -450));
-				
-				Points.addPoints(50 + (25 * (_cat._timesPunched)));
-				FlxG.log.add(25 * (_cat._timesPunched));
 			}
 			else
 			{
 				_cat.fly(_cat.body.velocity.x, -400);
-				
-				Points.addPoints(50);
 			}
 			
 			if (FlxG.random.bool(15) && _cat._timesPunched >= 6)

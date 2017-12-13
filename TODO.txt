@@ -1,17 +1,19 @@
 Notes/ideas:
 	-right now there isn't too much clarity regarding showing how fast mom is going, could be fixed with a background
-	-Maybe swap the smack to another left button? like left to switch, then left to smack
-
+	
 TODO:
 	-Either adjust the timer so that it's less time, or make mom slower a bit or something.
 	-Make main menu options and stuff selector or something
 	-Make a better pause screen, wit a slightly transparent bg or something
 	-FINISH ADDING IN RETARD
 	-FINISH ADDING IN SPIDER
-	-SCRAPPED DESIGN THING: NO IN GAME LEADERBOARD!!!! AND LITTLE ACHIEVEMENTS?? BUT MAYBE A TWITTER BUTTON?
 	-Modify the angle at which the normal walking transitions to stumbling
-	-Rewrite controls code
+	-Tweak the controls better
 	-Fix mom tip drag and stuff
+	-Fix cat spawn shit
+	-Maybe get some randomization going? Not sure if stuff is confirmed yet
+	-replace points with a timer
+	-add a simple highscore thing for finishing and timer
 	
 
 DONE?:
@@ -20,3 +22,6 @@ DONE?:
 	-Add end state that game goes to once rope breaks.
 	-Fix mom hitbox, so that the cat interacts with the dynamic hitbox properly
 	-Make candy pop up a bit, or have a better indicator of it coming to you
+	-Rewrite controls code
+	-Maybe swap the smack to another left button? like left to switch, then left to smack
+	-removed points
