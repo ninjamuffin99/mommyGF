@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.addons.nape.FlxNapeSprite;
+import flixel.math.FlxAngle;
 import flixel.math.FlxMath;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.util.FlxColor;
@@ -113,11 +114,14 @@ class Mom extends FlxNapeSprite
 		else
 		{
 			facing = FlxObject.RIGHT;
-			if (body.rotation >= 0.1)
+			
+			var stumbleAngle:Float = FlxAngle.asRadians(12.5);
+			
+			if (body.rotation >= stumbleAngle)
 			{
 				animation.play("fallRight");
 			}
-			else if (body.rotation <= -0.1)
+			else if (body.rotation <= -stumbleAngle)
 			{
 				animation.play("fallLeft");
 			}

@@ -39,6 +39,11 @@ class Player extends FlxSprite
 	public var right:Bool = FlxG.keys.anyPressed(["RIGHT", "D", "L"]);
 	public var up:Bool = FlxG.keys.anyPressed(["UP", "W", "I"]);
 	
+	//Refers to keys being pressed down, doesnt have that FlxG.keys shit because the upper stuff is still there because lol im lazy
+	public var leftR:Bool = false;
+	public var rightR:Bool = false;
+	public var upR:Bool = false;
+	
 	
 	private var prevAnim:Int = FlxG.random.int(1, 3);
 
@@ -96,6 +101,10 @@ class Player extends FlxSprite
 		left = FlxG.keys.anyPressed(["LEFT", "A", "J"]);
 		right = FlxG.keys.anyPressed(["RIGHT", "D", "L"]);
 		up = FlxG.keys.anyPressed(["UP", "W", "I"]);
+		
+		leftR = FlxG.keys.anyJustReleased(["LEFT", "A", "J"]);
+		rightR = FlxG.keys.anyJustPressed(["RIGHT", "D", "L"]);
+		upR = FlxG.keys.anyJustPressed(["UP", "W", "I"]);
 		
 		
 		if (_left && leftP)

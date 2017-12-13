@@ -306,7 +306,7 @@ class PlayState extends FlxState
 		
 		if (FlxG.keys.justPressed.ENTER)
 		{
-			openSubState(new PauseSubState());
+			openSubState(new PauseSubState(0xAA000000));
 		}
 		
 		
@@ -371,7 +371,7 @@ class PlayState extends FlxState
 			_player.animation.play("idle");
 		}
 		
-		if (FlxG.keys.justPressed.UP)
+		if (_player.upP)
 		{
 			
 			if (_player._left)
@@ -387,11 +387,11 @@ class PlayState extends FlxState
 			punch();
 		}
 		
-		if (FlxG.keys.pressed.UP)
+		if (_player.up)
 		{
 			_player.animation.play("punch");
 		}
-		if (FlxG.keys.justReleased.UP)
+		if (_player.upR)
 		{
 			_player.y = _playerY;
 			_playerPunchHitBox.active = false;
@@ -505,7 +505,7 @@ class PlayState extends FlxState
 		}
 		
 		_playerTrail.visible = _candyMode;
-		
+		/* changes distance goal thingie you know
 		if (FlxG.keys.pressed.W)
 		{
 			_distanceGoal += 10;
@@ -514,7 +514,7 @@ class PlayState extends FlxState
 		{
 			_distanceGoal -= 10;
 		}
-		
+		*/
 		
 		if (FlxG.keys.justPressed.C)
 		{
