@@ -76,7 +76,7 @@ class MenuState extends FlxState
 	{
 		super.update(elapsed);
 		
-		if (FlxG.keys.justPressed.Z)
+		if (FlxG.keys.justPressed.ANY)
 		{
 			FlxG.switchState(new PlayState());
 		}

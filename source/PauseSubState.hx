@@ -3,6 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.FlxSubState;
 import flixel.addons.ui.FlxSlider;
+import flixel.addons.ui.FlxUICheckBox;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 
@@ -16,6 +17,8 @@ class PauseSubState extends FlxSubState
 	
 	private var _musicVolumeSlider:FlxSlider;
 	private var _soundVolumeSlider:FlxSlider;
+	
+	private var _btnAA:FlxUICheckBox;
 	
 	//the hex is an translucent black
 	public function new(BGColor:FlxColor = 0xAA000000) 
@@ -33,7 +36,27 @@ class PauseSubState extends FlxSubState
 		_soundVolumeSlider = new FlxSlider(Global, "masterVolume", 100, 300, 0, 1, 500, 50, 10, FlxColor.WHITE, FlxColor.WHITE);
 		add(_soundVolumeSlider);
 		
+		_btnAA = new FlxUICheckBox(100, 200, null, null, "Antialiasing", 100, null, clickAA);
+		add(_btnAA);
+		
 		_soundVolumeSlider.clickSound = "assets/sounds/oof.mp3";
+		
+		FlxG.mouse.visible = true;
+	}
+	
+	private function clickAA():Void
+	{
+		if (_btnAA.checked)
+		{
+			_btnAA.checked = false;
+		}
+		else
+		{
+			_btnAA.checked = true;
+		}
+		
+		Global.antiAliasing =  _btnAA.checked;
+		
 	}
 	
 	override public function update(elapsed:Float):Void 

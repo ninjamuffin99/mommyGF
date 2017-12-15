@@ -12,6 +12,8 @@ TODO:
 	-replace points with a timer
 	-add a simple highscore thing for finishing and timer
 	-make it so when game is paused, the nape physics aren't still updating
+	-Cheat Code system?
+	
 
 
 DONE?:

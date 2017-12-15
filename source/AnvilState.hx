@@ -59,7 +59,7 @@ class AnvilState extends FlxState
 	{
 		super.update(elapsed);
 		
-		if (FlxG.keys.justPressed.Z && !_ropeBroke)
+		if (_player.poked && !_ropeBroke)
 		{
 			if (_ropeHP < 5)
 			{

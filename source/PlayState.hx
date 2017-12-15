@@ -81,6 +81,9 @@ class PlayState extends FlxState
 		pitchedSound.set_rate(0.1);
 		*/
 		
+		
+		FlxG.mouse.visible = false;
+		
 		FlxNapeSpace.init();
 		
 		//BG
@@ -150,15 +153,15 @@ class PlayState extends FlxState
 		add(_distaceGoalText);
 		
 		
-		_pointsText = new FlxText(0, 30, 0, "Points: " + Points.curTime, 20);
+		_pointsText = new FlxText(0, 30, 0, "Current Time: " + Math.floor(Points.curTime), 20);
 		_pointsText.screenCenter(X);
 		_pointsText.scrollFactor.x = 0;
-		add(_pointsText);
+		//add(_pointsText);
 		
 		_highScoreText = new FlxText(0, 52, 0, "Highscore: " + Points.highScoreTime, 20);
 		_highScoreText.screenCenter(X);
 		_highScoreText.scrollFactor.x = 0;
-		add(_highScoreText);
+		//add(_highScoreText);
 		
 		Points.curPoints = 0;
 		Points.curTime = 0;
@@ -176,6 +179,8 @@ class PlayState extends FlxState
 		_BG.x = -FlxMath.remapToRange(_mom._distanceX, 0, _distanceGoal, 0, _BG.width - FlxG.width);
 		
 		FlxG.sound.music.volume = Global.musicVolume;
+		
+		FlxG.camera.antialiasing = Global.antiAliasing;
 		
 		sceneSwitch();
 		updateHUD();	
@@ -250,7 +255,7 @@ class PlayState extends FlxState
 		
 		Points.curTime += FlxG.elapsed * 100 * FlxG.timeScale;
 		
-		_pointsText.text = "Points: " + Points.curTime;
+		_pointsText.text = "Current Time: " + Math.floor(Points.curTime);
 		_highScoreText.text = "Highscore: " + Points.highScoreTime;
 		
 	}
@@ -396,7 +401,7 @@ class PlayState extends FlxState
 			_playerPunchHitBox.active = false;
 		}
 		
-		if (FlxG.keys.justPressed.DOWN && _mom._fallenDown)
+		if (FlxG.keys.justPressed.ANY && _mom._fallenDown)
 		{
 			_player._pickingUpMom = true;
 		}
