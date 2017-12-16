@@ -4,7 +4,7 @@ Notes/ideas:
 TODO:
 	-Tweak the controls better, more specifically when you switch sides you kinda push
 	-Fix mom tip drag and stuff
-	-Fix cat spawn shit
+	
 	-Maybe get some area randomization going? Not sure if stuff is confirmed yet
 	-redo the spritesheets so that they are smaller in size and shit
 	-add a simple highscore thing for finishing and timer
@@ -14,14 +14,14 @@ TODO:
 	
 	TODO before the 20th:
 		-add in the smear shit
-		-add in animation of kid getting hit by bike
 		-FINISH ADDING IN RETARD
-		-FINISH ADDING IN SPIDER
 		-Make main menu options and stuff selector or something
+		-Fix cat spawn shit
+		-add in mom getting anvil dropped on her
 		
 	Today's TODO:
-		
-		
+		-FINISH ADDING IN SPIDER
+		-add in animation of kid getting hit by bike
 
 DONE?:
 	-Have some indicator that shows slo mo mode and indicates when it's about to end
