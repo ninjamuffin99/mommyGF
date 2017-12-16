@@ -8,12 +8,14 @@ TODO:
 	-Tweak the controls better, more specifically when you switch sides you kinda push
 	-Fix mom tip drag and stuff
 	-Fix cat spawn shit
-	-Maybe get some randomization going? Not sure if stuff is confirmed yet
-	-replace points with a timer
-	-add a simple highscore thing for finishing and timer
-	-make it so when game is paused, the nape physics aren't still updating
-	-Cheat Code system?
-	
+	-Maybe get some area randomization going? Not sure if stuff is confirmed yet
+	-redo the spritesheets so that they are smaller in size and shit
+	Today's TODO:
+		-add a simple highscore thing for finishing and timer
+		-make it so when game is paused, the nape physics aren't still updating
+		-Cheat Code system? Make it text based for more reliability on mobile
+		-add in the smear shit
+		-Add bike kid
 
 
 DONE?:
@@ -28,3 +30,4 @@ DONE?:
 	-Make a better pause screen, wit a slightly transparent bg or something
 	-Modify the angle at which the normal walking transitions to stumbling
 	-right now there isn't too much clarity regarding showing how fast mom is going, could be fixed with a background
+	-replace points with a timer

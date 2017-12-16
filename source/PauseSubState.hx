@@ -2,6 +2,7 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSubState;
+import flixel.addons.nape.FlxNapeSpace;
 import flixel.addons.ui.FlxSlider;
 import flixel.addons.ui.FlxUICheckBox;
 import flixel.text.FlxText;
@@ -62,6 +63,8 @@ class PauseSubState extends FlxSubState
 	override public function update(elapsed:Float):Void 
 	{
 		super.update(elapsed);
+		
+		Global.paused = true;
 		
 		FlxG.watch.add(Global, "musicVolume");
 		FlxG.sound.music.volume = Global.musicVolume;

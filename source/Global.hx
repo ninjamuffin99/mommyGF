@@ -11,4 +11,7 @@ class Global
 	
 	public  static var antiAliasing:Bool = false;
 	
+	
+	public static var paused:Bool = false;
+	
 }

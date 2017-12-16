@@ -44,6 +44,9 @@ class PlayState extends FlxState
 	
 	//OBSTACLE SHIT
 	private var _retard:Retard;
+	private var _moped:MopedBoy;
+	private var _mopedWarning:Warning;
+	private var _mopedTimer:Float = 1;
 	
 	//CAT SHIT
 	private var _cat:Cat;
@@ -71,7 +74,7 @@ class PlayState extends FlxState
 	
 	//public var pitchedSound:SoundPitch = new SoundPitch();
 	
-	
+
 	override public function create():Void
 	{
 		FlxG.sound.playMusic("assets/music/Music/Main Theme.mp3", 1);
@@ -83,7 +86,6 @@ class PlayState extends FlxState
 		
 		
 		FlxG.mouse.visible = false;
-		
 		FlxNapeSpace.init();
 		
 		//BG
@@ -106,6 +108,14 @@ class PlayState extends FlxState
 		
 		_player = new Player(50, _playerY);
 		add(_player);
+		
+		//OBSTACLES AND WHATNOT
+		_moped = new MopedBoy(FlxG.width, 200);
+		add(_moped);
+		_mopedTimer = FlxG.random.float(10, 20);
+		
+		_mopedWarning = new Warning(FlxG.width, 100);
+		add(_mopedWarning);
 		
 		//_retard = new Retard(0, 300);
 		//add(_retard);
@@ -182,10 +192,13 @@ class PlayState extends FlxState
 		
 		FlxG.camera.antialiasing = Global.antiAliasing;
 		
+		Global.paused = false;
+		
 		sceneSwitch();
 		updateHUD();	
 		catManagement();
 		controls();
+		mopedCheck();
 		
 		watching();
 		
@@ -227,20 +240,6 @@ class PlayState extends FlxState
 			{
 				_player.setPosition(_mom.x + 600, _playerY);
 			}
-		}
-	}
-	
-	private function sceneSwitch():Void
-	{
-		if (_timer <= 0 || _mom._timesFell >= 5)
-		{
-			FlxG.switchState(new GameOverState());
-		}
-		
-		if (_mom._distanceX >= _distanceGoal || FlxG.keys.justPressed.F)
-		{
-			FlxG.camera.fade(FlxColor.BLACK, 0.3, false, function(){FlxG.switchState(new AnvilState());});
-			
 		}
 	}
 	
@@ -298,6 +297,7 @@ class PlayState extends FlxState
 			
 		}
 	}
+	
 	
 	private function controls():Void
 	{
@@ -459,6 +459,11 @@ class PlayState extends FlxState
 			loadReplay();
 		}
 		
+		if (FlxG.keys.justPressed.E)
+		{
+			spawnMoped();
+		}
+		
 		if ((FlxG.keys.justPressed.V && !_candyMode) || FlxG.overlap(_candy, _player))
 		{
 			FlxG.camera.color = 0xFFFEFEFE;
@@ -597,6 +602,40 @@ class PlayState extends FlxState
 		_catActive = true;
 	}
 	
+	
+	private static var justSpawnedMoped:Bool = false;
+	
+	private function mopedCheck():Void
+	{
+		if (_mopedTimer > 0)
+		{
+			_mopedTimer -= FlxG.elapsed;
+		}
+		else
+		{
+			spawnMoped();
+		}
+		
+		if (justSpawnedMoped && _mopedWarning.animation.curAnim.finished)
+		{
+			_moped.x = FlxG.width;
+			_moped.velocity.x = -100;
+			justSpawnedMoped = false;
+		}
+		
+	}
+	
+	private function spawnMoped():Void
+	{
+		_mopedWarning.revive();
+		_mopedWarning.x = _playerPunchHitBox.x;
+		_mopedTimer = FlxG.random.float(10, 20);
+		_mopedWarning.animation.curAnim.restart();
+		
+		justSpawnedMoped = true;
+	}
+	
+	
 	private function mobileControls():Void
 	{
 		for (touch in FlxG.touches.list)
@@ -710,5 +749,21 @@ class PlayState extends FlxState
 		FlxG.vcr.loadReplay(save, new PlayState(), ["ANY"], 0, startRecording);
 		
 	}
+	
+	
+	private function sceneSwitch():Void
+	{
+		if (_timer <= 0 || _mom._timesFell >= 5)
+		{
+			FlxG.switchState(new GameOverState());
+		}
+		
+		if (_mom._distanceX >= _distanceGoal || FlxG.keys.justPressed.F)
+		{
+			FlxG.camera.fade(FlxColor.BLACK, 0.3, false, function(){FlxG.switchState(new AnvilState());});
+			
+		}
+	}
+	
 	
 }
