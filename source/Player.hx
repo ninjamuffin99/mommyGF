@@ -44,7 +44,7 @@ class Player extends FlxSprite
 	public var rightR:Bool = false;
 	public var upR:Bool = false;
 	
-	
+	private var disableTimer:Float = 0;
 	private var prevAnim:Int = FlxG.random.int(1, 3);
 
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
@@ -74,11 +74,24 @@ class Player extends FlxSprite
 	{
 		super.update(elapsed);
 		
-		controls();
+		
+		
+		if (disableTimer > 0)
+		{
+			disableTimer -= FlxG.elapsed;
+			paralyzed = true;
+		}
+		else 
+		{
+			paralyzed = false;
+		}
+		
 		
 		
 		if (!paralyzed)
 		{
+			controls();
+			
 			if (poked)
 			{
 				animation.play("poke" + prevAnim, false);
@@ -139,6 +152,11 @@ class Player extends FlxSprite
 			_left = false;
 		}
 		
+	}
+	
+	public function disable(time:Float = 1):Void
+	{
+		disableTimer += time;
 	}
 	
 }

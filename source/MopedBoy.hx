@@ -21,7 +21,7 @@ class MopedBoy extends FlxSprite
 		setFacingFlip(FlxObject.LEFT, false, false);
 		setFacingFlip(FlxObject.RIGHT, true, false);
 		
-		width -= 50;
+		width -= 150;
 	}
 	
 }

@@ -643,7 +643,8 @@ class PlayState extends FlxState
 		{
 			mopedCollision = true;
 			
-			FlxTween.tween(_player, {angle: _player.angle + 360}, 1);
+			FlxTween.tween(_player, {angle: _player.angle + 360 * 2}, 1);
+			_player.disable();
 			FlxG.camera.shake(0.02, 0.25, null, true, FlxAxes.X);
 		}
 	}
