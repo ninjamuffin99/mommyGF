@@ -12,6 +12,7 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
+import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import nape.geom.Vec2;
@@ -114,7 +115,7 @@ class PlayState extends FlxState
 		add(_moped);
 		_mopedTimer = FlxG.random.float(10, 20);
 		
-		_mopedWarning = new Warning(FlxG.width, 100);
+		_mopedWarning = new Warning(FlxG.width, 40);
 		add(_mopedWarning);
 		
 		//_retard = new Retard(0, 300);
@@ -603,8 +604,11 @@ class PlayState extends FlxState
 	}
 	
 	
-	private static var justSpawnedMoped:Bool = false;
+	private var justSpawnedMoped:Bool = false;
+	private var mopedLeft:Bool = false;
+	private var mopedCollision:Bool = false;
 	
+	//runs every frame
 	private function mopedCheck():Void
 	{
 		if (_mopedTimer > 0)
@@ -618,17 +622,40 @@ class PlayState extends FlxState
 		
 		if (justSpawnedMoped && _mopedWarning.animation.curAnim.finished)
 		{
-			_moped.x = FlxG.width;
-			_moped.velocity.x = -100;
+			var mopedSpeed:Float = 1500;
+			if (mopedLeft)
+			{
+				_moped.x = FlxG.width;
+				_moped.velocity.x = -mopedSpeed;
+				_moped.facing = FlxObject.LEFT;
+			}
+			else
+			{
+				_moped.x = -_moped.width;
+				_moped.velocity.x = mopedSpeed;
+				_moped.facing = FlxObject.RIGHT;
+			}
 			justSpawnedMoped = false;
 		}
 		
+		
+		if (mopedLeft == _player._left && FlxG.overlap(_player, _moped) && !mopedCollision)
+		{
+			mopedCollision = true;
+			
+			FlxTween.tween(_player, {angle: _player.angle + 360}, 1);
+			FlxG.camera.shake(0.02, 0.25, null, true, FlxAxes.X);
+		}
 	}
 	
+	//runs only when called
 	private function spawnMoped():Void
 	{
 		_mopedWarning.revive();
-		_mopedWarning.x = _playerPunchHitBox.x;
+		_moped.velocity.x = 0;
+		mopedLeft = _player._left;
+		mopedCollision = false;
+		_mopedWarning.x = _player.x + 100;
 		_mopedTimer = FlxG.random.float(10, 20);
 		_mopedWarning.animation.curAnim.restart();
 		

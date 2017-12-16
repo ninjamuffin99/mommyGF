@@ -19,7 +19,7 @@ class Warning extends FlxSprite
 		animation.add("blink", [0, 1, 0, 1, 1, 1, 1], 12, false);
 		animation.play("blink");
 		
-		FlxG.sound.play(AssetPaths.Car_Warning__wav, 0.8);
+		
 		
 	}
 	
@@ -31,6 +31,14 @@ class Warning extends FlxSprite
 		{
 			kill();
 		}
+		
+	}
+	
+	override public function revive():Void 
+	{
+		super.revive();
+		
+		FlxG.sound.play(AssetPaths.Car_Warning__wav, 0.8);
 		
 	}
 	
