@@ -23,6 +23,8 @@ class PlayerAnims extends FlxSprite
 		setFacingFlip(FlxObject.RIGHT, true, false);
 		setFacingFlip(FlxObject.LEFT, false, false);
 		
+		visible = false;
+		
 	}
 	
 }

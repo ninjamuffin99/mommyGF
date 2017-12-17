@@ -677,8 +677,7 @@ class PlayState extends FlxState
 			_playerAnims.visible = true;
 			_player.visible = false;
 			
-			FlxTween.tween(_player, {angle: _player.angle + 360 * 2}, 1);
-			_player.disable();
+			_player.disable(0.7);
 			FlxG.camera.shake(0.02, 0.25, null, true, FlxAxes.X);
 		}
 	}
