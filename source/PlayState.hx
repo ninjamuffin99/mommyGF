@@ -658,7 +658,7 @@ class PlayState extends FlxState
 			justSpawnedMoped = false;
 		}
 		
-		if (mopedCollision && _playerAnims.animation.curAnim.finished)
+		if (mopedCollision && _playerAnims.hitByVehicle.animation.curAnim.finished)
 		{
 			_playerAnims.visible = false;
 			_player.visible = true;
@@ -673,7 +673,7 @@ class PlayState extends FlxState
 			
 			FlxG.sound.play("assets/sounds/hit_by_vehicle.mp3", 0.7);
 			
-			_playerAnims.animation.curAnim.restart();
+			_playerAnims.hitByVehicle.animation.curAnim.restart();
 			_playerAnims.visible = true;
 			_player.visible = false;
 			
