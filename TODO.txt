@@ -10,6 +10,7 @@ TODO:
 	-add a simple highscore thing for finishing and timer
 	-make it so when game is paused, the nape physics aren't still updating
 	-Cheat Code system? Make it text based for more reliability on mobile
+	-Better transition between playstate and anvil state
 	
 	
 	TODO before the 20th:
@@ -18,9 +19,11 @@ TODO:
 		-Make main menu options and stuff selector or something
 		-Fix cat spawn shit
 		-add in mom getting anvil dropped on her
+		-FINISH ADDING IN SPIDER
+		-Make game more intuative?
+		-make the game to the point where it doesn't have to be explained or whatever
 		
 	Today's TODO:
-		-FINISH ADDING IN SPIDER
 		-add in animation of kid getting hit by bike
 
 DONE?:
@@ -37,3 +40,5 @@ DONE?:
 	-right now there isn't too much clarity regarding showing how fast mom is going, could be fixed with a background
 	-replace points with a timer
 	-Add bike kid
+	-speed up motorcycle
+	-add in bike sounds

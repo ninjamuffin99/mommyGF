@@ -37,6 +37,8 @@ class PlayState extends FlxState
 	private var _playerTrail:FlxTrailArea;
 	private var punchMultiplier:Float = 1;
 	
+	private var _playerAnims:PlayerAnims;
+	
 	//Cnady Stuff
 	private var _candy:Candy;
 	private var _candyMode:Bool = false;
@@ -109,6 +111,9 @@ class PlayState extends FlxState
 		
 		_player = new Player(50, _playerY);
 		add(_player);
+		
+		_playerAnims = new PlayerAnims(-90, -32);
+		add(_playerAnims);
 		
 		//OBSTACLES AND WHATNOT
 		_moped = new MopedBoy(FlxG.width, 200);
@@ -194,6 +199,18 @@ class PlayState extends FlxState
 		FlxG.camera.antialiasing = Global.antiAliasing;
 		
 		Global.paused = false;
+		
+		_playerAnims.facing = _player.facing;
+		
+		if (_player._left)
+		{
+			_playerAnims.x = -90;
+		}
+		else
+		{
+			_playerAnims.x = 497;
+		}
+		
 		
 		sceneSwitch();
 		updateHUD();	
@@ -622,7 +639,10 @@ class PlayState extends FlxState
 		
 		if (justSpawnedMoped && _mopedWarning.animation.curAnim.finished)
 		{
-			var mopedSpeed:Float = 1500;
+			var mopedSpeed:Float = FlxG.random.float(2000, 3000);
+			
+			
+			
 			if (mopedLeft)
 			{
 				_moped.x = FlxG.width;
@@ -638,10 +658,24 @@ class PlayState extends FlxState
 			justSpawnedMoped = false;
 		}
 		
+		if (mopedCollision && _playerAnims.animation.curAnim.finished)
+		{
+			_playerAnims.visible = false;
+			_player.visible = true;
+			
+			mopedCollision = false;
+		}
+		
 		
 		if (mopedLeft == _player._left && FlxG.overlap(_player, _moped) && !mopedCollision)
 		{
 			mopedCollision = true;
+			
+			FlxG.sound.play("assets/sounds/hit_by_vehicle.mp3", 0.7);
+			
+			_playerAnims.animation.curAnim.restart();
+			_playerAnims.visible = true;
+			_player.visible = false;
 			
 			FlxTween.tween(_player, {angle: _player.angle + 360 * 2}, 1);
 			_player.disable();
@@ -659,6 +693,8 @@ class PlayState extends FlxState
 		_mopedWarning.x = _player.x + 100;
 		_mopedTimer = FlxG.random.float(10, 20);
 		_mopedWarning.animation.curAnim.restart();
+		
+		FlxG.sound.play("assets/sounds/MotorBike.wav", 0.7);
 		
 		justSpawnedMoped = true;
 	}
