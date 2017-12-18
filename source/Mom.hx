@@ -25,6 +25,8 @@ class Mom extends FlxNapeSprite
 	public var _lean:Float;
 	public var _distanceX:Float = 0;
 	public var _speedMultiplier:Float = 1;
+	
+	public var _fallenLeft:Bool = false;
 
 	public var _fallenDown:Bool = false;
 	
@@ -119,10 +121,12 @@ class Mom extends FlxNapeSprite
 			
 			if (body.rotation >= stumbleAngle)
 			{
+				_fallenLeft = false;
 				animation.play("fallRight");
 			}
 			else if (body.rotation <= -stumbleAngle)
 			{
+				_fallenLeft = true;
 				animation.play("fallLeft");
 			}
 			else

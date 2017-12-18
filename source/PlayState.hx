@@ -203,8 +203,10 @@ class PlayState extends FlxState
 		
 		Global.paused = false;
 		
-		_playerAnims.facing = _player.facing;
-		
+		if (!_player._pickingUpMom)
+		{
+			_playerAnims.facing = _player.facing;
+		}
 		
 		
 		
@@ -423,7 +425,20 @@ class PlayState extends FlxState
 		{
 			_player._pickingUpMom = true;
 			_player.visible = false;
-			_playerAnims.updateCurSprite(_playerAnims.pickingUp, 150, 220);
+			
+			if (_mom._fallenLeft)
+			{
+				_playerAnims.pickingUp.facing = FlxObject.RIGHT;
+				_playerAnims.x = 100;
+			}
+				
+			else
+			{
+				_playerAnims.pickingUp.facing = FlxObject.LEFT;
+				_playerAnims.x = 600;
+			}
+			
+			_playerAnims.updateCurSprite(_playerAnims.pickingUp, null, 260);
 		}
 		
 		
@@ -672,7 +687,7 @@ class PlayState extends FlxState
 		}
 		
 		
-		if (mopedLeft == _player._left && FlxG.overlap(_player, _moped) && !mopedCollision)
+		if (mopedLeft == _player._left && FlxG.overlap(_player, _moped) && !mopedCollision && !_player._pickingUpMom)
 		{
 			mopedCollision = true;
 			

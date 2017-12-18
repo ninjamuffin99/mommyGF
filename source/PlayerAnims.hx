@@ -40,7 +40,10 @@ class PlayerAnims extends FlxSpriteGroup
 		
 		hitByVehicle.setFacingFlip(FlxObject.RIGHT, true, false);
 		hitByVehicle.setFacingFlip(FlxObject.LEFT, false, false);	
-		
+		/*
+		pickingUp.setFacingFlip(FlxObject.RIGHT, true, false);
+		pickingUp.setFacingFlip(FlxObject.LEFT, false, false);
+		*/
 		forEach(checkAlive);
 	}
 	
@@ -49,9 +52,19 @@ class PlayerAnims extends FlxSpriteGroup
 		super.update(elapsed);
 		
 		hitByVehicle.facing = facing;
-		
 	}
 	
+	
+	/**
+	 * Sets PlayerAnims class to visible and does other stuff who cares heehh
+	 * 
+	 * @param	sprite 
+	 * Which sprite it's gonna use
+	 * @param	X
+	 * whatever
+	 * @param	Y
+	 * whatever its y
+	 */
 	public function updateCurSprite(sprite:FlxSprite, ?X:Float, ?Y:Float):Void
 	{
 		if (X == null)
@@ -70,6 +83,10 @@ class PlayerAnims extends FlxSpriteGroup
 		forEach(checkAlive);
 	}
 	
+	/**
+	 * function that is used by updateCurSprite, don't worry about it too much
+	 * @param	spriteAlive
+	 */
 	private function checkAlive(spriteAlive:FlxSprite):Void
 	{
 		if (curSprite == null)

@@ -19,13 +19,14 @@ TODO:
 
 		-Make main menu options and stuff selector or something
 		-Fix cat spawn shit
+		-fix cat hitting mom and something so that it's equal to one mom hit
 		-add in mom getting anvil dropped on her
 		-Make game more intuative?
 		-make the game to the point where it doesn't have to be explained or whatever
 		
 	Today's TODO:
 		-add in the smear shit
-		-add in animation of kid picking up mom
+		
 
 DONE?:
 	-Have some indicator that shows slo mo mode and indicates when it's about to end
@@ -44,3 +45,4 @@ DONE?:
 	-speed up motorcycle
 	-add in bike sounds
 	-add in animation of kid getting hit by bike
+	-add in animation of kid picking up mom
