@@ -4,6 +4,7 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 import flixel.system.FlxAssets.FlxGraphicAsset;
+import flixel.util.FlxColor;
 
 /**
  * ...
@@ -13,6 +14,9 @@ class PlayerAnims extends FlxSpriteGroup
 {
 	
 	public var hitByVehicle:FlxSprite;
+	public var pickingUp:FlxSprite;
+	
+	public static var curSprite:FlxSprite;
 
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
@@ -27,10 +31,17 @@ class PlayerAnims extends FlxSpriteGroup
 		hitByVehicle.animation.play("hit");
 		add(hitByVehicle);
 		
-		hitByVehicle.setFacingFlip(FlxObject.RIGHT, true, false);
-		hitByVehicle.setFacingFlip(FlxObject.LEFT, false, false);
+		pickingUp = new FlxSprite();
+		pickingUp.loadGraphic("assets/images/swfs/kidPickingUp.png", true, Std.int( 2048 / 4), Std.int(512 / 2));
+		pickingUp.animation.add("pickingUp", [0, 1, 2], 24);
+		pickingUp.animation.play("pickingUp");
+		add(pickingUp);
 		
-		visible = false;	
+		
+		hitByVehicle.setFacingFlip(FlxObject.RIGHT, true, false);
+		hitByVehicle.setFacingFlip(FlxObject.LEFT, false, false);	
+		
+		forEach(checkAlive);
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -40,5 +51,23 @@ class PlayerAnims extends FlxSpriteGroup
 		hitByVehicle.facing = facing;
 		
 	}
+	
+	public function updateCurSprite(sprite:FlxSprite):Void
+	{
+		curSprite = sprite;
+		
+		forEach(checkAlive);
+	}
+	
+	private function checkAlive(spriteAlive:FlxSprite):Void
+	{
+		if (spriteAlive != curSprite)
+		{
+			spriteAlive.visible = false;
+		}
+		else
+			spriteAlive.visible = true;
+	}
+	
 	
 }
