@@ -100,6 +100,10 @@ class PlayState extends FlxState
 		
 		
 		//MAIN STUFF EHEHEH
+		
+		_playerAnims = new PlayerAnims(-90, -32);
+		add(_playerAnims);
+		
 		_mom = new Mom(530, -25 + 1000);
 		add(_mom);
 		
@@ -112,8 +116,7 @@ class PlayState extends FlxState
 		_player = new Player(50, _playerY);
 		add(_player);
 		
-		_playerAnims = new PlayerAnims(-90, -32);
-		add(_playerAnims);
+		
 		
 		//OBSTACLES AND WHATNOT
 		_moped = new MopedBoy(FlxG.width, 200);
@@ -202,14 +205,7 @@ class PlayState extends FlxState
 		
 		_playerAnims.facing = _player.facing;
 		
-		if (_player._left)
-		{
-			_playerAnims.x = -90;
-		}
-		else
-		{
-			_playerAnims.x = 497;
-		}
+		
 		
 		
 		sceneSwitch();
@@ -249,6 +245,10 @@ class PlayState extends FlxState
 		{
 			_player._pickingUpMom = false;
 			_pickupTimeBuffer = 0;
+			
+			_playerAnims.visible = false;
+			_playerAnims.visible = false;
+			_player.visible = true;
 			
 			if (_player._left)
 			{
@@ -419,9 +419,11 @@ class PlayState extends FlxState
 			_playerPunchHitBox.active = false;
 		}
 		
-		if (FlxG.keys.justPressed.ANY && _mom._fallenDown)
+		if (FlxG.keys.justPressed.ANY && _mom._fallenDown && !_player._pickingUpMom)
 		{
 			_player._pickingUpMom = true;
+			_player.visible = false;
+			_playerAnims.updateCurSprite(_playerAnims.pickingUp, 150, 220);
 		}
 		
 		
@@ -457,6 +459,9 @@ class PlayState extends FlxState
 	{
 		_mom._speedMultiplier = 1;
 		punchMultiplier = 1;
+		
+		_playerAnims.visible = false;
+		_player.visible = true;
 	}
 	
 	private function watching():Void
@@ -660,7 +665,7 @@ class PlayState extends FlxState
 		
 		if (mopedCollision && _playerAnims.hitByVehicle.animation.curAnim.finished)
 		{
-			_playerAnims.updateCurSprite(null);
+			_playerAnims.visible = false;
 			_player.visible = true;
 			
 			mopedCollision = false;
@@ -671,10 +676,19 @@ class PlayState extends FlxState
 		{
 			mopedCollision = true;
 			
+			if (_player._left)
+			{
+				_playerAnims.x = -90;
+			}
+			else
+			{
+				_playerAnims.x = 497;
+			}
+			
 			FlxG.sound.play("assets/sounds/hit_by_vehicle.mp3", 0.7);
 			
 			_playerAnims.hitByVehicle.animation.curAnim.restart();
-			_playerAnims.updateCurSprite(_playerAnims.hitByVehicle);
+			_playerAnims.updateCurSprite(_playerAnims.hitByVehicle, _playerAnims.x, -32);
 			_player.visible = false;
 			
 			_player.disable(0.7);

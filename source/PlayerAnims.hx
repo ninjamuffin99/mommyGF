@@ -52,21 +52,33 @@ class PlayerAnims extends FlxSpriteGroup
 		
 	}
 	
-	public function updateCurSprite(sprite:FlxSprite):Void
+	public function updateCurSprite(sprite:FlxSprite, ?X:Float, ?Y:Float):Void
 	{
+		if (X == null)
+			X = x;
+		if (Y == null)
+			Y = y;
+		
+		x = X;
+		y = Y;
+		
 		curSprite = sprite;
+		sprite.animation.curAnim.restart();
+		sprite.visible = true;
+		visible = true;
 		
 		forEach(checkAlive);
 	}
 	
 	private function checkAlive(spriteAlive:FlxSprite):Void
 	{
+		if (curSprite == null)
+			spriteAlive.visible = false;
+		
 		if (spriteAlive != curSprite)
 		{
 			spriteAlive.visible = false;
 		}
-		else
-			spriteAlive.visible = true;
 	}
 	
 	
