@@ -15,6 +15,7 @@ class PlayerAnims extends FlxSpriteGroup
 	
 	public var hitByVehicle:FlxSprite;
 	public var pickingUp:FlxSprite;
+	public var sideSwitch:FlxSprite;
 	
 	public static var curSprite:FlxSprite;
 
@@ -36,6 +37,11 @@ class PlayerAnims extends FlxSpriteGroup
 		pickingUp.animation.add("pickingUp", [0, 1, 2], 24);
 		pickingUp.animation.play("pickingUp");
 		add(pickingUp);
+		
+		sideSwitch = new FlxSprite();
+		sideSwitch.loadGraphic("assets/images/swfs/kidSideSwitch.png", true, 1024, Std.int(2048 / 4));
+		sideSwitch.animation.add("switch", [1, 1, 1], 12, false);
+		add(sideSwitch);
 		
 		
 		hitByVehicle.setFacingFlip(FlxObject.RIGHT, true, false);

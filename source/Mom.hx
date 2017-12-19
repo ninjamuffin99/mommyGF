@@ -181,7 +181,6 @@ class Mom extends FlxNapeSprite
 	{
 		//-20 degrees, converted to rads, then divided by 60 to get a turn in degrees per second like in old dversion
 		rotateRads = FlxG.random.float( -20 * Math.PI / 180, 20 * Math.PI / 180) / 60;
-		FlxG.log.add(rotateRads);
 	}
 	
 	

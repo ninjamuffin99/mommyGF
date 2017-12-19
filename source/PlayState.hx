@@ -110,6 +110,8 @@ class PlayState extends FlxState
 		_cat = new Cat(0 - 200, FlxG.height + 10);
 		add(_cat);
 		
+		spawnCat();
+		
 		_candy = new Candy(-32);
 		add(_candy);
 		
@@ -207,9 +209,12 @@ class PlayState extends FlxState
 		{
 			_playerAnims.facing = _player.facing;
 		}
-		
-		
-		
+		/*
+		if (_player.justSwitched)
+		{
+			_playerAnims.updateCurSprite(_playerAnims.sideSwitch);
+		}
+		*/
 		sceneSwitch();
 		updateHUD();	
 		catManagement();

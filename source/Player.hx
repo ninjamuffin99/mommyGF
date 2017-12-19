@@ -26,23 +26,31 @@ class Player extends FlxSprite
 	public var poked:Bool = false;
 	public var poking:Bool = false;
 	
+	public var punched:Bool = false;
+	public var punching:Bool = false;
+	
+	public var justSwitched:Bool = false;
+	
 	
 	//CONTROLS AND SHIT
 	
 	//the p means it has been just pressed
-	public var leftP:Bool = FlxG.keys.anyJustPressed(["LEFT", "A", "J"]);
-	public var rightP:Bool = FlxG.keys.anyJustPressed(["RIGHT", "D", "L"]);
-	public var upP:Bool = FlxG.keys.anyJustPressed(["UP", "W", "I"]);
+	public var leftP:Bool = false;
+	public var rightP:Bool = false;
+	public var upP:Bool = false;
+	public var actionP:Bool = false;
 		
 	//refers to key being held down
-	public var left:Bool = FlxG.keys.anyPressed(["LEFT", "A", "J"]);
-	public var right:Bool = FlxG.keys.anyPressed(["RIGHT", "D", "L"]);
-	public var up:Bool = FlxG.keys.anyPressed(["UP", "W", "I"]);
+	public var left:Bool = false;
+	public var right:Bool = false;
+	public var up:Bool = false;
+	public var action:Bool = false;
 	
 	//Refers to keys being pressed down, doesnt have that FlxG.keys shit because the upper stuff is still there because lol im lazy
 	public var leftR:Bool = false;
 	public var rightR:Bool = false;
 	public var upR:Bool = false;
+	public var actionR:Bool = false;
 	
 	private var disableTimer:Float = 0;
 	private var prevAnim:Int = FlxG.random.int(1, 3);
@@ -110,16 +118,19 @@ class Player extends FlxSprite
 		leftP = FlxG.keys.anyJustPressed(["LEFT", "A", "J"]);
 		rightP = FlxG.keys.anyJustPressed(["RIGHT", "D", "L"]);
 		upP = FlxG.keys.anyJustPressed(["UP", "W", "I"]);
+		actionP = FlxG.keys.anyJustPressed(["Z", "SPACE", "X", "N", "M"]);
 		
 		left = FlxG.keys.anyPressed(["LEFT", "A", "J"]);
 		right = FlxG.keys.anyPressed(["RIGHT", "D", "L"]);
 		up = FlxG.keys.anyPressed(["UP", "W", "I"]);
+		action = FlxG.keys.anyPressed(["Z", "SPACE", "X", "N", "M"]);
 		
 		leftR = FlxG.keys.anyJustReleased(["LEFT", "A", "J"]);
-		rightR = FlxG.keys.anyJustPressed(["RIGHT", "D", "L"]);
-		upR = FlxG.keys.anyJustPressed(["UP", "W", "I"]);
+		rightR = FlxG.keys.anyJustReleased(["RIGHT", "D", "L"]);
+		upR = FlxG.keys.anyJustReleased(["UP", "W", "I"]);
+		actionR = FlxG.keys.anyJustReleased(["Z", "SPACE", "X", "N", "M"]);
 		
-		
+		//Poking checks, if they're on the corrrect side
 		if (_left && leftP)
 		{
 			poked = true;
@@ -133,6 +144,15 @@ class Player extends FlxSprite
 			poked = false;
 		}
 		
+		//Checks if needs to switch sides
+		if (_left && rightP || !_left && leftP)
+		{
+			justSwitched = true;
+		}
+		else
+			justSwitched = false;
+		
+		//Checks if holding down buttons on correct sides
 		if (left && _left || right && !_left)
 		{
 			poking = true;
@@ -142,7 +162,7 @@ class Player extends FlxSprite
 			poking = false;
 		}
 		
-		
+		//Sets player position depending on whats bein held
 		if (left)
 		{
 			_left = true;
