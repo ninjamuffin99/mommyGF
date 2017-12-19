@@ -130,37 +130,71 @@ class Player extends FlxSprite
 		upR = FlxG.keys.anyJustReleased(["UP", "W", "I"]);
 		actionR = FlxG.keys.anyJustReleased(["Z", "SPACE", "X", "N", "M"]);
 		
-		//Poking checks, if they're on the corrrect side
-		if (_left && leftP)
+		
+		
+		
+		
+		//Poking checks, if they're on the corrrect side. Only checks if not punching (holding an action button)
+		if (!punching)
 		{
-			poked = true;
+			if (actionP)
+			{
+				poked = true;
+			}
+			else
+			{
+				poked = false;
+			}
+			
+			if (action)
+			{
+				poking = true;
+			}
+			else 
+			{
+				poking = false;
+			}
+			
+			
 		}
-		else if (!_left && rightP)
-		{
-			poked = true;
-		}
-		else
-		{
-			poked = false;
-		}
+		
 		
 		//Checks if needs to switch sides
 		if (_left && rightP || !_left && leftP)
 		{
 			justSwitched = true;
 		}
-		else
+		else if (justSwitched && (rightR || leftR))
 			justSwitched = false;
 		
-		//Checks if holding down buttons on correct sides
-		if (left && _left || right && !_left)
+		
+		if (!justSwitched) 
 		{
-			poking = true;
+			//Checks if holding down buttons on correct sides for punchin
+			if (left && _left || right && !_left)
+			{
+				punching = true;
+			}
+			else 
+			{
+				punching = false;
+			}
+			
+			//checks if player just punched
+			if (_left && leftP)
+			{
+				punched = true;
+			}
+			else if (!_left && rightP)
+			{
+				punched = true;
+			}
+			else
+			{
+				punched = false;
+			}
 		}
-		else 
-		{
-			poking = false;
-		}
+		
 		
 		//Sets player position depending on whats bein held
 		if (left)

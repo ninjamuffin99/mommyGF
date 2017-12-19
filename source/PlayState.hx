@@ -400,7 +400,7 @@ class PlayState extends FlxState
 			_player.animation.play("idle");
 		}
 		
-		if (_player.upP)
+		if (_player.punched)
 		{
 			
 			if (_player._left)
@@ -416,11 +416,11 @@ class PlayState extends FlxState
 			punch();
 		}
 		
-		if (_player.up)
+		if (_player.punching)
 		{
 			_player.animation.play("punch");
 		}
-		if (_player.upR)
+		if (!_player.punching)
 		{
 			_player.y = _playerY;
 			_playerPunchHitBox.active = false;
