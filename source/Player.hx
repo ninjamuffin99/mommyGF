@@ -135,28 +135,25 @@ class Player extends FlxSprite
 		
 		
 		//Poking checks, if they're on the corrrect side. Only checks if not punching (holding an action button)
-		if (!punching)
+		
+		if (actionP)
 		{
-			if (actionP)
-			{
-				poked = true;
-			}
-			else
-			{
-				poked = false;
-			}
-			
-			if (action)
-			{
-				poking = true;
-			}
-			else 
-			{
-				poking = false;
-			}
-			
-			
+			punched = true;
 		}
+		else
+		{
+			punched = false;
+		}
+		
+		if (action)
+		{
+			punching = true;
+		}
+		else 
+		{
+			punching = false;
+		}
+		
 		
 		
 		//Checks if needs to switch sides
@@ -168,35 +165,36 @@ class Player extends FlxSprite
 			justSwitched = false;
 		
 		
-		if (!justSwitched) 
+		if (!justSwitched && !punching) 
 		{
-			//Checks if holding down buttons on correct sides for punchin
+			//Checks if holding down buttons on correct sides for pokin
 			if (left && _left || right && !_left)
 			{
-				punching = true;
+				poking = true;
 			}
 			else 
 			{
-				punching = false;
+				poking = false;
 			}
 			
-			//checks if player just punched
+			//checks if player just poked
 			if (_left && leftP)
 			{
-				punched = true;
+				poked = true;
 			}
 			else if (!_left && rightP)
 			{
-				punched = true;
+				poked = true;
 			}
 			else
 			{
-				punched = false;
+				poked = false;
 			}
 		}
 		
 		
 		//Sets player position depending on whats bein held
+		
 		if (left)
 		{
 			_left = true;
