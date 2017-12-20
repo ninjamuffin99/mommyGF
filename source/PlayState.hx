@@ -71,6 +71,9 @@ class PlayState extends FlxState
 	private var _distanceGoal:Float = 6000;
 	private var _distaceGoalText:FlxText;
 	
+	
+	private var boostText:FlxText;
+	
 	//Recording/Replaying
 	private static var recording:Bool = false;
 	private static var replaying:Bool = false;
@@ -184,6 +187,11 @@ class PlayState extends FlxState
 		_highScoreText.scrollFactor.x = 0;
 		//add(_highScoreText);
 		
+		boostText = new FlxText(0, 50);
+		boostText.size = 20;
+		boostText.screenCenter(X);
+		add(boostText);
+		
 		Points.curPoints = 0;
 		Points.curTime = 0;
 		
@@ -204,6 +212,13 @@ class PlayState extends FlxState
 		FlxG.camera.antialiasing = Global.antiAliasing;
 		
 		Global.paused = false;
+		
+		boostText.visible = _mom.boosting;
+		
+		if (_mom.boosting)
+		{
+			boostText.text = "Close Call Bonus: " + FlxMath.roundDecimal(_mom.boostBonus, 2);
+		}
 		
 		if (!_player._pickingUpMom)
 		{

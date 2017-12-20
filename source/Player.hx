@@ -134,9 +134,9 @@ class Player extends FlxSprite
 		
 		
 		
-		//Poking checks, if they're on the corrrect side. Only checks if not punching (holding an action button)
+		//punching, if they're on the corrrect side. Only checks if not punching (holding an action button)
 		
-		if (actionP)
+		if (actionP || upP)
 		{
 			punched = true;
 		}
@@ -145,7 +145,7 @@ class Player extends FlxSprite
 			punched = false;
 		}
 		
-		if (action)
+		if (action || up)
 		{
 			punching = true;
 		}

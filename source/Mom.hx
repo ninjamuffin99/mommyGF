@@ -25,6 +25,9 @@ class Mom extends FlxNapeSprite
 	public var _lean:Float;
 	public var _distanceX:Float = 0;
 	public var _speedMultiplier:Float = 1;
+	public var boostTimer:Float = 1;
+	public var boostBonus:Float = 0;
+	public var boosting:Bool = false;
 	
 	public var _fallenLeft:Bool = false;
 
@@ -93,6 +96,22 @@ class Mom extends FlxNapeSprite
 		
 		angleAccel(rotateRads);
 		
+		lowBoost();
+		fallLogic();
+		
+		if (animation.curAnim.name == "idle")
+		{
+			_distanceX += 1 * _speedMultiplier * FlxG.timeScale;
+		}
+		if (animation.curAnim.name == "fallLeft" || animation.curAnim.name == "fallRight")
+		{
+			_distanceX += FlxG.random.float(0.25, 0.5) * _speedMultiplier * FlxG.timeScale;
+		}
+	}
+	
+	private function fallLogic():Void
+	{
+		
 		if (_fallenDown)
 		{
 			var sideways:Float = 90 * Math.PI / 180;
@@ -145,14 +164,6 @@ class Mom extends FlxNapeSprite
 			fall();
 		}
 		
-		if (animation.curAnim.name == "idle")
-		{
-			_distanceX += 1 * _speedMultiplier * FlxG.timeScale;
-		}
-		if (animation.curAnim.name == "fallLeft" || animation.curAnim.name == "fallRight")
-		{
-			_distanceX += FlxG.random.float(0.25, 0.5) * _speedMultiplier * FlxG.timeScale;
-		}
 	}
 	
 	private function swapRotating():Void
@@ -172,6 +183,7 @@ class Mom extends FlxNapeSprite
 		velocity.x = 0;
 		acceleration.x = 0;
 		_timesFell += 1;
+		boostBonus = 0;
 	}
 	
 	/**
@@ -180,7 +192,38 @@ class Mom extends FlxNapeSprite
 	private function updateAngleAccel():Void
 	{
 		//-20 degrees, converted to rads, then divided by 60 to get a turn in degrees per second like in old dversion
-		rotateRads = FlxG.random.float( -20 * Math.PI / 180, 20 * Math.PI / 180) / 60;
+		rotateRads = FlxG.random.float( -35 * Math.PI / 180, 35 * Math.PI / 180) / 60;
+	}
+	
+	public function lowBoost():Void
+	{
+		if ((body.rotation >= _fallAngle - FlxAngle.asRadians(17) || body.rotation <= -_fallAngle + FlxAngle.asRadians(17)) && !_fallenDown)
+		{
+			if (boostTimer >= 0)
+			{
+				boostTimer -= FlxG.elapsed;
+			}
+			else
+			{
+				boostBonus += FlxG.random.float(0.05, 0.2);
+				boosting = true;
+			}
+			
+		}
+		else
+		{
+			boostTimer = 1;
+			boosting = false;
+		}
+		
+		
+		if (!boosting && boostBonus > 0)
+		{
+			_distanceX += boostBonus;
+			boostBonus -= (boostBonus * 0.5) - 0.01;
+		}
+		
+		
 	}
 	
 	
