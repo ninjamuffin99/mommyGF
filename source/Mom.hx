@@ -25,7 +25,7 @@ class Mom extends FlxNapeSprite
 	public var _lean:Float;
 	public var _distanceX:Float = 0;
 	public var _speedMultiplier:Float = 1;
-	public var boostTimer:Float = 1;
+	public var boostTimer:Float = 0.5;
 	public var boostBonus:Float = 0;
 	public var boosting:Bool = false;
 	
@@ -197,7 +197,7 @@ class Mom extends FlxNapeSprite
 	
 	public function lowBoost():Void
 	{
-		if ((body.rotation >= _fallAngle - FlxAngle.asRadians(17) || body.rotation <= -_fallAngle + FlxAngle.asRadians(17)) && !_fallenDown)
+		if ((body.rotation >= _fallAngle - FlxAngle.asRadians(20) || body.rotation <= -_fallAngle + FlxAngle.asRadians(20)) && !_fallenDown)
 		{
 			if (boostTimer >= 0)
 			{
@@ -212,15 +212,15 @@ class Mom extends FlxNapeSprite
 		}
 		else
 		{
-			boostTimer = 1;
+			boostTimer = 0.5;
 			boosting = false;
 		}
 		
 		
 		if (!boosting && boostBonus > 0)
 		{
-			_distanceX += boostBonus;
-			boostBonus -= (boostBonus * 0.5) - 0.01;
+			_distanceX += boostBonus * 0.4;
+			boostBonus -= (boostBonus * 0.025) - 0.001;
 		}
 		
 		
