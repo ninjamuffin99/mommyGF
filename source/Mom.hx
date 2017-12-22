@@ -21,7 +21,16 @@ class Mom extends FlxNapeSprite
 {
 	private var _timer:Float = 0;
 	private var _timerRandom:Float = FlxG.random.float(1, 4);
+	
+	/**
+	 * A value used to update angleAccelertaion
+	 */
+	public var angleAcceleration:Float = 20;
+	public var angleDrag:Float = 0;
 	private var rotateRads:Float = FlxG.random.float( -20 * Math.PI / 180, 20 * Math.PI / 180) / 60;
+	
+	public var timeSwapMin:Float = 1;
+	public var timeSwapMax:Float = 4;
 	
 	public var _lean:Float;
 	public var _distanceX:Float = 0;
@@ -73,6 +82,8 @@ class Mom extends FlxNapeSprite
 		setBodyMaterial(1, 0, 0, 1);
 		
 		FlxG.log.add("mom added");
+		
+		
 	}
 	
 	public function initSpeed():Void
@@ -170,7 +181,7 @@ class Mom extends FlxNapeSprite
 	private function swapRotating():Void
 	{
 		_timer = 0;
-		_timerRandom = FlxG.random.float(1, 4);
+		_timerRandom = FlxG.random.float(timeSwapMin, timeSwapMax);
 		//old rotatinbg logic
 		updateAngleAccel();
 	}
@@ -192,7 +203,7 @@ class Mom extends FlxNapeSprite
 	 */
 	private function updateAngleAccel():Void
 	{
-		rotateRads = FlxAngle.asRadians(FlxG.random.float(-20 , 20));
+		rotateRads = FlxAngle.asRadians(FlxG.random.float(-angleAcceleration , angleAcceleration));
 	}
 	
 	public function lowBoost():Void
@@ -237,7 +248,7 @@ class Mom extends FlxNapeSprite
 	{
 		//body.angularVel += rads * 1.3 * _speedMultiplier;
 		
-		var velDelta = 0.5 * (FlxVelocity.computeVelocity(body.angularVel, rads, 1, 0, FlxG.elapsed) - body.angularVel);
+		var velDelta = 0.5 * (FlxVelocity.computeVelocity(body.angularVel, rads, angleDrag, 0, FlxG.elapsed) - body.angularVel);
 		body.angularVel += velDelta;
 		body.rotation += body.angularVel * FlxG.elapsed;
 		body.angularVel += velDelta;

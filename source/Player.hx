@@ -31,6 +31,18 @@ class Player extends FlxSprite
 	
 	public var justSwitched:Bool = false;
 	
+	//PUNCHING POWER VARS
+	public var punchMultiplier:Float = 1;
+	/**
+	 * In degrees
+	 */
+	public var smackPower:Float = 20;
+	//converted to rads
+	/**
+	 * in Degrees
+	 */
+	public var pushMultiplier:Float = 1.5;
+	
 	
 	//CONTROLS AND SHIT
 	

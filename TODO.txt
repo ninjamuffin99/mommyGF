@@ -11,22 +11,19 @@ TODO:
 	-Cheat Code system? Make it text based for more reliability on mobile
 	-Better transition between playstate and anvil state
 	-cleanup the PlayerAnims class to make it more versatile with more misc animations, but in the end I might just scrap it
-	once i get final designs
-	
-	
-	TODO before the 20th:
+	-once i get final designs
+	-mom moving more aggresively
+	-cats have a set break for candy, about 5 or so
+	-she needs to be harder to read
+	-Make main menu options and stuff selector or something
+	-fix cat hitting mom and something so that it's equal to one mom hit
+	-Make game more intuative?
+	-make the game to the point where it doesn't have to be explained or whatever
+	-add in the smear shit
 
-		-Make main menu options and stuff selector or something
-		-fix cat hitting mom and something so that it's equal to one mom hit
-		-add in mom getting anvil dropped on her
-		-Make game more intuative?
-		-make the game to the point where it doesn't have to be explained or whatever
-		-add in the smear shit
-		
+	
 	Today's TODO:
-		mom moving more aggresively
-		cats have a set break for candy, about 5 or so
-		
+		-add in mom getting anvil dropped on her
 		
 
 DONE?:

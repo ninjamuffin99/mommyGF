@@ -1,11 +1,13 @@
 package;
 
+import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.effects.FlxTrailArea;
 import flixel.addons.nape.FlxNapeSpace;
+import flixel.math.FlxAngle;
 import flixel.system.debug.watch.Tracker.TrackerProfile;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
@@ -14,6 +16,7 @@ import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
 import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
+import flixel.util.FlxHorizontalAlign;
 import flixel.util.FlxTimer;
 import nape.geom.Vec2;
 import openfl.Assets;
@@ -35,7 +38,7 @@ class PlayState extends FlxState
 	private var _playerPunchHitBox:FlxObject;
 	private var _playerY:Float = 200;
 	private var _playerTrail:FlxTrailArea;
-	private var punchMultiplier:Float = 1;
+	
 	
 	private var _playerAnims:PlayerAnims;
 	
@@ -146,10 +149,17 @@ class PlayState extends FlxState
 		
 		FlxNapeSpace.space.gravity.setxy(0, 0);
 		
+		FlxG.debugger.addTrackerProfile(new TrackerProfile(Mom, ["angleAcceleration", "angleDrag", "timeSwapMin", "timeSwapMax"], []));
+		FlxG.debugger.track(_mom, "Mom");
+		
+		FlxG.debugger.addTrackerProfile(new TrackerProfile(Player, ["punchMultiplier", "smackPower", "pushMultiplier"], []));
+		FlxG.debugger.track(_player, "Player");
+		
 		//FlxG.camera.follow(_mom);
 		FlxG.camera.maxScrollY = FlxG.height;
 		FlxG.camera.minScrollY = 0;
 		FlxG.camera.bgColor = 0xFF222222;
+		
 		
 		super.create();
 	}
@@ -368,9 +378,9 @@ class PlayState extends FlxState
 		if (_player.poking && !_player._pickingUpMom)
 		{
 			//converted to rads
-			var smackPower:Float = (40 * Math.PI / 180) * punchMultiplier;
+			var smackPower:Float = FlxAngle.asRadians(_player.smackPower) * _player.punchMultiplier;
 			//converted to rads
-			var pushMultiplier:Float = (3.5 * Math.PI / 180) * punchMultiplier;
+			var pushMultiplier:Float = FlxAngle.asRadians(_player.smackPower) * _player.punchMultiplier;
 			if (_player.poked)
 			{
 				sfxHit();
@@ -387,7 +397,7 @@ class PlayState extends FlxState
 				{
 					_mom._distanceX += FlxG.random.float(0, 5);
 					_mom._speedMultiplier += FlxG.random.float(0, 0.01);
-					punchMultiplier += FlxG.random.float(0, 0.025);
+					_player.punchMultiplier += FlxG.random.float(0, 0.025);
 				}
 				
 			}
@@ -491,7 +501,7 @@ class PlayState extends FlxState
 	private function resetMultipliers():Void
 	{
 		_mom._speedMultiplier = 1;
-		punchMultiplier = 1;
+		_player.punchMultiplier = 1;
 		
 		_playerAnims.visible = false;
 		_player.visible = true;
