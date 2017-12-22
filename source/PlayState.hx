@@ -386,7 +386,7 @@ class PlayState extends FlxState
 				if (!_mom._fallenDown)
 				{
 					_mom._distanceX += FlxG.random.float(0, 5);
-					_mom._speedMultiplier += FlxG.random.float(0, 0.0045);
+					_mom._speedMultiplier += FlxG.random.float(0, 0.01);
 					punchMultiplier += FlxG.random.float(0, 0.025);
 				}
 				
@@ -469,8 +469,6 @@ class PlayState extends FlxState
 			_pickupMom += 1;
 			FlxG.camera.shake(0.02, 0.02);
 		}
-		
-		
 		
 		#end
 		#if (html5 || mobile)

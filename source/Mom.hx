@@ -6,6 +6,7 @@ import flixel.FlxSprite;
 import flixel.addons.nape.FlxNapeSprite;
 import flixel.math.FlxAngle;
 import flixel.math.FlxMath;
+import flixel.math.FlxVelocity;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.util.FlxColor;
 import nape.geom.AABB;
@@ -191,8 +192,7 @@ class Mom extends FlxNapeSprite
 	 */
 	private function updateAngleAccel():Void
 	{
-		//-20 degrees, converted to rads, then divided by 60 to get a turn in degrees per second like in old dversion
-		rotateRads = FlxG.random.float( -35 * Math.PI / 180, 35 * Math.PI / 180) / 60;
+		rotateRads = FlxAngle.asRadians(FlxG.random.float(-20 , 20));
 	}
 	
 	public function lowBoost():Void
@@ -235,7 +235,20 @@ class Mom extends FlxNapeSprite
 	 */
 	private function angleAccel(rads:Float):Void
 	{
-		body.angularVel += rads * _speedMultiplier;
+		//body.angularVel += rads * 1.3 * _speedMultiplier;
+		
+		var velDelta = 0.5 * (FlxVelocity.computeVelocity(body.angularVel, rads, 1, 0, FlxG.elapsed) - body.angularVel);
+		body.angularVel += velDelta;
+		body.rotation += body.angularVel * FlxG.elapsed;
+		body.angularVel += velDelta;
+		
+		
+		/* //code from FlxObject.updateMotion()
+		var velocityDelta = 0.5 * (FlxVelocity.computeVelocity(angularVelocity, angularAcceleration, angularDrag, maxAngular, elapsed) - angularVelocity);
+		angularVelocity += velocityDelta; 
+		angle += angularVelocity * elapsed;
+		angularVelocity += velocityDelta;
+		*/
 	}
 	
 }
