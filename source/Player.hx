@@ -35,6 +35,9 @@ class Player extends FlxSprite
 	
 	//PUNCHING POWER VARS
 	public var punchMultiplier:Float = 1;
+	
+	
+	
 	/**
 	 * In degrees
 	 */
