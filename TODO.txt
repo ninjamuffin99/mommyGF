@@ -12,19 +12,18 @@ TODO:
 	-Better transition between playstate and anvil state
 	-cleanup the PlayerAnims class to make it more versatile with more misc animations, but in the end I might just scrap it
 	-once i get final designs
-	-mom moving more aggresively
+	
 	-cats have a set break for candy, about 5 or so
 	-she needs to be harder to read
 	-Make main menu options and stuff selector or something
 	-fix cat hitting mom and something so that it's equal to one mom hit
-	-Make game more intuative?
-	-make the game to the point where it doesn't have to be explained or whatever
 	-add in the smear shit
 
 	
 	Today's TODO:
 		-add in mom getting anvil dropped on her
-		
+		-mom moving more aggresively
+		optimizations?
 
 DONE?:
 	-Have some indicator that shows slo mo mode and indicates when it's about to end

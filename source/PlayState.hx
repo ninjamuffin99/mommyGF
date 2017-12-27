@@ -679,6 +679,11 @@ class PlayState extends FlxState
 		if (_mopedTimer > 0)
 		{
 			_mopedTimer -= FlxG.elapsed;
+			
+			if (!_moped.isOnScreen())
+			{
+				_moped.kill();
+			}
 		}
 		else
 		{
@@ -689,7 +694,7 @@ class PlayState extends FlxState
 		{
 			var mopedSpeed:Float = FlxG.random.float(2000, 3000);
 			
-			
+			_moped.revive();
 			
 			if (mopedLeft)
 			{

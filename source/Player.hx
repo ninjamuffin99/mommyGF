@@ -36,8 +36,7 @@ class Player extends FlxSprite
 	/**
 	 * In degrees
 	 */
-	public var smackPower:Float = 20;
-	//converted to rads
+	public var smackPower:Float = 7;
 	/**
 	 * in Degrees
 	 */
@@ -51,7 +50,7 @@ class Player extends FlxSprite
 	public var rightP:Bool = false;
 	public var upP:Bool = false;
 	public var actionP:Bool = false;
-		
+	
 	//refers to key being held down
 	public var left:Bool = false;
 	public var right:Bool = false;
@@ -71,7 +70,7 @@ class Player extends FlxSprite
 	{
 		super(X, Y);
 		
-		loadGraphic(AssetPaths.tempKidsShit__png, true, 1327, 800);
+		loadGraphic(AssetPaths.tempKidsShit__png, true, Std.int(12607/19), 400);
 		animation.add("idle", [0, 0, 1, 2, 3, 4, 5, 5, 6, 7, 8, 9], 12);
 		animation.play("idle");
 		
@@ -81,8 +80,6 @@ class Player extends FlxSprite
 		animation.add("punch", [17, 18], 12, false);
 		
 		
-		setGraphicSize(Std.int(width / 2));
-		updateHitbox();
 		width = width / 2;
 		centerOffsets();
 		

@@ -25,12 +25,12 @@ class Mom extends FlxNapeSprite
 	/**
 	 * A value used to update angleAccelertaion
 	 */
-	public var angleAcceleration:Float = 20;
+	public var angleAcceleration:Float = 16;
 	public var angleDrag:Float = 0;
 	private var rotateRads:Float = FlxG.random.float( -20 * Math.PI / 180, 20 * Math.PI / 180) / 60;
 	
-	public var timeSwapMin:Float = 1;
-	public var timeSwapMax:Float = 4;
+	public var timeSwapMin:Float = 0.5;
+	public var timeSwapMax:Float = 2.5;
 	
 	public var _lean:Float;
 	public var _distanceX:Float = 0;
@@ -50,7 +50,7 @@ class Mom extends FlxNapeSprite
 	public function new(X:Float=0, Y:Float=0, ?SimpleGraphic:FlxGraphicAsset, CreateRectangularBody:Bool=true, EnablePhysics:Bool=true) 
 	{
 		super(X, Y, SimpleGraphic, CreateRectangularBody, EnablePhysics);
-		loadGraphic(AssetPaths.momTemp__png, true, 860, 1676);
+		loadGraphic(AssetPaths.momTemp__png, true,  Std.int(7740/18), 838);
 		
 		animation.add("idle", [0, 1, 2, 3, 4, 5, 6, 7], 8);
 		animation.add("fallLeft", [8, 9, 10], 12);
@@ -58,14 +58,12 @@ class Mom extends FlxNapeSprite
 		animation.add("hitGround", [14, 15, 16], 12, false);
 		
 		animation.play("idle");
-		setGraphicSize(Std.int(width / 2));
 		
-		updateHitbox();
 		width = width * 0.6;
 		
 		
 		//body.position.x = -100;
-		origin.y = 1000;
+		origin.y = 500;
 		
 		createRectangularBody(width, FlxG.height - y);
 		offset.set(25, 400);
