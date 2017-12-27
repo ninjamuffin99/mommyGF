@@ -366,12 +366,12 @@ class PlayState extends FlxState
 		
 		if (_player.right && !_player.poking)
 		{
-			_player.setPosition(_mom.x + 700, _playerY);
+			_player.setPosition(FlxG.width * 0.6, _playerY);
 			_player._left = false;
 		}
 		if (_player.left && !_player.poking)
 		{
-			_player.setPosition(_mom.x - 100, _playerY);
+			_player.setPosition(FlxG.width * 0.15, _playerY);
 			_player._left = true;
 		}
 		
@@ -403,12 +403,12 @@ class PlayState extends FlxState
 			}
 			if (_player._left)
 			{
-				_player.setPosition(_mom.x, _playerY);
+				_player.setPosition(_player.curPostition.x + FlxG.width * 0.1, _playerY);
 				_mom.body.angularVel += pushMultiplier;
 			}
 			else
 			{
-				_player.setPosition(_mom.x + 400, _playerY);
+				_player.setPosition(_player.curPostition.x - FlxG.width * 0.1, _playerY);
 				_mom.body.angularVel -= pushMultiplier;
 			}
 		}
@@ -416,12 +416,15 @@ class PlayState extends FlxState
 		{
 			if (_player._left)
 			{
-				_player.setPosition(_mom.x - 100, _playerY);
+				_player.setPosition(FlxG.width * 0.025, _playerY);
+				_player.curPostition = _player.getPosition();
 			}
 			else
 			{
-				_player.setPosition(_mom.x + 500, _playerY);
+				_player.setPosition(FlxG.width * 0.65, _playerY);
 			}
+			
+			_player.curPostition = _player.getPosition();
 			_player.animation.play("idle");
 		}
 		
