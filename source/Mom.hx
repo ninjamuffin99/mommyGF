@@ -66,7 +66,7 @@ class Mom extends FlxNapeSprite
 		origin.y = 500;
 		
 		createRectangularBody(width, FlxG.height - y);
-		offset.set(25, 400);
+		offset.set(25, 0);
 		
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
@@ -77,7 +77,7 @@ class Mom extends FlxNapeSprite
 		
 		body.allowMovement = false;
 		
-		setBodyMaterial(1, 0, 0, 1);
+		setBodyMaterial(1, 0.3, 0.2, 0.6, 1);
 		
 		FlxG.log.add("mom added");
 		

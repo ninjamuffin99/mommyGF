@@ -110,7 +110,7 @@ class PlayState extends FlxState
 		_playerAnims = new PlayerAnims(-90, -32);
 		add(_playerAnims);
 		
-		_mom = new Mom(530, -25 + 1000);
+		_mom = new Mom(530, -25 + 600);
 		add(_mom);
 		
 		_cat = new Cat(0 - 200, FlxG.height + 10);

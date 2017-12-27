@@ -41,7 +41,7 @@ class Cat extends FlxNapeSprite
 		
 		body.allowRotation = false;
 		
-		setBodyMaterial(1, 0.2, 0.4, 100);
+		setBodyMaterial(1, 0.2, 0.4, 10);
 		
 	}
 	
