@@ -3,7 +3,6 @@ Notes/ideas:
 	
 TODO:
 	
-	-Fix mom tip drag and stuff
 	-Maybe get some area randomization going? Not sure if stuff is confirmed yet
 	-redo the spritesheets so that they are smaller in size and shit
 	-add a simple highscore thing for finishing and timer
@@ -11,8 +10,7 @@ TODO:
 	-Cheat Code system? Make it text based for more reliability on mobile
 	-Better transition between playstate and anvil state
 	-cleanup the PlayerAnims class to make it more versatile with more misc animations, but in the end I might just scrap it
-	-once i get final designs
-	
+	once i get final designs
 	-cats have a set break for candy, about 5 or so
 	-she needs to be harder to read
 	-Make main menu options and stuff selector or something
@@ -23,7 +21,6 @@ TODO:
 	Today's TODO:
 		-add in mom getting anvil dropped on her
 		-mom moving more aggresively
-		optimizations?
 
 DONE?:
 	-Have some indicator that shows slo mo mode and indicates when it's about to end
@@ -46,3 +43,4 @@ DONE?:
 	-Tweak the controls better, more specifically when you switch sides you kinda push
 	-Fix cat spawn shit
 	-change controls to Z to poke, and left/right to punch instead of up(did this but changed it back since it was stinky)
+	-resize mom and player for optimization

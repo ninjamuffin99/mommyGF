@@ -4,6 +4,7 @@ import flash.display.BitmapData;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
+import flixel.math.FlxPoint;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import openfl.Assets;
 import openfl.display.Bitmap;
@@ -20,6 +21,7 @@ class Player extends FlxSprite
 	public var _left:Bool = true;
 	public var _pickingUpMom:Bool = false;
 	public var paralyzed:Bool = false;
+	public var curPostition:FlxPoint;
 	
 	public var sameSide:Bool = false;
 	
