@@ -24,26 +24,4 @@ TODO:
 		
 
 DONE?:
-	-Have some indicator that shows slo mo mode and indicates when it's about to end
-	-Fix the player position properly
-	-Add end state that game goes to once rope breaks.
-	-Fix mom hitbox, so that the cat interacts with the dynamic hitbox properly
-	-Make candy pop up a bit, or have a better indicator of it coming to you
-	-Rewrite controls code
-	-Maybe swap the smack to another left button? like left to switch, then left to smack
-	-removed points
-	-Make a better pause screen, wit a slightly transparent bg or something
-	-Modify the angle at which the normal walking transitions to stumbling
-	-right now there isn't too much clarity regarding showing how fast mom is going, could be fixed with a background
-	-replace points with a timer
-	-Add bike kid
-	-speed up motorcycle
-	-add in bike sounds
-	-add in animation of kid getting hit by bike
-	-add in animation of kid picking up mom
-	-Tweak the controls better, more specifically when you switch sides you kinda push
-	-Fix cat spawn shit
-	-change controls to Z to poke, and left/right to punch instead of up(did this but changed it back since it was stinky)
-	-resize mom and player for optimization
-	-fix mom hitbox
-	-FIX THE CAT SO HE DOESNT HIT WHEN PUNCHED!!!!
+	
