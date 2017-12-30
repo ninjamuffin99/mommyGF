@@ -18,7 +18,7 @@ TODO:
 	-add in the smear shit
 	-add in mom getting anvil dropped on her
 	-mom moving more aggresively
-	
+	-start prototyping random outside stuff
 	
 	Today's TODO:
 		
