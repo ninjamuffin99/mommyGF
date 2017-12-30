@@ -98,7 +98,6 @@ class PlayState extends BaseState
 		add(_player);
 		
 		
-		
 		//OBSTACLES AND WHATNOT
 		_moped = new MopedBoy(FlxG.width, 200);
 		add(_moped);
@@ -120,21 +119,10 @@ class PlayState extends BaseState
 		
 		createHUD();
 		
-		FlxNapeSpace.space.gravity.setxy(0, 0);
-		
-		FlxG.debugger.addTrackerProfile(new TrackerProfile(Mom, ["angleAcceleration", "angleDrag", "timeSwapMin", "timeSwapMax"], []));
-		FlxG.debugger.track(_mom, "Mom");
-		
-		FlxG.debugger.addTrackerProfile(new TrackerProfile(Player, ["punchMultiplier", "smackPower", "pushMultiplier"], []));
-		FlxG.debugger.track(_player, "Player");
-		
 		//FlxG.camera.follow(_mom);
-		FlxG.camera.maxScrollY = FlxG.height;
-		FlxG.camera.minScrollY = 0;
+		
 		FlxG.camera.bgColor = 0xFF222222;
 		
-		
-	
 	}
 	
 	private function createHUD():Void
@@ -196,12 +184,6 @@ class PlayState extends BaseState
 		
 		Global.paused = false;
 		
-		boostText.visible = _mom.boosting;
-		
-		if (_mom.boosting)
-		{
-			boostText.text = "Close Call Bonus: " + FlxMath.roundDecimal(_mom.boostBonus, 2);
-		}
 		
 		if (!_player._pickingUpMom)
 		{
@@ -245,7 +227,7 @@ class PlayState extends BaseState
 			}
 		}
 		
-		if (_pickupTimeBuffer >= 0.25 * FlxG.timeScale)
+		if (_pickupTimeBuffer >= 0.20 * FlxG.timeScale)
 		{
 			_player._pickingUpMom = false;
 			_pickupTimeBuffer = 0;

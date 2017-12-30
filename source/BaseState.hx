@@ -7,6 +7,7 @@ import flixel.addons.effects.FlxTrailArea;
 import flixel.addons.nape.FlxNapeSpace;
 import flixel.math.FlxAngle;
 import flixel.math.FlxMath;
+import flixel.system.debug.watch.Tracker.TrackerProfile;
 import flixel.text.FlxText;
 
 /**
@@ -54,6 +55,17 @@ class BaseState extends FlxState
 		FlxG.mouse.visible = false;
 		FlxNapeSpace.init();
 		
+		FlxNapeSpace.space.gravity.setxy(0, 0);
+		
+		FlxG.debugger.addTrackerProfile(new TrackerProfile(Mom, ["angleAcceleration", "angleDrag", "timeSwapMin", "timeSwapMax"], []));
+		FlxG.debugger.track(_mom, "Mom");
+		
+		FlxG.debugger.addTrackerProfile(new TrackerProfile(Player, ["punchMultiplier", "smackPower", "pushMultiplier"], []));
+		FlxG.debugger.track(_player, "Player");
+		
+		FlxG.camera.maxScrollY = FlxG.height;
+		FlxG.camera.minScrollY = 0;
+		
 		super.create();
 	}
 	
@@ -62,6 +74,8 @@ class BaseState extends FlxState
 		super.update(elapsed);
 		
 		controls();
+		
+		boostText.visible = _mom.boosting;
 		
 		if (_mom.boosting)
 		{
