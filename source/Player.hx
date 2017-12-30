@@ -41,7 +41,7 @@ class Player extends FlxSprite
 	/**
 	 * In degrees
 	 */
-	public var smackPower:Float = 7;
+	public var smackPower:Float = 3;
 	/**
 	 * in Degrees
 	 */

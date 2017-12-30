@@ -4,6 +4,8 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.effects.FlxTrailArea;
+import flixel.effects.particles.FlxEmitter;
+import flixel.group.FlxGroup;
 import flixel.system.FlxSound;
 import flixel.util.FlxColor;
 
@@ -16,6 +18,13 @@ class AnvilState extends FlxState
 	private var _player:Player;
 	private var _playerTrail:FlxTrailArea;
 	
+	private var wallLeft:FlxSprite;
+	private var wallDown:FlxSprite;
+	private var wallRight:FlxSprite;
+	private var _grpWalls:FlxGroup;
+	
+	private var _caseEmitter:FlxEmitter;
+	
 	private var _rope:FlxSprite;
 	private var _ropeHP:Float = 1;
 	private var _ropeBroke:Bool = false;
@@ -25,6 +34,8 @@ class AnvilState extends FlxState
 	override public function create():Void 
 	{
 		FlxG.camera.fade(FlxColor.BLACK, 0.3, true);
+		FlxG.log.add("Before Emitter");
+		CasesEffects();
 		
 		_player = new Player(FlxG.width * 0.05, FlxG.height * 0.3);
 		add(_player);
@@ -55,9 +66,47 @@ class AnvilState extends FlxState
 		super.create();
 	}
 	
+	private function CasesEffects():Void
+	{
+		_grpWalls = new FlxGroup();
+		
+		wallLeft = new FlxSprite(-10);
+		wallLeft.makeGraphic(10, FlxG.height);
+		wallLeft.immovable = true;
+		wallLeft.solid = true;
+		_grpWalls.add(wallLeft);
+		
+		wallDown = new FlxSprite(0, FlxG.height);
+		wallDown.makeGraphic(FlxG.width, 10);
+		wallDown.immovable = true;
+		wallDown.solid = true;
+		_grpWalls.add(wallDown);
+		
+		
+		wallRight = new FlxSprite(FlxG.width);
+		wallRight.makeGraphic(10, FlxG.height);
+		wallRight.immovable = true;
+		wallRight.solid = true;
+		_grpWalls.add(wallRight);
+		
+		add(_grpWalls);
+		
+		_caseEmitter = new FlxEmitter(FlxG.width / 2, -10);
+		_caseEmitter.makeParticles(40, 60, FlxColor.WHITE, 600);
+		_caseEmitter.solid = true;
+		_caseEmitter.acceleration.set(0, 500);
+		_caseEmitter.velocity.set( -50, 50, 50, 100);
+		_caseEmitter.angularVelocity.set( -720, 720);
+		add(_caseEmitter);
+		
+		FlxG.log.add("added walls and emitter");
+	}
+	
 	override public function update(elapsed:Float):Void 
 	{
 		super.update(elapsed);
+		
+		FlxG.collide();
 		
 		if (_player.poked && !_ropeBroke)
 		{
@@ -85,6 +134,8 @@ class AnvilState extends FlxState
 				sfxHit();
 				FlxG.camera.shake();
 				_ropeBroke = true;
+				
+				_caseEmitter.start(false, 0.025);
 			}
 		}
 		

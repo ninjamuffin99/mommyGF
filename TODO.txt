@@ -16,12 +16,12 @@ TODO:
 	-Make main menu options and stuff selector or something
 	-fix cat hitting mom and something so that it's equal to one mom hit
 	-add in the smear shit
-
+	-add in mom getting anvil dropped on her
+	-mom moving more aggresively
+	
 	
 	Today's TODO:
-		-add in mom getting anvil dropped on her
-		-mom moving more aggresively
-		-fix mom hitbox
+		
 
 DONE?:
 	-Have some indicator that shows slo mo mode and indicates when it's about to end
@@ -45,3 +45,5 @@ DONE?:
 	-Fix cat spawn shit
 	-change controls to Z to poke, and left/right to punch instead of up(did this but changed it back since it was stinky)
 	-resize mom and player for optimization
+	-fix mom hitbox
+	-FIX THE CAT SO HE DOESNT HIT WHEN PUNCHED!!!!

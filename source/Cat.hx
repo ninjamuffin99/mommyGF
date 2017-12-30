@@ -72,10 +72,13 @@ class Cat extends FlxNapeSprite
 		{
 			angularVelocity = body.velocity.x * -0.9;
 			animation.play("punched");
+			body.shapes.at(0).filter.collisionMask = 0;
+			
 		}
 		if (!_punched && body.velocity.x != 0)
 		{
 			animation.play("fly");
+			body.shapes.at(0).filter.collisionMask = -1;
 		}
 		
 	}

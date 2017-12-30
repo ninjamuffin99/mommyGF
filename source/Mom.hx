@@ -25,7 +25,7 @@ class Mom extends FlxNapeSprite
 	/**
 	 * A value used to update angleAccelertaion
 	 */
-	public var angleAcceleration:Float = 16;
+	public var angleAcceleration:Float = 9;
 	public var angleDrag:Float = 0;
 	private var rotateRads:Float = FlxG.random.float( -20 * Math.PI / 180, 20 * Math.PI / 180) / 60;
 	
@@ -224,6 +224,17 @@ class Mom extends FlxNapeSprite
 			boostTimer = 0.5;
 			boosting = false;
 		}
+		
+		if ((body.rotation >= _fallAngle - FlxAngle.asRadians(10) || body.rotation <= -_fallAngle + FlxAngle.asRadians(10)) && !_fallenDown)
+		{
+			color = FlxColor.RED;
+			
+		}
+		else
+		{
+			color = FlxColor.WHITE;
+		}
+		
 		
 		
 		if (!boosting && boostBonus > 0)
