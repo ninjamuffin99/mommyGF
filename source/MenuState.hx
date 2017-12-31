@@ -81,5 +81,15 @@ class MenuState extends FlxState
 			FlxG.switchState(new PlayState());
 		}
 		
+		for (touch in FlxG.touches.list)
+		{
+			if (touch.justPressed) 
+			{
+				FlxG.switchState(new PlayState());
+			}
+			
+		}
+		
+		
 	}
 }
