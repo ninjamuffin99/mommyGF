@@ -176,7 +176,7 @@ class Mom extends FlxNapeSprite
 		
 	}
 	
-	private function swapRotating():Void
+	public  function swapRotating():Void
 	{
 		_timer = 0;
 		_timerRandom = FlxG.random.float(timeSwapMin, timeSwapMax);
@@ -198,10 +198,16 @@ class Mom extends FlxNapeSprite
 	
 	/**
 	 * Function to replace the old rotate system. Call when need to update the angular acceleration of the physics body
+	 * Also has a 50% chance to multiply it by 1.5-3 * speedMultiplier or somethin
 	 */
 	private function updateAngleAccel():Void
 	{
-		rotateRads = FlxAngle.asRadians(FlxG.random.float(-angleAcceleration , angleAcceleration));
+		rotateRads = FlxAngle.asRadians(FlxG.random.float(-angleAcceleration , angleAcceleration)) * _speedMultiplier;
+		
+		if (FlxG.random.bool())
+		{
+			rotateRads *= FlxG.random.float(1.5, 3) * _speedMultiplier;
+		}
 	}
 	
 	public function lowBoost():Void
@@ -228,13 +234,13 @@ class Mom extends FlxNapeSprite
 		if ((body.rotation >= _fallAngle - FlxAngle.asRadians(10) || body.rotation <= -_fallAngle + FlxAngle.asRadians(10)) && !_fallenDown)
 		{
 			color = FlxColor.RED;
-			
+			boosting = true;
+			boostBonus += FlxG.random.float(0.025, 0.1);
 		}
 		else
 		{
 			color = FlxColor.WHITE;
 		}
-		
 		
 		
 		if (!boosting && boostBonus > 0)

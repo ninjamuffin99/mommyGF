@@ -17,6 +17,7 @@ import flixel.math.FlxMath;
 import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
 import flixel.util.FlxHorizontalAlign;
+import flixel.util.FlxSort;
 import flixel.util.FlxTimer;
 import nape.geom.Vec2;
 import openfl.Assets;
@@ -27,12 +28,6 @@ class PlayState extends BaseState
 	//MOM STUFF
 	private var _distanceBar:FlxSprite;
 	private var _momIcon:FlxSprite;
-	
-	//OBSTACLE SHIT
-	private var _retard:Retard;
-	private var _moped:MopedBoy;
-	private var _mopedWarning:Warning;
-	private var _mopedTimer:Float = 1;
 	
 	//BACKGROUND
 	private var _BG:FlxSprite;
@@ -77,51 +72,15 @@ class PlayState extends BaseState
 		_BG.updateHitbox();
 		add(_BG);
 		
-		
 		//MAIN STUFF EHEHEH
 		
-		_playerAnims = new PlayerAnims(-90, -32);
-		add(_playerAnims);
-		
-		_mom = new Mom(530, -25 + 600);
-		add(_mom);
-		
-		_cat = new Cat(0 - 200, FlxG.height + 10);
-		add(_cat);
+		addMainStuff();
 		
 		spawnCat();
-		
-		_candy = new Candy(-32);
-		add(_candy);
-		
-		_player = new Player(50, _playerY);
-		add(_player);
-		
-		
-		//OBSTACLES AND WHATNOT
-		_moped = new MopedBoy(FlxG.width, 200);
-		add(_moped);
-		_mopedTimer = FlxG.random.float(10, 20);
-		
-		_mopedWarning = new Warning(FlxG.width, 40);
-		add(_mopedWarning);
-		
-		//_retard = new Retard(0, 300);
-		//add(_retard);
-		
-		//Trail effect
-		_playerTrail = new FlxTrailArea(0, 0, FlxG.width, FlxG.height, 0.75);
-		_playerTrail.add(_player);
-		add(_playerTrail);
-		
-		_playerPunchHitBox = new FlxObject(_player.x + 60, _player.y, 75, 75);
-		add(_playerPunchHitBox);
 		
 		createHUD();
 		
 		//FlxG.camera.follow(_mom);
-		
-		FlxG.camera.bgColor = 0xFF222222;
 		
 	}
 	
@@ -546,81 +505,6 @@ class PlayState extends BaseState
 		justSpawnedMoped = true;
 	}
 	
-	
-	private function mobileControls():Void
-	{
-		for (touch in FlxG.touches.list)
-		{
-			if (touch.screenX >= FlxG.width / 2)
-			{
-				_player._left = false;
-				
-				if (touch.justPressed) 
-				{
-					_player.setPosition(_mom.x + 150, _playerY);
-					
-					sfxHit();
-				}
-			}
-			else
-			{
-				_player._left = true;
-				
-				if (touch.justPressed) 
-				{
-					_player.setPosition(_mom.x - 50, _playerY);
-					sfxHit();
-				}
-				
-			}
-			if (touch.justReleased) 
-			{
-				if (!_player._left)
-				{
-					_player.setPosition(_mom.x + 250, _playerY);
-				}
-				else
-				{
-					_player.setPosition(_mom.x - 150, _playerY);
-				}
-			}
-		}
-	}
-	
-	private function mouseControls():Void
-	{
-		if (FlxG.mouse.screenX >= FlxG.width/2)
-			{
-				_player._left = false;
-					
-				if (FlxG.mouse.justPressed) 
-				{
-					_player.setPosition(_mom.x + 150, _playerY);
-					sfxHit();
-				}
-			}
-			else
-			{
-				_player._left = true;
-				
-				if (FlxG.mouse.justPressed) 
-				{
-					_player.setPosition(_mom.x - 50, _playerY);
-					sfxHit();
-				}
-			}
-			if (FlxG.mouse.justReleased) 
-			{
-				if (!_player._left)
-				{
-					_player.setPosition(_mom.x + 250, _playerY);
-				}
-				else
-				{
-					_player.setPosition(_mom.x - 150, _playerY);
-				}
-			}
-	}
 	
 	override public function onFocusLost():Void 
 	{

@@ -43,6 +43,12 @@ class BaseState extends FlxState
 	private var _candyBoost:Float = 0;
 	
 	
+	//OBSTACLE SHIT
+	private var _retard:Retard;
+	private var _moped:MopedBoy;
+	private var _mopedWarning:Warning;
+	private var _mopedTimer:Float = 1;
+	
 	
 	private var _timer:Float = 180;
 	
@@ -52,10 +58,60 @@ class BaseState extends FlxState
 
 	override public function create():Void 
 	{
-		FlxG.mouse.visible = false;
+		//FlxG.mouse.visible = false;
 		FlxNapeSpace.init();
 		
 		FlxNapeSpace.space.gravity.setxy(0, 0);
+		
+		FlxG.camera.maxScrollY = FlxG.height;
+		FlxG.camera.minScrollY = 0;
+		
+		FlxG.camera.bgColor = 0xFF222222;
+		
+		super.create();
+	}
+	
+	/**
+	 * CALL THIS WHEN SETTING UP THE PLAYSTATES, AFTER THE BG???
+	 */
+	private function addMainStuff():Void
+	{
+		_playerAnims = new PlayerAnims(-90, -32);
+		add(_playerAnims);
+		
+		_mom = new Mom(530, -25 + 600);
+		add(_mom);
+		
+		_cat = new Cat(0 - 200, FlxG.height + 10);
+		add(_cat);
+		
+		
+		_candy = new Candy(-32);
+		add(_candy);
+		
+		_player = new Player(50, _playerY);
+		add(_player);
+		
+		
+		//OBSTACLES AND WHATNOT
+		_moped = new MopedBoy(FlxG.width, 200);
+		add(_moped);
+		_mopedTimer = FlxG.random.float(10, 20);
+		
+		_mopedWarning = new Warning(FlxG.width, 40);
+		add(_mopedWarning);
+		
+		//_retard = new Retard(0, 300);
+		//add(_retard);
+		
+		//Trail effect
+		_playerTrail = new FlxTrailArea(0, 0, FlxG.width, FlxG.height, 0.75);
+		_playerTrail.add(_player);
+		add(_playerTrail);
+		
+		_playerPunchHitBox = new FlxObject(_player.x + 60, _player.y, 75, 75);
+		add(_playerPunchHitBox);
+		
 		
 		FlxG.debugger.addTrackerProfile(new TrackerProfile(Mom, ["angleAcceleration", "angleDrag", "timeSwapMin", "timeSwapMax"], []));
 		FlxG.debugger.track(_mom, "Mom");
@@ -63,10 +119,6 @@ class BaseState extends FlxState
 		FlxG.debugger.addTrackerProfile(new TrackerProfile(Player, ["punchMultiplier", "smackPower", "pushMultiplier"], []));
 		FlxG.debugger.track(_player, "Player");
 		
-		FlxG.camera.maxScrollY = FlxG.height;
-		FlxG.camera.minScrollY = 0;
-		
-		super.create();
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -85,8 +137,6 @@ class BaseState extends FlxState
 	
 	private function controls():Void
 	{
-		
-		#if (web || desktop)
 		
 		if (FlxG.keys.justPressed.ENTER)
 		{
@@ -129,6 +179,8 @@ class BaseState extends FlxState
 					_mom._speedMultiplier += FlxG.random.float(0, 0.01);
 					_player.punchMultiplier += FlxG.random.float(0, 0.025);
 				}
+				
+				_mom.swapRotating();
 				
 			}
 			if (_player._left)
@@ -194,7 +246,7 @@ class BaseState extends FlxState
 				_playerAnims.pickingUp.facing = FlxObject.RIGHT;
 				_playerAnims.x = 100;
 			}
-				
+			
 			else
 			{
 				_playerAnims.pickingUp.facing = FlxObject.LEFT;
@@ -212,13 +264,6 @@ class BaseState extends FlxState
 			_pickupMom += 1;
 			FlxG.camera.shake(0.02, 0.02);
 		}
-		
-		#end
-		#if (html5 || mobile)
-		//mobileControls();
-		#else
-		//mouseControls();
-		#end
 		
 		if (_player._left)
 		{

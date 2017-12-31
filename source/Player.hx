@@ -144,7 +144,7 @@ class Player extends FlxSprite
 		upR = FlxG.keys.anyJustReleased(["UP", "W", "I"]);
 		actionR = FlxG.keys.anyJustReleased(["Z", "SPACE", "X", "N", "M"]);
 		
-		
+		mouseControls();
 		
 		
 		
@@ -224,5 +224,96 @@ class Player extends FlxSprite
 	{
 		disableTimer += time;
 	}
+	
+	
+	private function mobileControls():Void
+	{
+		for (touch in FlxG.touches.list)
+		{
+			if (touch.justPressed) 
+			{
+				if (touch.screenX >= FlxG.width / 2)
+				{
+					leftP = true;
+				}
+				else
+				{
+					rightP = true;
+				}
+			}
+			
+			if (touch.pressed)
+			{
+				if (touch.screenX >= FlxG.width / 2)
+				{
+					left = true;
+				}
+				else
+				{
+					right = true;
+				}
+			}
+			
+			if (touch.justReleased) 
+			{
+				if (touch.screenX >= FlxG.width / 2)
+				{
+					leftR = true;
+				}
+				else
+				{
+					rightR = true;
+				}
+			}
+		}
+	}
+	
+	private function mouseControls():Void
+	{
+		if (FlxG.mouse.justPressed)
+		{
+			if (FlxG.mouse.screenX >= FlxG.width/2)
+			{
+				
+				rightP = true;
+				
+			}
+			else
+			{
+				leftP = true;
+			}
+		}
+		
+		if (FlxG.mouse.pressed)
+		{
+			if (FlxG.mouse.screenX >= FlxG.width/2)
+			{
+				
+				right = true;
+				
+			}
+			else
+			{
+				left = true;
+			}
+		}
+		
+		
+		if (FlxG.mouse.justReleased) 
+		{
+			if (FlxG.mouse.screenX >= FlxG.width/2)
+			{
+				
+				rightR = true;
+				
+			}
+			else
+			{
+				leftR = true;
+			}
+		}
+		
+	}
+	
 	
 }

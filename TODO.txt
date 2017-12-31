@@ -12,16 +12,15 @@ TODO:
 	-cleanup the PlayerAnims class to make it more versatile with more misc animations, but in the end I might just scrap it
 	once i get final designs
 	-cats have a set break for candy, about 5 or so
-	-she needs to be harder to read
 	-Make main menu options and stuff selector or something
 	-fix cat hitting mom and something so that it's equal to one mom hit
 	-add in the smear shit
 	-add in mom getting anvil dropped on her
-	-mom moving more aggresively
 	-start prototyping random outside stuff
 	
 	Today's TODO:
-		
-
+		get a mobile build up and running
 DONE?:
+	-mom moving more aggresively/unpredictably
+
 	
