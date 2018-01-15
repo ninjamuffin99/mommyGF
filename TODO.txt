@@ -3,7 +3,7 @@ Notes/ideas:
 	
 TODO:
 	
-	-Maybe get some area randomization going? Not sure if stuff is confirmed yet
+	-Maybe get some area randomization going
 	-redo the spritesheets so that they are smaller in size and shit
 	-add a simple highscore thing for finishing and timer
 	-make it so when game is paused, the nape physics aren't still updating
@@ -13,14 +13,15 @@ TODO:
 	once i get final designs
 	-cats have a set break for candy, about 5 or so
 	-Make main menu options and stuff selector or something
-	-fix cat hitting mom and something so that it's equal to one mom hit
 	-add in the smear shit
-	-add in mom getting anvil dropped on her
 	-start prototyping random outside stuff
+	-get a mobile build up and running
+	-add in mom getting anvil dropped on her
 	
 	Today's TODO:
-		get a mobile build up and running
+		
 DONE?:
 	-mom moving more aggresively/unpredictably
+	-fix cat hitting mom and something so that it's equal to one mom hit
 
 	

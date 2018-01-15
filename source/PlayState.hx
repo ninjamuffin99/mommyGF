@@ -58,7 +58,7 @@ class PlayState extends BaseState
 	{
 		super.create();
 		
-		FlxG.sound.playMusic("assets/music/Music/Main Theme.mp3", 1);
+		FlxG.sound.playMusic("assets/music/Main Theme.mp3", 1);
 		/*
 		pitchedSound.MP3Pitch("https://audio.ngfiles.com/778000/778677_Alice-Mako-IM-SORRY.mp3");
 		add(pitchedSound);
@@ -204,6 +204,8 @@ class PlayState extends BaseState
 				_player.setPosition(_mom.x + 600, _playerY);
 			}
 		}
+		
+		
 	}
 	
 	private function updateHUD():Void
@@ -282,8 +284,7 @@ class PlayState extends BaseState
 	
 	private function watching():Void
 	{
-		FlxG.watch.addQuick("mompos", _mom.getPosition());
-		FlxG.watch.addQuick("Mom speed multiplier", _mom._speedMultiplier);
+		
 	}
 	
 	private function debugControls():Void
@@ -293,6 +294,7 @@ class PlayState extends BaseState
 			startRecording();
 		}
 		
+		#if !mobile
 		if (FlxG.keys.justPressed.R && recording)
 		{
 			loadReplay();
@@ -303,18 +305,11 @@ class PlayState extends BaseState
 			spawnMoped();
 		}
 		
-		if ((FlxG.keys.justPressed.V && !_candyMode) || FlxG.overlap(_candy, _player))
+		if ((FlxG.keys.justPressed.V && !_candyMode))
 		{
-			FlxG.camera.color = 0xFFFEFEFE;
-			FlxTween.tween(FlxG.camera, {color:FlxColor.WHITE}, _candyTimer);
-			FlxG.sound.play("assets/sounds/Candy Mode.mp3", 0.7);
-			
-			_candyMode = true;
-			FlxG.camera.flash(FlxColor.WHITE, 0.075);
-			_candy.x = -32;
-			_candy.velocity.y = 0;
-			_candy.acceleration.y = 0;
+			activateCandy();
 		}
+		#end
 		
 		if (_candyMode)
 		{
@@ -363,7 +358,7 @@ class PlayState extends BaseState
 			_distanceGoal -= 10;
 		}
 		*/
-		
+		#if !mobile
 		if (FlxG.keys.justPressed.C)
 		{
 			spawnCat();
@@ -376,9 +371,8 @@ class PlayState extends BaseState
 			FlxG.sound.play("assets/sounds/speedUp.mp3", 1, false, null, true, function(){FlxG.sound.playMusic("assets/music/Music/HYPER Theme.mp3");});
 			
 		}
+		#end
 	}
-	
-	
 	
 	private function spawnCat():Void
 	{
@@ -541,11 +535,13 @@ class PlayState extends BaseState
 			FlxG.switchState(new GameOverState());
 		}
 		
+		#if !mobile
 		if (_mom._distanceX >= _distanceGoal || FlxG.keys.justPressed.F)
 		{
 			FlxG.camera.fade(FlxColor.BLACK, 0.3, false, function(){FlxG.switchState(new AnvilState());});
 			
 		}
+		#end
 	}
 	
 	

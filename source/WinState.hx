@@ -43,11 +43,12 @@ class WinState extends FlxState
 	{
 		super.update(elapsed);
 		
+		#if !mobile
 		if (FlxG.keys.justReleased.ENTER)
 		{
 			FlxG.switchState(new PlayState());
 		}
-		
+		#end
 	}
 	
 }

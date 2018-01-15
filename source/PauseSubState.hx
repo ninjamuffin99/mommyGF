@@ -70,10 +70,12 @@ class PauseSubState extends FlxSubState
 		FlxG.sound.music.volume = Global.musicVolume;
 		FlxG.sound.volume = Global.masterVolume;
 		
+		#if !mobile
 		if (FlxG.keys.justPressed.ENTER)
 		{
 			close();
 		}
+		#end
 		
 	}
 	

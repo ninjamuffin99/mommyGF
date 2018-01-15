@@ -95,7 +95,6 @@ class Mom extends FlxNapeSprite
 		super.update(elapsed);
 		
 		//animation.curAnim.frameRate = Std.int(12 * _speedMultiplier);
-		FlxG.watch.addQuick("anim framerate", animation.curAnim.frameRate);
 		
 		//_lean = angle;
 		FlxG.watch.addQuick("Angle:", body.rotation);

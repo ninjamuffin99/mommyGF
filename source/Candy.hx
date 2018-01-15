@@ -13,8 +13,8 @@ class Candy extends FlxSprite
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
 		super(X, Y, SimpleGraphic);
-		loadGraphic(AssetPaths.rareCandy__png, false, 1024, 1010);
-		setGraphicSize(32, 32);
+		loadGraphic(AssetPaths.candy__png, false, 128, 256);
+		setGraphicSize(48);
 		updateHitbox();
 	}
 	

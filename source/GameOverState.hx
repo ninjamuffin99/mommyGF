@@ -71,7 +71,7 @@ class GameOverState extends FlxState
 		FlxG.watch.addQuick("selection", _selectionInt);
 		
 		
-		
+		#if !mobile
 		if (FlxG.keys.justPressed.RIGHT || FlxG.keys.justPressed.LEFT)
 		{
 			_selectionInt += 1;
@@ -80,6 +80,7 @@ class GameOverState extends FlxState
 				_selectionInt = 0;
 			}
 		}
+		#end
 		
 		
 		if (_selectionInt == 0)
@@ -95,6 +96,8 @@ class GameOverState extends FlxState
 			_selector.x = _no.x - 45;
 		}
 		
+		
+		#if !mobile
 		if (FlxG.keys.justReleased.Z)
 		{
 			if (_selectionInt == 0)
@@ -106,6 +109,7 @@ class GameOverState extends FlxState
 				FlxG.switchState(new PlayState());
 			}
 		}
+		#end
 		
 	}
 }

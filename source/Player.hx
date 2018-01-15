@@ -4,6 +4,8 @@ import flash.display.BitmapData;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
+import flixel.input.FlxSwipe;
+import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import openfl.Assets;
@@ -121,14 +123,11 @@ class Player extends FlxSprite
 				prevAnim = FlxG.random.int(1, 3, [prevAnim]);
 			}
 		}
-		
-		
-		FlxG.watch.addQuick("current animation:", animation.curAnim.name);
 	}
 	
 	private function controls():Void
 	{
-		
+		#if !mobile
 		leftP = FlxG.keys.anyJustPressed(["LEFT", "A", "J"]);
 		rightP = FlxG.keys.anyJustPressed(["RIGHT", "D", "L"]);
 		upP = FlxG.keys.anyJustPressed(["UP", "W", "I"]);
@@ -143,6 +142,7 @@ class Player extends FlxSprite
 		rightR = FlxG.keys.anyJustReleased(["RIGHT", "D", "L"]);
 		upR = FlxG.keys.anyJustReleased(["UP", "W", "I"]);
 		actionR = FlxG.keys.anyJustReleased(["Z", "SPACE", "X", "N", "M"]);
+		#end
 		
 		mouseControls();
 		
@@ -228,6 +228,7 @@ class Player extends FlxSprite
 	
 	private function mobileControls():Void
 	{
+		//Touch controls
 		for (touch in FlxG.touches.list)
 		{
 			if (touch.justPressed) 
@@ -266,6 +267,10 @@ class Player extends FlxSprite
 				}
 			}
 		}
+		
+		//Swipe controls
+		//swipeManager();
+		
 	}
 	
 	private function mouseControls():Void
@@ -311,6 +316,27 @@ class Player extends FlxSprite
 			{
 				leftR = true;
 			}
+		}
+		
+		//swipeManager();
+		
+	}
+	
+	private function swipeManager():Void
+	{
+		var swipe:FlxSwipe = null;
+		
+		for (s in FlxG.swipes)
+		{
+			swipe = s;
+			
+			FlxG.log.add("SwipeAngle: " + swipe.angle);
+			
+			if (swipe.angle >= -15 && swipe.angle <= 15)
+			{
+				upP = true;
+			}
+			
 		}
 		
 	}

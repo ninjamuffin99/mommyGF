@@ -9,11 +9,14 @@ import flixel.math.FlxAngle;
 import flixel.math.FlxMath;
 import flixel.system.debug.watch.Tracker.TrackerProfile;
 import flixel.text.FlxText;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
 
 /**
  * ...
  * @author ninjaMuffin
  */
+ 
 class BaseState extends FlxState 
 {
 	//MOM SHIT
@@ -86,7 +89,7 @@ class BaseState extends FlxState
 		add(_cat);
 		
 		
-		_candy = new Candy(-32);
+		_candy = new Candy(-70);
 		add(_candy);
 		
 		_player = new Player(50, _playerY);
@@ -129,20 +132,36 @@ class BaseState extends FlxState
 		
 		boostText.visible = _mom.boosting;
 		
+		if (FlxG.overlap(_candy, _player))
+			activateCandy();
+		
 		if (_mom.boosting)
 		{
 			boostText.text = "Close Call Bonus: " + FlxMath.roundDecimal(_mom.boostBonus, 2);
 		}
 	}
 	
+	private function activateCandy():Void
+	{
+		FlxG.camera.color = 0xFFFEFEFE;
+		FlxTween.tween(FlxG.camera, {color:FlxColor.WHITE}, _candyTimer);
+		FlxG.sound.play("assets/sounds/Candy Mode.mp3", 0.7);
+			
+		_candyMode = true;
+		FlxG.camera.flash(FlxColor.WHITE, 0.075);
+		_candy.x = -_candy.width;
+		_candy.velocity.y = 0;
+		_candy.acceleration.y = 0;
+	}
+	
 	private function controls():Void
 	{
-		
+		#if !mobile
 		if (FlxG.keys.justPressed.ENTER)
 		{
 			openSubState(new PauseSubState(0xAA000000));
 		}
-		
+		#end
 		
 		if (_player.right && !_player.poking)
 		{
@@ -236,6 +255,7 @@ class BaseState extends FlxState
 			_playerPunchHitBox.active = false;
 		}
 		
+		#if !mobile
 		if (FlxG.keys.justPressed.ANY && _mom._fallenDown && !_player._pickingUpMom)
 		{
 			_player._pickingUpMom = true;
@@ -255,7 +275,7 @@ class BaseState extends FlxState
 			
 			_playerAnims.updateCurSprite(_playerAnims.pickingUp, null, 260);
 		}
-		
+		#end
 		
 		if (_player._pickingUpMom && _player.poked)
 		{
@@ -292,9 +312,9 @@ class BaseState extends FlxState
 				_cat.fly(_cat.body.velocity.x, -400);
 			}
 			
-			if (FlxG.random.bool(15) && _cat._timesPunched >= 6)
+			if (_cat._timesPunched == 5)
 			{
-				_candy.setPosition(_cat.x, _cat.y);
+				_candy.setPosition(_cat.x, _cat.y - _candy.height);
 				_candy.velocity.y -= 250;
 				_candy.acceleration.y = 600;
 			}

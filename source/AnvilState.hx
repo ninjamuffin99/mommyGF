@@ -5,6 +5,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.effects.FlxTrailArea;
 import flixel.effects.particles.FlxEmitter;
+import flixel.graphics.frames.FlxFrame;
 import flixel.group.FlxGroup;
 import flixel.system.FlxSound;
 import flixel.util.FlxColor;
@@ -28,6 +29,8 @@ class AnvilState extends FlxState
 	private var _rope:FlxSprite;
 	private var _ropeHP:Float = 1;
 	private var _ropeBroke:Bool = false;
+	
+	private var _anvil:FlxSprite;
 	
 	private var _endTimer:Float = FlxG.elapsed * 24;
 	
@@ -61,6 +64,11 @@ class AnvilState extends FlxState
 		_rope.updateHitbox();
 		add(_rope);
 		
+		_anvil = new FlxSprite(FlxG.width * 0.6, FlxG.width * 0);
+		_anvil.loadGraphic(AssetPaths.anvil__png, false, 1024, 512);
+		_anvil.setGraphicSize(Std.int(_anvil.width / 2));
+		_anvil.updateHitbox();
+		add(_anvil);
 		
 		
 		super.create();
@@ -149,10 +157,12 @@ class AnvilState extends FlxState
 			_rope.visible = false;
 		}
 		
+		#if !mobile
 		if (FlxG.keys.justPressed.SPACE)
 		{
 			FlxG.switchState(new MenuState());
 		}
+		#end
 	}
 	
 	private function sfxHit():Void

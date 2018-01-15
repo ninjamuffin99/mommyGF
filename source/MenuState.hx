@@ -3,6 +3,10 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.system.scaleModes.FillScaleMode;
+import flixel.system.scaleModes.FixedScaleMode;
+import flixel.system.scaleModes.PixelPerfectScaleMode;
+import flixel.system.scaleModes.StageSizeScaleMode;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
@@ -33,6 +37,11 @@ class MenuState extends FlxState
 		_titleText.animation.play("idle");
 		add(_titleText);
 		
+		/*
+		var scaleMode:StageSizeScaleMode = new StageSizeScaleMode();
+		
+		FlxG.scaleMode = scaleMode;
+		*/
 		
 		createMenu();
 		
@@ -76,10 +85,12 @@ class MenuState extends FlxState
 	{
 		super.update(elapsed);
 		
+		#if !mobile
 		if (FlxG.keys.justPressed.ANY)
 		{
 			FlxG.switchState(new PlayState());
 		}
+		#end
 		
 		for (touch in FlxG.touches.list)
 		{
