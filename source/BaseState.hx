@@ -145,7 +145,7 @@ class BaseState extends FlxState
 	{
 		FlxG.camera.color = 0xFFFEFEFE;
 		FlxTween.tween(FlxG.camera, {color:FlxColor.WHITE}, _candyTimer);
-		FlxG.sound.play("assets/sounds/Candy Mode.mp3", 0.7);
+		FlxG.sound.play("assets/sounds/CandyMode.mp3", 0.7);
 			
 		_candyMode = true;
 		FlxG.camera.flash(FlxColor.WHITE, 0.075);
@@ -331,11 +331,11 @@ class BaseState extends FlxState
 	{
 		if (_timer >= 30)
 		{
-			FlxG.sound.play("assets/sounds/smack " + FlxG.random.int(1, 3) + ".mp3", 0.7);
+			FlxG.sound.play("assets/sounds/smack" + FlxG.random.int(1, 3) + ".mp3", 0.7);
 		}
 		else
 		{
-			FlxG.sound.play("assets/sounds/hyper (" + FlxG.random.int(1, 5) + ").mp3", 0.8);
+			FlxG.sound.play("assets/sounds/hyper" + FlxG.random.int(1, 5) + ".mp3", 0.8);
 		}
 	}
 	

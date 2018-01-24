@@ -58,7 +58,7 @@ class PlayState extends BaseState
 	{
 		super.create();
 		
-		FlxG.sound.playMusic("assets/music/Main Theme.mp3", 1);
+		FlxG.sound.playMusic("assets/music/MainTheme.mp3", 1);
 		/*
 		pitchedSound.MP3Pitch("https://audio.ngfiles.com/778000/778677_Alice-Mako-IM-SORRY.mp3");
 		add(pitchedSound);
@@ -90,13 +90,13 @@ class PlayState extends BaseState
 		add(_timerText);
 		
 		_distanceBar = new FlxSprite(175, 6);
-		_distanceBar.loadGraphic("assets/images/Distance Bar.png", false, 1387, 56);
+		_distanceBar.loadGraphic("assets/images/DistanceBar.png", false, 1387, 56);
 		_distanceBar.setGraphicSize(Std.int(_distanceBar.width / 2));
 		_distanceBar.updateHitbox();
 		add(_distanceBar);
 		
 		_momIcon = new FlxSprite(0, 3);
-		_momIcon.loadGraphic("assets/images/momshit/Mom Icon0001.png", false, 44, 100);
+		_momIcon.loadGraphic(AssetPaths.MomIcon0001__png, false, 44, 100);
 		_momIcon.setGraphicSize(Std.int(_momIcon.width / 2));
 		_momIcon.updateHitbox();
 		add(_momIcon);
@@ -217,7 +217,7 @@ class PlayState extends BaseState
 		_timerText.text = "seconds " + Math.ffloor(_timer);
 		
 		
-		Points.curTime += FlxG.elapsed * 100 * FlxG.timeScale;
+		
 		
 		_pointsText.text = "Current Time: " + Math.floor(Points.curTime);
 		_highScoreText.text = "Highscore: " + Points.highScoreTime;
@@ -368,7 +368,7 @@ class PlayState extends BaseState
 		{
 			_timer = 35;
 			FlxG.sound.music.stop();
-			FlxG.sound.play("assets/sounds/speedUp.mp3", 1, false, null, true, function(){FlxG.sound.playMusic("assets/music/Music/HYPER Theme.mp3");});
+			FlxG.sound.play("assets/sounds/speedUp.mp3", 1, false, null, true, function(){FlxG.sound.playMusic("assets/music/Music/HYPERTheme.mp3");});
 			
 		}
 		#end

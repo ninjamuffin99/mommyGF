@@ -34,7 +34,9 @@ class WinState extends FlxState
 		
 		FlxTween.tween(_winText, {y: FlxG.height * 0.45}, 0.75, {ease:FlxEase.quadInOut, type:FlxTween.PINGPONG});
 		
-		
+		_winText.text += "\nYou killed mom in ";
+		_winText.text += Points.curTime;
+		_winText.text += " seconds!";
 		
 		super.create();
 	}

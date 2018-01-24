@@ -2,7 +2,7 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 	
-	<app title="mommyGF" file="mommyGF" main="Main" version="0.0.1" company="ninjaMuffin" />
+	<app title="mommyGF" file="mommyGF" main="Main" version="0.0.1" company="ninjaMuffin" package="com.mommy.gf" />
 	
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
@@ -16,7 +16,7 @@
 	<!--These window settings apply to all targets-->
 	<window width="960" height="540" fps="60" background="#000000" hardware="true" vsync="true" />
 	
-	<!--HTML5-specific-->
+	<!--HTML5-specific NOTE TO SELF: FOR THE NG UPLOAD I MIGHT HAVE TO CHANGE THIS TO TRUE-->
 	<window if="html5" resizable="false" />
 	
 	<!--Desktop-specific-->

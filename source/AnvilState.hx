@@ -105,7 +105,7 @@ class AnvilState extends FlxState
 		_caseEmitter.acceleration.set(0, 500);
 		_caseEmitter.velocity.set( -50, 50, 50, 100);
 		_caseEmitter.angularVelocity.set( -720, 720);
-		add(_caseEmitter);
+		//add(_caseEmitter);
 		
 		FlxG.log.add("added walls and emitter");
 	}
@@ -156,18 +156,11 @@ class AnvilState extends FlxState
 		{
 			_rope.visible = false;
 		}
-		
-		#if !mobile
-		if (FlxG.keys.justPressed.SPACE)
-		{
-			FlxG.switchState(new MenuState());
-		}
-		#end
 	}
 	
 	private function sfxHit():Void
 	{
-		FlxG.sound.play("assets/sounds/hyper (" + FlxG.random.int(1, 5) + ").mp3", 0.8);
+		FlxG.sound.play("assets/sounds/hyper" + FlxG.random.int(1, 5) + ".mp3", 0.8);
 	}
 	
 	private function finishingGame():Void

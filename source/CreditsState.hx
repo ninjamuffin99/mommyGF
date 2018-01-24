@@ -19,6 +19,7 @@ class CreditsState extends FlxState
 		"THE ONE AND ONLY FuShark",
 		"BrandyBuizel",
 		"Cameron Talbot",
+		"Cory/Spazkid",
 		"Cameron would like to thank/shoutout... (in no particular order)",
 		"PhantomArcade lol ayyy",
 		"Tom Fulp",

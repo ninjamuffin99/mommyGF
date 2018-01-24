@@ -98,6 +98,8 @@ class Player extends FlxSprite
 	{
 		super.update(elapsed);
 		
+		//Updates the points as long as the player is on screen
+		Points.curTime += FlxG.elapsed * FlxG.timeScale;
 		
 		
 		if (disableTimer > 0)
