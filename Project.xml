@@ -17,7 +17,7 @@
 	<window width="960" height="540" fps="60" background="#000000" hardware="true" vsync="true" />
 	
 	<!--HTML5-specific NOTE TO SELF: FOR THE NG UPLOAD I MIGHT HAVE TO CHANGE THIS TO TRUE-->
-	<window if="html5" resizable="false" />
+	<window if="html5" resizable="true" />
 	
 	<!--Desktop-specific-->
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" />
@@ -29,6 +29,7 @@
 	
 	<set name="BUILD_DIR" value="export" />
 	<classpath name="source" />
+	<classpath name="source/Transitions" />
 	<assets path="assets" />
 	<assets path="assets/music" include="*.mp3" if="flash" />
 	<assets path="assets/music" include="*.ogg" unless="flash" />

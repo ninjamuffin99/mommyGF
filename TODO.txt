@@ -17,6 +17,10 @@ TODO:
 	-start prototyping random outside stuff
 	-get a mobile build up and running
 	
+	
+	ASTEROID SPEC:
+		first there's a quick alert, then the asteroid hits very fast.
+	
 	Today's TODO:
 		-add mom getting crushed by anvil
 		
@@ -33,3 +37,5 @@ DONE?:
 	-fix cat hitting mom and something so that it's equal to one mom hit
 	-cats have a set break for candy, about 5 or so
 	-add a simple highscore thing for finishing and timer
+	-found a new way to do spritesheets
+	-added in hell yeah explosion at finish

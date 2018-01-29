@@ -1,0 +1,10 @@
+explosionBG_frame_0 = 0 0 944 534
+explosionBG_frame_1 = 944 0 944 534
+explosionBG_frame_2 = 0 534 944 534
+explosionBG_frame_3 = 0 1068 944 534
+explosionBG_frame_4 = 944 534 944 534
+explosionBG_frame_5 = 944 1068 944 534
+explosionBG_frame_6 = 1888 0 944 534
+explosionBG_frame_7 = 1888 534 944 534
+explosionBG_frame_8 = 2832 0 944 534
+explosionBG_frame_9 = 1888 1068 944 534

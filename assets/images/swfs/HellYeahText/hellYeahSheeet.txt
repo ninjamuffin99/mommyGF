@@ -1,0 +1,9 @@
+hellYeahText_frame_0 = 986 1172 930 537
+hellYeahText_frame_1 = 1935 596 925 538
+hellYeahText_frame_2 = 1916 1172 928 539
+hellYeahText_frame_3 = 0 1206 928 527
+hellYeahText_frame_4 = 986 634 949 538
+hellYeahText_frame_5 = 0 634 986 572
+hellYeahText_frame_6 = 1024 0 994 596
+hellYeahText_frame_7 = 0 0 1024 634
+hellYeahText_frame_8 = 1024 596 1 1

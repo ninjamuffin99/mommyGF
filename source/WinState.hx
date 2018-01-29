@@ -38,6 +38,12 @@ class WinState extends FlxState
 		_winText.text += Points.curTime;
 		_winText.text += " seconds!";
 		
+		var test:Explosion = new Explosion(0, 0);
+		add(test);
+		
+		var hellYeah:HellYeah = new HellYeah(0, 0);
+		add(hellYeah);
+		
 		super.create();
 	}
 	
