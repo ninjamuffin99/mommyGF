@@ -55,8 +55,9 @@ class GameOverState extends FlxState
 		_selector.updateHitbox();
 		add(_selector);
 		
+		#if flash
 		FlxG.sound.playMusic("assets/music/Music/768434_dumb-916-riff.mp3");
-		
+		#end
 		
 		super.create();
 	}

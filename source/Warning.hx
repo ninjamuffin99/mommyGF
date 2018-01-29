@@ -18,9 +18,6 @@ class Warning extends FlxSprite
 		loadGraphic("assets/images/swfs/warning.png", true, 128, 256);
 		animation.add("blink", [0, 1, 0, 1, 1, 1, 1], 12, false);
 		animation.play("blink");
-		
-		
-		
 	}
 	
 	override public function update(elapsed:Float):Void 

@@ -58,7 +58,9 @@ class PlayState extends BaseState
 	{
 		super.create();
 		
+		#if flash
 		FlxG.sound.playMusic("assets/music/MainTheme.mp3", 1);
+		#end
 		/*
 		pitchedSound.MP3Pitch("https://audio.ngfiles.com/778000/778677_Alice-Mako-IM-SORRY.mp3");
 		add(pitchedSound);
@@ -368,8 +370,9 @@ class PlayState extends BaseState
 		{
 			_timer = 35;
 			FlxG.sound.music.stop();
+			#if flash
 			FlxG.sound.play("assets/sounds/speedUp.mp3", 1, false, null, true, function(){FlxG.sound.playMusic("assets/music/Music/HYPERTheme.mp3");});
-			
+			#end
 		}
 		#end
 	}

@@ -29,10 +29,11 @@
 	
 	<set name="BUILD_DIR" value="export" />
 	<classpath name="source" />
-	<classpath name="source/Transitions" />
 	<assets path="assets" />
 	<assets path="assets/music" include="*.mp3" if="flash" />
 	<assets path="assets/music" include="*.ogg" unless="flash" />
+	<assets path="assets/sounds" include="*.mp3" if="flash" />
+	<assets path="assets/sounds" include="*.ogg" unless="flash" />
 	
 	<!-- _______________________________ Libraries ______________________________ -->
 
