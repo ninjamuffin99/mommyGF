@@ -136,6 +136,13 @@ class AnvilState extends FlxState
 				FlxG.sound.play(AssetPaths.bassDrum__mp3, 1);
 				FlxG.sound.play(AssetPaths.snapBass__mp3, 2);
 				
+				var test:Explosion = new Explosion(0, 0);
+				add(test);
+				
+				var hellYeah:HellYeah = new HellYeah(0, 0);
+				add(hellYeah);
+				
+				
 				FlxG.sound.music.fadeOut(FlxG.elapsed * 10);
 				_rope.animation.play("break");
 				FlxG.camera.flash(FlxColor.WHITE);

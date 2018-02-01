@@ -108,6 +108,11 @@ class MenuState extends FlxState
 				selectorPos += 1;
 			}
 			
+			if (selectorPos < 0)
+			selectorPos = 3;
+			if (selectorPos > 3)
+			selectorPos = 0;
+			
 			var selectorOffset:Float = 50;
 			switch (selectorPos) 
 			{
@@ -130,10 +135,7 @@ class MenuState extends FlxState
 		
 		#end
 		
-		if (selectorPos < 0)
-			selectorPos = 3;
-		if (selectorPos > 3)
-			selectorPos = 0;
+		
 		
 		if (FlxG.keys.anyJustPressed(["SPACE", "ENTER"]))
 		{

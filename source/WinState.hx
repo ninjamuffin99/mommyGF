@@ -34,15 +34,15 @@ class WinState extends FlxState
 		
 		FlxTween.tween(_winText, {y: FlxG.height * 0.45}, 0.75, {ease:FlxEase.quadInOut, type:FlxTween.PINGPONG});
 		
+		var winMin:Float = Points.curTime / 60;
+		
+		FlxG.log.add(winMin);
+		var winSec:Float = Points.curTime % 60;
+		FlxG.log.add(winSec);
+		
 		_winText.text += "\nYou killed mom in ";
-		_winText.text += Points.curTime;
-		_winText.text += " seconds!";
+		_winText.text += Std.int(winMin) + ":" + Std.int(winSec) + "!!";
 		
-		var test:Explosion = new Explosion(0, 0);
-		add(test);
-		
-		var hellYeah:HellYeah = new HellYeah(0, 0);
-		add(hellYeah);
 		
 		super.create();
 	}
