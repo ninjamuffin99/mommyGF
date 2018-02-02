@@ -1,10 +1,12 @@
 package;
 
+import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxState;
 import flixel.addons.effects.FlxTrailArea;
 import flixel.addons.nape.FlxNapeSpace;
+import flixel.group.FlxGroup;
 import flixel.math.FlxAngle;
 import flixel.math.FlxMath;
 import flixel.system.debug.watch.Tracker.TrackerProfile;
@@ -44,6 +46,10 @@ class BaseState extends FlxState
 	private var _candyMode:Bool = false;
 	private var _candyTimer:Float = 0.6;
 	private var _candyBoost:Float = 0;
+	
+	private var _candyAmount:Int = 0;
+	
+	private var _grpCandyDisplay:FlxTypedGroup<Candy>;
 	
 	
 	//OBSTACLE SHIT
@@ -116,12 +122,20 @@ class BaseState extends FlxState
 		add(_playerPunchHitBox);
 		
 		
+		hudInit();
+		
 		FlxG.debugger.addTrackerProfile(new TrackerProfile(Mom, ["angleAcceleration", "angleDrag", "timeSwapMin", "timeSwapMax"], []));
 		FlxG.debugger.track(_mom, "Mom");
 		
 		FlxG.debugger.addTrackerProfile(new TrackerProfile(Player, ["punchMultiplier", "smackPower", "pushMultiplier"], []));
 		FlxG.debugger.track(_player, "Player");
 		
+	}
+	
+	private function hudInit():Void
+	{
+		_grpCandyDisplay = new FlxTypedGroup<Candy>();
+		add(_grpCandyDisplay);
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -133,12 +147,36 @@ class BaseState extends FlxState
 		boostText.visible = _mom.boosting;
 		
 		if (FlxG.overlap(_candy, _player))
+		{
+			_candy.kill();
+			
+			var candyDisplay:Candy;
+			candyDisplay = new Candy((48 * _grpCandyDisplay.length) + 30, (FlxG.height - _candy.height) - 30);
+			_grpCandyDisplay.add(candyDisplay);
+			
+			_candyAmount += 1;
+		}
+		
+		if (FlxG.keys.anyJustPressed(["E", "O", "CTRL", "SHIFT"]) && _candyAmount >= 1)
+		{
+			_grpCandyDisplay.remove(_grpCandyDisplay.getFirstExisting(), true);
+			
+			_grpCandyDisplay.forEachExists(candyGroupMove);
+			
 			activateCandy();
+			_candyAmount -= 1;
+		}
+		
 		
 		if (_mom.boosting)
 		{
 			boostText.text = "Close Call Bonus: " + FlxMath.roundDecimal(_mom.boostBonus, 2);
 		}
+	}
+	
+	private function candyGroupMove(c:Candy):Void
+	{
+		c.x -= 48;
 	}
 	
 	private function activateCandy():Void
@@ -314,7 +352,9 @@ class BaseState extends FlxState
 			
 			if (_cat._timesPunched == 5)
 			{
-				_candy.setPosition(_cat.x, _cat.y - _candy.height);
+				_candy.revive();
+				
+				_candy.setPosition(_cat.x, _cat.y - (_candy.height * 1.5));
 				_candy.velocity.y -= 250;
 				_candy.acceleration.y = 600;
 			}

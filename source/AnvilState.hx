@@ -116,8 +116,11 @@ class AnvilState extends FlxState
 		
 		FlxG.collide();
 		
-		if (_player.poked && !_ropeBroke)
+		if ((_player.leftP || _player.rightP) && !_ropeBroke)
 		{
+			
+			_player.poked = true;
+			
 			if (_ropeHP < 5)
 			{
 				_rope.animation.play("punched" + Math.floor(_ropeHP), true);
@@ -152,6 +155,10 @@ class AnvilState extends FlxState
 				
 				_caseEmitter.start(false, 0.025);
 			}
+		}
+		else
+		{
+			_player.poked = false;
 		}
 		
 		if (_ropeBroke)
