@@ -4,8 +4,10 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.addons.nape.FlxNapeSprite;
+import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.math.FlxAngle;
 import flixel.math.FlxMath;
+import flixel.math.FlxPoint;
 import flixel.math.FlxVelocity;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.util.FlxColor;
@@ -32,6 +34,8 @@ class Mom extends FlxNapeSprite
 	public var timeSwapMin:Float = 0.5;
 	public var timeSwapMax:Float = 2.5;
 	
+	public var inCutscene:Bool = false;
+	
 	public var _lean:Float;
 	public var _distanceX:Float = 0;
 	public var _speedMultiplier:Float = 1;
@@ -50,12 +54,18 @@ class Mom extends FlxNapeSprite
 	public function new(X:Float=0, Y:Float=0, ?SimpleGraphic:FlxGraphicAsset, CreateRectangularBody:Bool=true, EnablePhysics:Bool=true) 
 	{
 		super(X, Y, SimpleGraphic, CreateRectangularBody, EnablePhysics);
-		loadGraphic(AssetPaths.momTemp__png, true,  Std.int(7740/18), 838);
+		
+		var tex = FlxAtlasFrames.fromSpriteSheetPacker(AssetPaths.momSheet__png, AssetPaths.momSheet__txt);
+		
+		frames = tex;
+		
+		//loadGraphic(AssetPaths.momTemp__png, true,  Std.int(7740/18), 838);
 		
 		animation.add("idle", [0, 1, 2, 3, 4, 5, 6, 7], 8);
 		animation.add("fallLeft", [8, 9, 10], 12);
-		animation.add("fallRight", [11, 12, 13], 12);
-		animation.add("hitGround", [14, 15, 16], 12, false);
+		animation.add("fallRight", [11, 12], 12);
+		animation.add("hitGround", [13, 14, 15], 12, false);
+		animation.add("squished", [18, 19, 20], 12, false);
 		
 		animation.play("idle");
 		
@@ -66,7 +76,8 @@ class Mom extends FlxNapeSprite
 		origin.y = 500;
 		
 		createRectangularBody(width, FlxG.height - y);
-		offset.set(25, 0);
+		offset.set(25);
+		body.translateShapes(Vec2.get(0, -120));
 		
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
@@ -81,9 +92,18 @@ class Mom extends FlxNapeSprite
 		
 		FlxG.log.add("mom added");
 		
+		//ogPos.set(offset.x, 0);
 		
 	}
+	/*
+	private var ogPos:FlxPoint;
 	
+	private function shake():Void
+	{
+		offset.x = FlxG.random.float( -4, 4);
+		offset.y = FlxG.random.float( -4, 4);
+	}
+	*/
 	public function initSpeed():Void
 	{
 		maxVelocity.x = 200;
@@ -93,6 +113,7 @@ class Mom extends FlxNapeSprite
 	override public function update(elapsed:Float):Void 
 	{
 		super.update(elapsed);
+		
 		
 		//animation.curAnim.frameRate = Std.int(12 * _speedMultiplier);
 		
@@ -111,11 +132,26 @@ class Mom extends FlxNapeSprite
 		if (animation.curAnim.name == "idle")
 		{
 			_distanceX += 1 * _speedMultiplier * FlxG.timeScale;
+			offset.y = 0;
 		}
 		if (animation.curAnim.name == "fallLeft" || animation.curAnim.name == "fallRight")
 		{
 			_distanceX += FlxG.random.float(0.25, 0.5) * _speedMultiplier * FlxG.timeScale;
+			//shake();
 		}
+		if (animation.curAnim.name == "hitGround")
+		{
+			if (_fallenLeft)
+			{
+				offset.y = width * 0.25;
+			}
+			else
+			{
+				offset.y = width * 0.15;
+			}
+			
+		}
+		
 	}
 	
 	private function fallLogic():Void
@@ -157,7 +193,7 @@ class Mom extends FlxNapeSprite
 				_fallenLeft = true;
 				animation.play("fallLeft");
 			}
-			else
+			else if (!inCutscene)
 			{
 				animation.play("idle");
 			}

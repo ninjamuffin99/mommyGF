@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.effects.FlxTrailArea;
+import flixel.addons.nape.FlxNapeSpace;
 import flixel.effects.particles.FlxEmitter;
 import flixel.graphics.frames.FlxFrame;
 import flixel.group.FlxGroup;
@@ -19,6 +20,8 @@ class AnvilState extends FlxState
 	private var _player:Player;
 	private var _playerTrail:FlxTrailArea;
 	
+	private var _mom:Mom;
+	
 	private var wallLeft:FlxSprite;
 	private var wallDown:FlxSprite;
 	private var wallRight:FlxSprite;
@@ -30,6 +33,9 @@ class AnvilState extends FlxState
 	private var _ropeHP:Float = 1;
 	private var _ropeBroke:Bool = false;
 	
+	private var test:Explosion;
+	private var hellYeah:HellYeah;
+	
 	private var _anvil:FlxSprite;
 	
 	private var _endTimer:Float = FlxG.elapsed * 24;
@@ -39,6 +45,29 @@ class AnvilState extends FlxState
 		FlxG.camera.fade(FlxColor.BLACK, 0.3, true);
 		FlxG.log.add("Before Emitter");
 		CasesEffects();
+		
+		_anvil = new FlxSprite(FlxG.width * 0.6, FlxG.width * 0);
+		_anvil.loadGraphic(AssetPaths.anvil__png, false, 1024, 512);
+		_anvil.setGraphicSize(Std.int(_anvil.width / 2));
+		_anvil.updateHitbox();
+		
+		_mom = new Mom(_anvil.x + (_anvil.width / 2), FlxG.height * 1.1);
+		_mom.inCutscene = true;
+		
+		add(_mom);
+		add(_anvil);
+		
+		
+		
+		test = new Explosion();
+		add(test);
+		test.visible = false;
+		test.animation.pause();
+		
+		hellYeah= new HellYeah(0, 0);
+		add(hellYeah);
+		hellYeah.animation.pause();
+		hellYeah.visible = false;
 		
 		_player = new Player(FlxG.width * 0.05, FlxG.height * 0.3);
 		add(_player);
@@ -64,11 +93,7 @@ class AnvilState extends FlxState
 		_rope.updateHitbox();
 		add(_rope);
 		
-		_anvil = new FlxSprite(FlxG.width * 0.6, FlxG.width * 0);
-		_anvil.loadGraphic(AssetPaths.anvil__png, false, 1024, 512);
-		_anvil.setGraphicSize(Std.int(_anvil.width / 2));
-		_anvil.updateHitbox();
-		add(_anvil);
+		
 		
 		
 		super.create();
@@ -114,7 +139,7 @@ class AnvilState extends FlxState
 	{
 		super.update(elapsed);
 		
-		FlxG.collide();
+		_mom.body.rotation = 0;
 		
 		if ((_player.leftP || _player.rightP) && !_ropeBroke)
 		{
@@ -139,11 +164,17 @@ class AnvilState extends FlxState
 				FlxG.sound.play(AssetPaths.bassDrum__mp3, 1);
 				FlxG.sound.play(AssetPaths.snapBass__mp3, 2);
 				
-				var test:Explosion = new Explosion(0, 0);
-				add(test);
+				_mom.animation.play("squished", true);
+				_mom.offset.y -= FlxG.height * 0.45;
+				_mom.offset.x += FlxG.width * 0.22;
 				
-				var hellYeah:HellYeah = new HellYeah(0, 0);
-				add(hellYeah);
+				hellYeah.visible = true;
+				hellYeah.animation.play("play", true);
+				
+				test.visible = true;
+				test.animation.play("test", true);
+				
+				_anvil.y = _mom.y + (_anvil.height * 0.5);
 				
 				
 				FlxG.sound.music.fadeOut(FlxG.elapsed * 10);
