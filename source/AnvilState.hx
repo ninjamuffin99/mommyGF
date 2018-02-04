@@ -10,6 +10,7 @@ import flixel.graphics.frames.FlxFrame;
 import flixel.group.FlxGroup;
 import flixel.system.FlxSound;
 import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 
 /**
  * ...
@@ -164,9 +165,9 @@ class AnvilState extends FlxState
 				FlxG.sound.play(AssetPaths.bassDrum__mp3, 1);
 				FlxG.sound.play(AssetPaths.snapBass__mp3, 2);
 				
-				_mom.animation.play("squished", true);
-				_mom.offset.y -= FlxG.height * 0.45;
-				_mom.offset.x += FlxG.width * 0.22;
+				new FlxTimer().start(1.8, killMom);
+				
+				
 				
 				hellYeah.visible = true;
 				hellYeah.animation.play("play", true);
@@ -174,7 +175,7 @@ class AnvilState extends FlxState
 				test.visible = true;
 				test.animation.play("test", true);
 				
-				_anvil.y = _mom.y + (_anvil.height * 0.5);
+				
 				
 				
 				FlxG.sound.music.fadeOut(FlxG.elapsed * 10);
@@ -201,6 +202,15 @@ class AnvilState extends FlxState
 		{
 			_rope.visible = false;
 		}
+	}
+	
+	private function killMom(t:FlxTimer):Void
+	{
+		_mom.animation.play("squished", true);
+		_mom.offset.y -= FlxG.height * 0.45;
+		_mom.offset.x += FlxG.width * 0.22;
+		
+		_anvil.y = _mom.y + (_anvil.height * 0.5);
 	}
 	
 	private function sfxHit():Void
