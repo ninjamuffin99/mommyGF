@@ -283,6 +283,9 @@ class BaseState extends FlxState
 			punch();
 		}
 		
+		
+		
+		
 		if (_player.punching)
 		{
 			_player.animation.play("punch");
@@ -291,6 +294,18 @@ class BaseState extends FlxState
 		{
 			_player.y = _playerY;
 			_playerPunchHitBox.active = false;
+		}
+		
+		/*
+		if (_player.ducked)
+		{
+			
+		}
+		*/
+		if (_player.ducking)
+		{
+			_player.animation.play("ducking", true);
+			_player.y = _playerY + 50;
 		}
 		
 		#if !mobile

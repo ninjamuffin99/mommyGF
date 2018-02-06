@@ -33,6 +33,9 @@ class Player extends FlxSprite
 	public var punched:Bool = false;
 	public var punching:Bool = false;
 	
+	public var ducked:Bool = false;
+	public var ducking:Bool = false;
+	
 	public var justSwitched:Bool = false;
 	
 	//PUNCHING POWER VARS
@@ -56,18 +59,21 @@ class Player extends FlxSprite
 	public var leftP:Bool = false;
 	public var rightP:Bool = false;
 	public var upP:Bool = false;
+	public var downP:Bool = false;
 	public var actionP:Bool = false;
 	
 	//refers to key being held down
 	public var left:Bool = false;
 	public var right:Bool = false;
 	public var up:Bool = false;
+	public var down:Bool = false;
 	public var action:Bool = false;
 	
 	//Refers to keys being pressed down, doesnt have that FlxG.keys shit because the upper stuff is still there because lol im lazy
 	public var leftR:Bool = false;
 	public var rightR:Bool = false;
 	public var upR:Bool = false;
+	public var downR:Bool = false;
 	public var actionR:Bool = false;
 	
 	private var disableTimer:Float = 0;
@@ -85,6 +91,7 @@ class Player extends FlxSprite
 		animation.add("poke2", [15], 30, false, true);
 		animation.add("poke3", [16], 30, false, true);
 		animation.add("punch", [17, 18], 12, false);
+		animation.add("ducking", [16], 1, false, true);
 		
 		
 		width = width / 2;
@@ -133,16 +140,19 @@ class Player extends FlxSprite
 		leftP = FlxG.keys.anyJustPressed(["LEFT", "A", "J"]);
 		rightP = FlxG.keys.anyJustPressed(["RIGHT", "D", "L"]);
 		upP = FlxG.keys.anyJustPressed(["UP", "W", "I"]);
+		downP = FlxG.keys.anyJustPressed(["DOWN", "S", "K"]);
 		actionP = FlxG.keys.anyJustPressed(["Z", "SPACE", "X", "N", "M"]);
 		
 		left = FlxG.keys.anyPressed(["LEFT", "A", "J"]);
 		right = FlxG.keys.anyPressed(["RIGHT", "D", "L"]);
 		up = FlxG.keys.anyPressed(["UP", "W", "I"]);
+		down = FlxG.keys.anyPressed(["DOWN", "S", "K"]);
 		action = FlxG.keys.anyPressed(["Z", "SPACE", "X", "N", "M"]);
 		
 		leftR = FlxG.keys.anyJustReleased(["LEFT", "A", "J"]);
 		rightR = FlxG.keys.anyJustReleased(["RIGHT", "D", "L"]);
 		upR = FlxG.keys.anyJustReleased(["UP", "W", "I"]);
+		downR = FlxG.keys.anyJustReleased(["DOWN", "S", "K"]);
 		actionR = FlxG.keys.anyJustReleased(["Z", "SPACE", "X", "N", "M"]);
 		#end
 		
@@ -206,6 +216,24 @@ class Player extends FlxSprite
 			{
 				poked = false;
 			}
+		}
+		
+		if (down)
+		{
+			if (downP)
+			{
+				ducked = true;
+				
+			}
+			else
+			{
+				ducked = false;
+			}
+			ducking = true;
+		}
+		else
+		{
+			ducking = false;
 		}
 		
 		
