@@ -1,0 +1,5 @@
+asteroid_frame_0 = 532 0 477 610
+asteroid_frame_1 = 1009 0 477 610
+asteroid_frame_2 = 1486 0 404 611
+asteroid_frame_3 = 0 0 532 449
+asteroid_frame_4 = 0 449 532 449

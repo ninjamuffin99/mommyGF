@@ -304,7 +304,11 @@ class PlayState extends BaseState
 		
 		if (FlxG.keys.justPressed.E)
 		{
-			spawnMoped();
+			spawnObstacle(0);
+		}
+		if (FlxG.keys.justPressed.Q)
+		{
+			spawnObstacle(1);
 		}
 		
 		if ((FlxG.keys.justPressed.V && !_candyMode))
@@ -410,6 +414,22 @@ class PlayState extends BaseState
 		_catActive = true;
 	}
 	
+	private function asteroidCheck():Void
+	{
+		if (_asteroidTimer > 0)
+		{
+			_asteroidTimer -= FlxG.elapsed;
+			if (_asteroid.isOnScreen())
+			{
+				_asteroid.kill();
+			}
+		}
+		else
+		{
+			spawnObstacle(1);
+		}
+	}
+	
 	
 	private var justSpawnedMoped:Bool = false;
 	private var mopedLeft:Bool = false;
@@ -429,8 +449,9 @@ class PlayState extends BaseState
 		}
 		else
 		{
-			spawnMoped();
+			spawnObstacle();
 		}
+		
 		
 		if (justSpawnedMoped && _mopedWarning.animation.curAnim.finished)
 		{
@@ -486,20 +507,46 @@ class PlayState extends BaseState
 		}
 	}
 	
-	//runs only when called
-	private function spawnMoped():Void
+	/**
+	 * A handler for spawnin shit
+	 * @param	type
+	 * TYPES:
+	 * 0 == Bike
+	 * 1 == Asteroid
+	 */
+	private function spawnObstacle(type:Int = 0):Void
 	{
-		_mopedWarning.revive();
-		_moped.velocity.x = 0;
-		mopedLeft = _player._left;
-		mopedCollision = false;
-		_mopedWarning.x = _player.x + 100;
-		_mopedTimer = FlxG.random.float(10, 20);
-		_mopedWarning.animation.curAnim.restart();
+		var obType = type;
 		
-		FlxG.sound.play("assets/sounds/MotorBike.wav", 0.7);
+		switch (obType) 
+		{
+			case 0:
+				_mopedWarning.revive();
+				_moped.velocity.x = 0;
+				mopedLeft = _player._left;
+				mopedCollision = false;
+				_mopedWarning.x = _player.x + 100;
+				_mopedTimer = FlxG.random.float(10, 20);
+				_mopedWarning.animation.curAnim.restart();
+				
+				FlxG.sound.play("assets/sounds/MotorBike.wav", 0.7);
+				
+				justSpawnedMoped = true;
+			case 1:
+				spawnAsteroid();
+			default:
+				
+		}
 		
-		justSpawnedMoped = true;
+	}
+	
+	private function spawnAsteroid():Void
+	{
+		_asteroid.revive();
+		_asteroid.y = 0 - _asteroid.height;
+		_asteroid.velocity.y = 2400;
+		_asteroid.left = _player._left;
+		_asteroidTimer = FlxG.random.float( 50, 100);
 	}
 	
 	

@@ -57,6 +57,8 @@ class BaseState extends FlxState
 	private var _moped:MopedBoy;
 	private var _mopedWarning:Warning;
 	private var _mopedTimer:Float = 1;
+	private var _asteroidTimer:Float = 1;
+	private var _asteroid:Asteroid;
 	
 	
 	private var _timer:Float = 180;
@@ -109,6 +111,11 @@ class BaseState extends FlxState
 		
 		_mopedWarning = new Warning(FlxG.width, 40);
 		add(_mopedWarning);
+		
+		_asteroid = new Asteroid(0, 0);
+		_asteroid.kill();
+		_asteroidTimer = FlxG.random.float(50, 100);
+		add(_asteroid);
 		
 		//_retard = new Retard(0, 300);
 		//add(_retard);
