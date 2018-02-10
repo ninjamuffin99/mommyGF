@@ -1,3 +1,3 @@
 Notes/ideas:
 	-Maybe adjust the timer so that it's less time, or make mom slower a bit or something.
-	
+	-make it so that the player bounces as usual

@@ -4,6 +4,7 @@ import flash.display.BitmapData;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
+import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.input.FlxSwipe;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
@@ -83,23 +84,29 @@ class Player extends FlxSprite
 	{
 		super(X, Y);
 		
-		loadGraphic(AssetPaths.tempKidsShit__png, true, Std.int(12607/19), 400);
+		var tex = FlxAtlasFrames.fromSpriteSheetPacker(AssetPaths.kidSheet__png, AssetPaths.kidSheet__txt);
+		
+		frames = tex;
+		
+		//loadGraphic(AssetPaths.tempKidsShit__png, true, Std.int(12607/19), 400);
 		animation.add("idle", [0, 0, 1, 2, 3, 4, 5, 5, 6, 7, 8, 9], 12);
 		animation.play("idle");
 		
-		animation.add("poke1", [14], 30, false, true);
-		animation.add("poke2", [15], 30, false, true);
-		animation.add("poke3", [16], 30, false, true);
-		animation.add("punch", [17, 18], 12, false);
-		animation.add("ducking", [16], 1, false, true);
-		
+		animation.add("poke1", [13, 14], 30, false, true);
+		animation.add("poke2", [15, 16], 30, false, true);
+		animation.add("poke3", [17, 18], 30, false, true);
+		animation.add("punch", [19, 20], 12, false);
+		animation.add("ducking", [17], 1, false, true);
+		animation.add("pickingUp", [31, 32, 33], 24);
 		
 		width = width / 2;
 		centerOffsets();
 		
+		offset.y = -50;
+		offset.x = 50;
+		
 		setFacingFlip(FlxObject.LEFT, false, false);
 		setFacingFlip(FlxObject.RIGHT, true, false);
-		
 	}
 	override public function update(elapsed:Float):Void 
 	{
@@ -118,7 +125,6 @@ class Player extends FlxSprite
 		{
 			paralyzed = false;
 		}
-		
 		
 		
 		if (!paralyzed)

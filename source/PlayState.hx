@@ -214,12 +214,19 @@ class PlayState extends BaseState
 	{
 		_momIcon.x = FlxMath.remapToRange(_mom._distanceX,  0, _distanceGoal, _distanceBar.x + 10, _distanceBar.x + _distanceBar.width - _momIcon.width - 10);
 		
-		
 		_timer -= FlxG.elapsed;
-		_timerText.text = "seconds " + Math.ffloor(_timer);
+		
+		var timMin:Float = _timer / 60;
+		var timSec:Float = _timer % 60;
 		
 		
+		_timerText.text = Std.int(timMin) + ":" + Std.int(timSec);
 		
+		/*
+		
+		_winText.text += "\nYou killed mom in ";
+		_winText.text += Std.int(winMin) + ":" + Std.int(winSec) + "!!";
+		*/
 		
 		_pointsText.text = "Current Time: " + Math.floor(Points.curTime);
 		_highScoreText.text = "Highscore: " + Points.highScoreTime;
@@ -543,6 +550,7 @@ class PlayState extends BaseState
 	private function spawnAsteroid():Void
 	{
 		_asteroid.revive();
+		_asteroid.animation.curAnim.restart();
 		_asteroid.y = 0 - _asteroid.height;
 		_asteroid.velocity.y = 2400;
 		_asteroid.left = _player._left;

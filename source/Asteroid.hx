@@ -21,7 +21,7 @@ class Asteroid extends FlxSprite
 		
 		frames = tex;
 		
-		animation.add("crash", [ 0, 1, 2, 2, 3, 4], 24, false);
+		animation.add("crash", [ 0, 1, 2, 2, 3, 4], 12, false);
 		
 		animation.play("crash");
 		
