@@ -423,6 +423,7 @@ class PlayState extends BaseState
 	
 	private function asteroidCheck():Void
 	{
+		/*
 		if (_asteroidTimer > 0)
 		{
 			_asteroidTimer -= FlxG.elapsed;
@@ -435,6 +436,7 @@ class PlayState extends BaseState
 		{
 			spawnObstacle(1);
 		}
+		*/
 	}
 	
 	
@@ -445,6 +447,9 @@ class PlayState extends BaseState
 	//runs every frame
 	private function mopedCheck():Void
 	{
+		//MOVE THIS EVENTUALLY!!!!!!
+		asteroidCheck();
+		
 		if (_mopedTimer > 0)
 		{
 			_mopedTimer -= FlxG.elapsed;
@@ -550,9 +555,12 @@ class PlayState extends BaseState
 	private function spawnAsteroid():Void
 	{
 		_asteroid.revive();
+		_asteroidWarning.revive();
+		_asteroidWarning.animation.curAnim.restart();
+		_asteroidWarning.x = _player.x + 80;
 		_asteroid.animation.curAnim.restart();
 		_asteroid.y = 0 - _asteroid.height;
-		_asteroid.velocity.y = 2400;
+		_asteroid.velocity.y = 4800;
 		_asteroid.left = _player._left;
 		_asteroidTimer = FlxG.random.float( 50, 100);
 	}

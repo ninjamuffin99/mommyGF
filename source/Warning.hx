@@ -10,10 +10,9 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  */
 class Warning extends FlxSprite 
 {
-
-	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
+	public function new(?X:Float=0, ?Y:Float=0) 
 	{
-		super(X, Y, SimpleGraphic);
+		super(X, Y);
 		
 		loadGraphic("assets/images/swfs/warning.png", true, 128, 256);
 		animation.add("blink", [0, 1, 0, 1, 1, 1, 1], 12, false);
