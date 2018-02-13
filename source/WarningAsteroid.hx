@@ -18,7 +18,7 @@ class WarningAsteroid extends FlxSprite
 		var tex = FlxAtlasFrames.fromSpriteSheetPacker(AssetPaths.asteroidWarningSheet__png, AssetPaths.asteroidWarningSheet__txt);
 		
 		frames = tex;
-		animation.add("warn", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 , 17, 18, 19], 24);
+		animation.add("warn", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 , 17, 18, 19], 24, false);
 		animation.play("warn");
 		
 	}

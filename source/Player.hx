@@ -24,6 +24,8 @@ class Player extends FlxSprite
 	public var _left:Bool = true;
 	public var _pickingUpMom:Bool = false;
 	public var paralyzed:Bool = false;
+	public var confused:Bool = false;
+	private var confusedCounter:Int = 0;
 	public var curPostition:FlxPoint;
 	
 	public var sameSide:Bool = false;
@@ -78,6 +80,7 @@ class Player extends FlxSprite
 	public var actionR:Bool = false;
 	
 	private var disableTimer:Float = 0;
+	private var confuseTimer:Float = 0;
 	private var prevAnim:Int = FlxG.random.int(1, 3);
 
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
@@ -115,16 +118,7 @@ class Player extends FlxSprite
 		//Updates the points as long as the player is on screen
 		Points.curTime += FlxG.elapsed * FlxG.timeScale;
 		
-		
-		if (disableTimer > 0)
-		{
-			disableTimer -= FlxG.elapsed;
-			paralyzed = true;
-		}
-		else 
-		{
-			paralyzed = false;
-		}
+		statusChecks();
 		
 		
 		if (!paralyzed)
@@ -138,6 +132,30 @@ class Player extends FlxSprite
 				prevAnim = FlxG.random.int(1, 3, [prevAnim]);
 			}
 		}
+	}
+	
+	private function statusChecks():Void
+	{
+		
+		if (disableTimer > 0)
+		{
+			disableTimer -= FlxG.elapsed;
+			paralyzed = true;
+		}
+		else 
+		{
+			paralyzed = false;
+		}
+		
+		
+		if (confuseTimer > 0)
+		{
+			confuseTimer -= FlxG.elapsed;
+			confused = true;
+		}
+		else
+			confused = false;
+		
 	}
 	
 	private function controls():Void
@@ -164,7 +182,18 @@ class Player extends FlxSprite
 		
 		mouseControls();
 		
-		
+		if (confused)
+		{
+			if (leftP || rightP || upP || downP || actionP)
+			{
+				confusedCounter += 1;
+				if (confusedCounter >= 5)
+				{
+					confusedCounter = 0;
+					FlxG.camera.flash();
+				}
+			}
+		}
 		
 		//punching, if they're on the corrrect side. Only checks if not punching (holding an action button)
 		
@@ -256,9 +285,19 @@ class Player extends FlxSprite
 		
 	}
 	
-	public function disable(time:Float = 1):Void
+	public function disable(time:Float = 1, ?type:Int = 0):Void
 	{
-		disableTimer += time;
+		switch (type) 
+		{
+			case 0:
+				disableTimer += time;
+			case 1:
+				confuseTimer += time;
+			default:
+				
+		}
+		
+		
 	}
 	
 	

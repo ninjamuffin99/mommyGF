@@ -421,22 +421,47 @@ class PlayState extends BaseState
 		_catActive = true;
 	}
 	
+	private var justSpawnedAsteroid:Bool = false;
+	
 	private function asteroidCheck():Void
 	{
-		/*
+		
 		if (_asteroidTimer > 0)
 		{
 			_asteroidTimer -= FlxG.elapsed;
-			if (_asteroid.isOnScreen())
+			
+			if (!_asteroid.isOnScreen())
 			{
 				_asteroid.kill();
 			}
 		}
 		else
 		{
-			spawnObstacle(1);
+			spawnObstacle(1);	
 		}
-		*/
+		
+		if (FlxG.keys.justPressed.Q)
+			_player.disable(6, 1);
+		
+		if (justSpawnedAsteroid && _asteroidWarning.animation.curAnim.finished)
+		{
+			_asteroid.revive();
+			
+			
+			if (_asteroid.left)
+			{
+				_asteroid.x = 20;
+			}
+			else
+			{
+				_asteroid.x = FlxG.width * 0.6;
+			}
+			
+			
+			justSpawnedAsteroid = false;
+			
+		}
+		
 	}
 	
 	
@@ -554,7 +579,7 @@ class PlayState extends BaseState
 	
 	private function spawnAsteroid():Void
 	{
-		_asteroid.revive();
+		
 		_asteroidWarning.revive();
 		_asteroidWarning.animation.curAnim.restart();
 		_asteroidWarning.x = _player.x + 80;
@@ -563,6 +588,8 @@ class PlayState extends BaseState
 		_asteroid.velocity.y = 4800;
 		_asteroid.left = _player._left;
 		_asteroidTimer = FlxG.random.float( 50, 100);
+		
+		justSpawnedAsteroid = true;
 	}
 	
 	
