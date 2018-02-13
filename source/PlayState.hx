@@ -440,9 +440,6 @@ class PlayState extends BaseState
 			spawnObstacle(1);	
 		}
 		
-		if (FlxG.keys.justPressed.Q)
-			_player.disable(6, 1);
-		
 		if (justSpawnedAsteroid && _asteroidWarning.animation.curAnim.finished)
 		{
 			_asteroid.revive();
@@ -457,9 +454,12 @@ class PlayState extends BaseState
 				_asteroid.x = FlxG.width * 0.6;
 			}
 			
-			
 			justSpawnedAsteroid = false;
-			
+		}
+		
+		if (FlxG.overlap(_asteroid, _player) && !_player.confused)
+		{
+			_player.disable(FlxG.random.float(6, 15), 1);
 		}
 		
 	}

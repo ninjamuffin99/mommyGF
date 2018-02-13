@@ -187,7 +187,7 @@ class Player extends FlxSprite
 			if (leftP || rightP || upP || downP || actionP)
 			{
 				confusedCounter += 1;
-				if (confusedCounter >= 5)
+				if (confusedCounter >= 4)
 				{
 					confusedCounter = 0;
 					FlxG.camera.flash();
@@ -296,10 +296,17 @@ class Player extends FlxSprite
 			default:
 				
 		}
-		
-		
 	}
 	
+	public function clearStatus():Void
+	{
+		paralyzed = false;
+		disableTimer = 0;
+		
+		confused = false;
+		confuseTimer = 0;
+		confusedCounter = 0;
+	}
 	
 	private function mobileControls():Void
 	{

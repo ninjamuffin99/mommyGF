@@ -171,7 +171,6 @@ class BaseState extends FlxState
 		if (FlxG.keys.anyJustPressed(["E", "O", "CTRL", "SHIFT"]) && _candyAmount >= 1)
 		{
 			_grpCandyDisplay.remove(_grpCandyDisplay.getFirstExisting(), true);
-			
 			_grpCandyDisplay.forEachExists(candyGroupMove);
 			
 			activateCandy();
@@ -193,9 +192,10 @@ class BaseState extends FlxState
 	private function activateCandy():Void
 	{
 		FlxG.camera.color = 0xFFFEFEFE;
+		_player.clearStatus();
 		FlxTween.tween(FlxG.camera, {color:FlxColor.WHITE}, _candyTimer);
 		FlxG.sound.play("assets/sounds/CandyMode.mp3", 0.7);
-			
+		
 		_candyMode = true;
 		FlxG.camera.flash(FlxColor.WHITE, 0.075);
 		_candy.x = -_candy.width;
