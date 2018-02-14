@@ -142,7 +142,7 @@ class AnvilState extends FlxState
 		
 		_mom.body.rotation = 0;
 		
-		if ((_player.leftP || _player.rightP) && !_ropeBroke)
+		if (_player.spamP && !_ropeBroke)
 		{
 			
 			_player.poked = true;

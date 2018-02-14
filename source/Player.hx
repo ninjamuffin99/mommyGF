@@ -63,6 +63,7 @@ class Player extends FlxSprite
 	public var rightP:Bool = false;
 	public var upP:Bool = false;
 	public var downP:Bool = false;
+	public var spamP:Bool = false;
 	public var actionP:Bool = false;
 	
 	//refers to key being held down
@@ -136,7 +137,6 @@ class Player extends FlxSprite
 	
 	private function statusChecks():Void
 	{
-		
 		if (disableTimer > 0)
 		{
 			disableTimer -= FlxG.elapsed;
@@ -167,6 +167,7 @@ class Player extends FlxSprite
 		downP = FlxG.keys.anyJustPressed(["DOWN", "S", "K"]);
 		actionP = FlxG.keys.anyJustPressed(["Z", "SPACE", "X", "N", "M"]);
 		
+		
 		left = FlxG.keys.anyPressed(["LEFT", "A", "J"]);
 		right = FlxG.keys.anyPressed(["RIGHT", "D", "L"]);
 		up = FlxG.keys.anyPressed(["UP", "W", "I"]);
@@ -181,6 +182,8 @@ class Player extends FlxSprite
 		#end
 		
 		mouseControls();
+		
+		spamP = (leftP || rightP);
 		
 		if (confused)
 		{
