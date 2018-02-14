@@ -96,6 +96,11 @@ class MenuState extends FlxState
 	{
 		super.update(elapsed);
 		
+		if (FlxG.keys.justPressed.TWO)
+		{
+			FlxG.switchState(new OutsideState());
+		}
+		
 		#if !mobile
 		if (FlxG.keys.anyJustPressed(["UP", "W", "I", "DOWN", "S", "K"]))
 		{

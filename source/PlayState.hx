@@ -85,7 +85,6 @@ class PlayState extends BaseState
 		}
 		*/
 		sceneSwitch();
-		
 		watching();
 	}
 	
