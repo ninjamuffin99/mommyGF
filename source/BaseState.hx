@@ -13,6 +13,7 @@ import flixel.math.FlxMath;
 import flixel.system.debug.watch.Tracker.TrackerProfile;
 import flixel.text.FlxText;
 import flixel.tweens.FlxTween;
+import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
 
 /**
@@ -40,7 +41,8 @@ class BaseState extends FlxState
 	//CAT SHIT
 	private var _cat:Cat;
 	private var _catLeft:Bool = false;
-
+	private var _timerCat:Float = 10;
+    private var _catActive:Bool = false;
 	
 	//Cnady Stuff
 	private var _candy:Candy;
@@ -247,20 +249,28 @@ class BaseState extends FlxState
 			boostText.text = "Close Call Bonus: " + FlxMath.roundDecimal(_mom.boostBonus, 2);
 		}
 	}
-
-	private function resetMultipliers():Void
+	
+	private function updateHUD():Void
 	{
-		_mom._speedMultiplier = 1;
-		_player.punchMultiplier = 1;
+		_momIcon.x = FlxMath.remapToRange(_mom._distanceX,  0, _distanceGoal, _distanceBar.x + 10, _distanceBar.x + _distanceBar.width - _momIcon.width - 10);
 		
-		_playerAnims.visible = false;
-		_player.visible = true;
-	}
-	
-	
-	private function candyGroupMove(c:Candy):Void
-	{
-		c.x -= 48;
+		_timer -= FlxG.elapsed;
+		
+		var timMin:Float = _timer / 60;
+		var timSec:Float = _timer % 60;
+		
+		
+		_timerText.text = Std.int(timMin) + ":" + Std.int(timSec);
+		
+		/*
+		
+		_winText.text += "\nYou killed mom in ";
+		_winText.text += Std.int(winMin) + ":" + Std.int(winSec) + "!!";
+		*/
+		
+		_pointsText.text = "Current Time: " + Math.floor(Points.curTime);
+		_highScoreText.text = "Highscore: " + Points.highScoreTime;
+		
 	}
 	
 	private function activateCandy():Void
@@ -415,7 +425,7 @@ class BaseState extends FlxState
 		}
 		#end
 		
-		if (_player._pickingUpMom && _player.poked)
+		if (_player._pickingUpMom && _player.spamP)
 		{
 			sfxHit();
 			
@@ -509,6 +519,9 @@ class BaseState extends FlxState
 	
 	private var justSpawnedAsteroid:Bool = false;
 	
+	/**
+	 * currently called in mopedCheck() !!!! CHANGE THIS EVENTUALLY
+	 */
 	private function asteroidCheck():Void
 	{
 		
@@ -811,7 +824,6 @@ class BaseState extends FlxState
 		}
 	}
 	
-	
 	private function sfxHit():Void
 	{
 		if (_timer >= 30)
@@ -824,5 +836,17 @@ class BaseState extends FlxState
 		}
 	}
 	
+	private function resetMultipliers():Void
+	{
+		_mom._speedMultiplier = 1;
+		_player.punchMultiplier = 1;
+		
+		_playerAnims.visible = false;
+		_player.visible = true;
+	}
 	
+	private function candyGroupMove(c:Candy):Void
+	{
+		c.x -= 48;
+	}
 }

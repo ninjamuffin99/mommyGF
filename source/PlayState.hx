@@ -27,16 +27,9 @@ class PlayState extends BaseState
 	//BACKGROUND
 	private var _BG:FlxSprite;
 	
-
-	private var _timerCat:Float = 10;
-	private var _catActive:Bool = false;
-
-	
 	//Recording/Replaying
 	private static var recording:Bool = false;
 	private static var replaying:Bool = false;
-	
-	
 	
 	//public var pitchedSound:SoundPitch = new SoundPitch();
 	
@@ -51,6 +44,7 @@ class PlayState extends BaseState
 		#if flash
 		FlxG.sound.playMusic("assets/music/MainTheme.mp3", 1);
 		#end
+		
 		/*
 		pitchedSound.MP3Pitch("https://audio.ngfiles.com/778000/778677_Alice-Mako-IM-SORRY.mp3");
 		add(pitchedSound);
@@ -65,15 +59,9 @@ class PlayState extends BaseState
 		add(_BG);
 		
 		//MAIN STUFF EHEHEH
-		
 		addMainStuff();
-		
 		spawnCat();
-		
 		createHUD();
-		
-		//FlxG.camera.follow(_mom);
-		
 	}
 	
 
@@ -99,29 +87,6 @@ class PlayState extends BaseState
 		sceneSwitch();
 		
 		watching();
-	}
-	
-	private function updateHUD():Void
-	{
-		_momIcon.x = FlxMath.remapToRange(_mom._distanceX,  0, _distanceGoal, _distanceBar.x + 10, _distanceBar.x + _distanceBar.width - _momIcon.width - 10);
-		
-		_timer -= FlxG.elapsed;
-		
-		var timMin:Float = _timer / 60;
-		var timSec:Float = _timer % 60;
-		
-		
-		_timerText.text = Std.int(timMin) + ":" + Std.int(timSec);
-		
-		/*
-		
-		_winText.text += "\nYou killed mom in ";
-		_winText.text += Std.int(winMin) + ":" + Std.int(winSec) + "!!";
-		*/
-		
-		_pointsText.text = "Current Time: " + Math.floor(Points.curTime);
-		_highScoreText.text = "Highscore: " + Points.highScoreTime;
-		
 	}
 	
 	override function controls():Void 
