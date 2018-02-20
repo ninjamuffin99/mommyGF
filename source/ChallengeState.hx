@@ -87,7 +87,7 @@ class ChallengeState extends FlxState
 		[
 			"Unlocked medal",
 			"Test desc unlocked",
-			"This medal has been unlocked somehow....",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
 			"link to image file here",
 			true
 		]
