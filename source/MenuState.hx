@@ -149,7 +149,7 @@ class MenuState extends FlxState
 				case 0:
 					FlxG.switchState(new PlayState());
 				case 1:
-					FlxG.log.add("Selected Challenges");
+					FlxG.switchState(new ChallengeState());
 				case 2: 
 					FlxG.log.add("Options Slected");
 				case 3:
