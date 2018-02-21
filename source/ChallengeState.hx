@@ -37,7 +37,7 @@ class ChallengeState extends FlxState
 		for (a in 0...challengeList.length)
 		{
 			var box:FlxSpriteButton;
-			box = new FlxSpriteButton(50, 110 * a, null, function()
+			box = new FlxSpriteButton(110 * (a % 8) + 16, (110 * Std.int(a / 8)) + 110 , null, function()
 			{
 				boxText.text = challengeList[a][0] + "\n" + challengeList[a][2];
 				boxOpened.visible = true;
@@ -83,6 +83,167 @@ class ChallengeState extends FlxState
 			"This is a longer version of the description. I can put whatever words here I think... this description is just placeholder, and it will be deleted eventually. Just like all of us. We will all die one day. We are all achievements.",
 			"link to image file here",
 			false
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
+		],
+		[
+			"Unlocked medal",
+			"Test desc unlocked",
+			"This medal has been unlocked somehow.... thats why the button was at full opacity",
+			"link to image file here",
+			true
 		],
 		[
 			"Unlocked medal",
