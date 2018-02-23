@@ -153,7 +153,7 @@ class MenuState extends FlxState
 				case 2: 
 					FlxG.log.add("Options Slected");
 				case 3:
-					FlxG.log.add("Credits Selected");
+					FlxG.switchState(new CreditsState());
 				default:
 					FlxG.log.add("Defualt selection???");
 			}

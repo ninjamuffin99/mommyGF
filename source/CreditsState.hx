@@ -17,6 +17,7 @@ class CreditsState extends FlxState
 	{
 		_txtCreds = new FlxText(0, FlxG.height, 0, "", 16);
 		add(_txtCreds);
+		_txtCreds.screenCenter(X);
 		
 		for (i in 0...creds.length)
 		{
@@ -30,6 +31,8 @@ class CreditsState extends FlxState
 	{
 		super.update(elapsed);
 		
+		_txtCreds.y -= 1;
+		
 		if (FlxG.keys.justPressed.ANY)
 		{
 			FlxG.switchState(new MenuState());
@@ -41,7 +44,14 @@ class CreditsState extends FlxState
 	[
 		"Created by PhantomArcade and NinjaMuffin99",
 		"For Newgrounds.com",
-		"lov u tom fulp"
+		"lov u tom fulp",
+		"",
+		"man I like sweet ice tea so much",
+		"that shit is tasty as hell",
+		"so shoutouts to ice tea",
+		"Made with HaxeFlixel",
+		"and a lotta love",
+		"-grandma"
 	];
 
 	
