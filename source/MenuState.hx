@@ -147,7 +147,7 @@ class MenuState extends FlxState
 			switch (selectorPos) 
 			{
 				case 0:
-					FlxG.switchState(new PlayState());
+					FlxG.switchState(new LevelSelect());
 				case 1:
 					FlxG.switchState(new ChallengeState());
 				case 2: 

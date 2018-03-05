@@ -1,2 +1,7 @@
 SecretShush.hx
-export/
+export/flash/
+export/html5/
+export/windows/
+
+export/.build
+export/.build
