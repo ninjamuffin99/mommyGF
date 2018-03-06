@@ -632,7 +632,9 @@ class BaseState extends FlxState
 				_playerAnims.x = 497;
 			}
 			
+			#if flash
 			FlxG.sound.play("assets/sounds/hit_by_vehicle.mp3", 0.7);
+			#end
 			
 			_playerAnims.hitByVehicle.animation.curAnim.restart();
 			_playerAnims.updateCurSprite(_playerAnims.hitByVehicle, _playerAnims.x, -32);
@@ -826,6 +828,8 @@ class BaseState extends FlxState
 	
 	private function sfxHit():Void
 	{
+		#if flash
+		
 		if (_timer >= 30)
 		{
 			FlxG.sound.play("assets/sounds/smack" + FlxG.random.int(1, 3) + ".mp3", 0.7);
@@ -834,6 +838,8 @@ class BaseState extends FlxState
 		{
 			FlxG.sound.play("assets/sounds/hyper" + FlxG.random.int(1, 5) + ".mp3", 0.8);
 		}
+		
+		#end
 	}
 	
 	private function resetMultipliers():Void

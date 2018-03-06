@@ -25,9 +25,7 @@ class MenuState extends FlxState
 	{
 		var bg:FlxSprite = new FlxSprite();
 		bg.loadGraphic(AssetPaths.TitleScreen__png, false, 1927, 1080);
-		bg.setGraphicSize(1920, 1080);
-		bg.updateHitbox();
-		bg.setGraphicSize(Std.int(bg.width / 2));
+		bg.setGraphicSize(960, 540);
 		bg.updateHitbox();
 		add(bg);
 		
@@ -96,11 +94,6 @@ class MenuState extends FlxState
 	{
 		super.update(elapsed);
 		
-		if (FlxG.keys.justPressed.TWO)
-		{
-			FlxG.switchState(new OutsideState());
-		}
-		
 		#if !mobile
 		if (FlxG.keys.anyJustPressed(["UP", "W", "I", "DOWN", "S", "K"]))
 		{
@@ -159,14 +152,20 @@ class MenuState extends FlxState
 			}
 		}
 		
-		for (touch in FlxG.touches.list)
+		#if html5
+		if (FlxG.html5.onMobile)
 		{
-			if (touch.justPressed)
+			for (touch in FlxG.touches.list)
 			{
-				FlxG.switchState(new PlayState());
+				if (touch.justPressed)
+				{
+					FlxG.switchState(new LevelSelect());
+				}	
 			}
-			
 		}
-
+		#end
+		
+		
+		
 	}
 }

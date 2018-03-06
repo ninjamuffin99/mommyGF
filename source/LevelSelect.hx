@@ -84,7 +84,27 @@ class LevelSelect extends FlxState
 			}
 		}
 		
-		
+		#if (html5 || mobile)
+		mobileStuff();
+		#end
+	}
+	
+	private function mobileStuff():Void
+	{
+		if (FlxG.onMobile)
+		{
+			for (touch in FlxG.touches.list)
+			{
+				if (touch.y > levels.y + 66)
+				{
+					FlxG.switchState(new OutsideState());
+				}
+				else
+				{
+					FlxG.switchState(new PlayState());
+				}
+			}
+		}
 	}
 	
 }
