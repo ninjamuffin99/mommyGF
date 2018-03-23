@@ -28,26 +28,22 @@ class LevelSelect extends FlxState
 		
 		for (i in 1...3)
 		{
-			var levelLabel:FlxSprite = new FlxSprite(200, (i * 120) + 200).loadGraphic("assets/images/level_label_" + i + ".png", false, 281, 102);
+			var levelLabel:FlxSprite = new FlxSprite(100, (i * 240) - 170).loadGraphic("assets/images/level_label_" + i + ".png", false, 281, 102);
 			levelLabel.scrollFactor.set();
 			levelLabel.scale.set(2, 2);
 			levelLabel.updateHitbox();
 			add(levelLabel);
 		}
 		
-		levels = new FlxText(200, 200, 0, "Home\nOutside", 64);
-		levels.scrollFactor.set();
-		add(levels);
-		
-		_selector = new FlxSprite(25, 20);
+		_selector = new FlxSprite();
 		_selector.loadGraphic("assets/images/Selector.png", false, 99, 166);
 		_selector.setGraphicSize(Std.int(_selector.width / 2));
 		_selector.updateHitbox();
 		_selector.scrollFactor.set();
 		add(_selector);
 		
-		_selector.x = levels.x - 50;
-		_selector.y = levels.y;
+		_selector.x = 50;
+		_selector.y = 70;
 		
 		
 		FlxG.camera.zoom = 0.5;
@@ -91,10 +87,10 @@ class LevelSelect extends FlxState
 				case 1:
 					_camTrack.setPosition(1500, 170);
 				case 2:
-					
+					_camTrack.setPosition(1100, 950);
 			}
 			
-			_selector.y = (selectorPos * 320) + 320;
+			_selector.y = (selectorPos * 240) + 240;
 			
 		}
 		
