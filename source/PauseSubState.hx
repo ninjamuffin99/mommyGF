@@ -65,11 +65,12 @@ class PauseSubState extends FlxSubState
 		super.update(elapsed);
 		
 		Global.paused = true;
-		
+		/*
 		FlxG.watch.add(Global, "musicVolume");
+		
 		FlxG.sound.music.volume = Global.musicVolume;
 		FlxG.sound.volume = Global.masterVolume;
-		
+		*/
 		#if !mobile
 		if (FlxG.keys.justPressed.ENTER)
 		{

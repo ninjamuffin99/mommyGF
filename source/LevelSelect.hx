@@ -91,7 +91,6 @@ class LevelSelect extends FlxState
 			}
 			
 			_selector.y = (selectorPos * 240) + 240;
-			
 		}
 		
 		#end

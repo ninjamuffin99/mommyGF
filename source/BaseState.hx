@@ -278,7 +278,9 @@ class BaseState extends FlxState
 		FlxG.camera.color = 0xFFFEFEFE;
 		_player.clearStatus();
 		FlxTween.tween(FlxG.camera, {color:FlxColor.WHITE}, _candyTimer);
+		#if flash
 		FlxG.sound.play("assets/sounds/CandyMode.mp3", 0.7);
+		#end
 		
 		_candyMode = true;
 		FlxG.camera.flash(FlxColor.WHITE, 0.075);

@@ -71,9 +71,9 @@ class PlayState extends BaseState
 		
 		_BG.x = -FlxMath.remapToRange(_mom._distanceX, 0, _distanceGoal, 0, _BG.width - FlxG.width);
 		
-		FlxG.sound.music.volume = Global.musicVolume;
+		//FlxG.sound.music.volume = Global.musicVolume;
 		
-		FlxG.camera.antialiasing = Global.antiAliasing;
+		//FlxG.camera.antialiasing = Global.antiAliasing;
 		
 		Global.paused = false;
 		
