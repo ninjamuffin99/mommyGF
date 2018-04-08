@@ -2,6 +2,9 @@ SecretShush.hx
 export/flash/
 export/html5/
 export/windows/
+export/android
+
+release/
 
 export/.build
 export/.build

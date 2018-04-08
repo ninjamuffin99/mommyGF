@@ -1,3 +1,4 @@
+
 Notes/ideas:
 	-Maybe adjust the timer so that it's less time, or make mom slower a bit or something.
 	-make it so that the player bounces as usual
@@ -17,3 +18,6 @@ Notes/ideas:
 	out the timings of the enemies
 	
 	For some reason in the windows build, the cats sprite is loading as a black square
+	
+	when building for android I get this: C:/HaxeToolkit/haxe/lib/hxcpp/3,4,64/src/hx/libs/std/Socket.cpp:1340: error: '__builtin_bswap16' was not declared in this scope
+	appearently this can be fixed by reinstalling android ndk
