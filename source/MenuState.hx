@@ -152,8 +152,8 @@ class MenuState extends FlxState
 			}
 		}
 		
-		#if html5
-		if (FlxG.html5.onMobile)
+		
+		if (FlxG.onMobile)
 		{
 			for (touch in FlxG.touches.list)
 			{
@@ -163,7 +163,7 @@ class MenuState extends FlxState
 				}	
 			}
 		}
-		#end
+		
 		
 		
 		

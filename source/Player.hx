@@ -183,6 +183,11 @@ class Player extends FlxSprite
 		
 		mouseControls();
 		
+		if (FlxG.onMobile)
+		{
+			mobileControls();
+		}
+		
 		spamP = (leftP || rightP);
 		
 		if (confused)

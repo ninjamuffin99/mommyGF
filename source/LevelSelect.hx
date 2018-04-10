@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 
 /**
@@ -20,11 +21,16 @@ class LevelSelect extends FlxState
 	private var _map:FlxSprite;
 	private var _camTrack:FlxObject;
 	
+	private var _grpLevelLabel:FlxTypedGroup<FlxSprite>;
+	
 	override public function create():Void
 	{
 		_map = new FlxSprite(0, 0);
 		_map.loadGraphic(AssetPaths.map__png, false, 2400, 1350);
 		add(_map);	
+		
+		_grpLevelLabel = new FlxTypedGroup<FlxSprite>();
+		add(_grpLevelLabel);
 		
 		for (i in 1...3)
 		{
@@ -32,7 +38,7 @@ class LevelSelect extends FlxState
 			levelLabel.scrollFactor.set();
 			levelLabel.scale.set(2, 2);
 			levelLabel.updateHitbox();
-			add(levelLabel);
+			_grpLevelLabel.add(levelLabel);
 		}
 		
 		_selector = new FlxSprite();
@@ -121,16 +127,17 @@ class LevelSelect extends FlxState
 		{
 			for (touch in FlxG.touches.list)
 			{
-				/*
-				if (touch.y > levels.y + 66)
-				{
-					FlxG.switchState(new OutsideState());
-				}
-				else
-				{
-					FlxG.switchState(new PlayState());
-				}
-				*/
+				if (touch.justPressed) 
+					{
+						if (touch.overlaps(_grpLevelLabel.members[0]))
+						{
+							FlxG.switchState(new PlayState());
+						}
+						if (touch.overlaps(_grpLevelLabel.members[1]))
+						{
+							FlxG.switchState(new OutsideState());
+						}
+					}
 			}
 		}
 	}
