@@ -1,12 +1,14 @@
 package;
 
 import flixel.FlxG;
+import flixel.FlxState;
 import flixel.FlxSubState;
 import flixel.addons.nape.FlxNapeSpace;
 import flixel.addons.ui.FlxSlider;
 import flixel.addons.ui.FlxUICheckBox;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
+import flixel.ui.FlxButton;
 
 /**
  * ...
@@ -21,8 +23,13 @@ class PauseSubState extends FlxSubState
 	
 	private var _btnAA:FlxUICheckBox;
 	
+	private var menuButton:FlxButton;
+	private var tempRotVel:Float = 0;
+	
+	private var theState:BaseState;
+	
 	//the hex is an translucent black
-	public function new(BGColor:FlxColor = 0xAA000000) 
+	public function new(BGColor:FlxColor = 0xAA000000, curState:BaseState) 
 	{
 		super(BGColor);
 		
@@ -40,7 +47,16 @@ class PauseSubState extends FlxSubState
 		_btnAA = new FlxUICheckBox(100, 200, null, null, "Antialiasing", 100, null, clickAA);
 		add(_btnAA);
 		
+		
+		tempRotVel = curState._mom.body.angularVel;
+		curState._mom.body.angularVel = 0;
+		theState = curState;
+		
+		
 		_soundVolumeSlider.clickSound = "assets/sounds/oof.mp3";
+		
+		menuButton = new FlxButton(50, 50, "main Menu", function(){FlxG.switchState(new MenuState()); });
+		add(menuButton);
 		
 		FlxG.mouse.visible = true;
 	}
@@ -78,6 +94,13 @@ class PauseSubState extends FlxSubState
 		}
 		#end
 		
+	}
+	
+	override public function close():Void 
+	{
+		
+		theState._mom.body.angularVel = tempRotVel;
+		super.close();
 	}
 	
 }

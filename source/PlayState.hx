@@ -141,6 +141,7 @@ class PlayState extends BaseState
 			_distanceGoal -= 10;
 		}
 		*/
+		
 		#if !mobile
 		if (FlxG.keys.justPressed.C)
 		{
@@ -163,7 +164,7 @@ class PlayState extends BaseState
 	{
 		super.onFocusLost();
 		
-		openSubState(new PauseSubState(0xAA000000));
+		openSubState(new PauseSubState(0xAA000000, this));
 		
 	}
 	

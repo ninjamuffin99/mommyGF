@@ -24,7 +24,7 @@ import flixel.util.FlxColor;
 class BaseState extends FlxState 
 {
 	//MOM SHIT
-	private var _mom:Mom;
+	public var _mom:Mom;
 	private var _pickupMom:Float = 0;
 	private var _pickupMomNeeded:Float = 15;
 	private var _momCatOverlap:Bool = false;
@@ -216,6 +216,11 @@ class BaseState extends FlxState
 	{
 		super.update(elapsed);
 		
+		if (_mom.body == null)
+		{
+			_mom.body.space = FlxNapeSpace.space;
+		}
+		
 		controls();
 		catManagement();
 		updateHUD();	
@@ -293,7 +298,7 @@ class BaseState extends FlxState
 		#if !mobile
 		if (FlxG.keys.justPressed.ENTER)
 		{
-			openSubState(new PauseSubState(0xAA000000));
+			openSubState(new PauseSubState(0xAA000000, this));
 		}
 		#end
 		
@@ -471,7 +476,7 @@ class BaseState extends FlxState
 		{
 			if (_cat.animation.frameIndex == 31)
 			{
-				if (_cat.goingLeft)
+				if (_cat.goingRight)
 				{
 					_cat.fly(400, -400);
 				}
@@ -493,7 +498,7 @@ class BaseState extends FlxState
 		_cat.y = 140 + 200;
 		_cat.body.position.y = _cat.y;
 		
-		if (_cat.goingLeft)
+		if (_cat.goingRight)
 		{
 			_cat.facing = FlxObject.RIGHT;
 			_cat.x = 35 + _cat.width * 2;

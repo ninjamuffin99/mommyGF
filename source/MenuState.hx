@@ -10,6 +10,9 @@ import flixel.system.scaleModes.StageSizeScaleMode;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
+import openfl.media.Video;
+import openfl.net.NetConnection;
+import openfl.net.NetStream;
 
 class MenuState extends FlxState
 {
@@ -54,11 +57,9 @@ class MenuState extends FlxState
 		
 		_selector.x = _titleStart.x - 25;
 		_selector.y = _titleStart.y;
-		
-		
 		super.create();
 	}
-
+	
 	private function createMenu():Void
 	{
 		_titleStart = new FlxSprite(0, FlxG.height * 0.43);
