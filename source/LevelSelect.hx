@@ -32,9 +32,9 @@ class LevelSelect extends FlxState
 		_grpLevelLabel = new FlxTypedGroup<FlxSprite>();
 		add(_grpLevelLabel);
 		
-		for (i in 1...3)
+		for (i in 1...4)
 		{
-			var levelLabel:FlxSprite = new FlxSprite(100, (i * 240) - 170).loadGraphic("assets/images/level_label_" + i + ".png", false, 281, 102);
+			var levelLabel:FlxSprite = new FlxSprite(-300, (i * 240) - 170).loadGraphic("assets/images/level_label_" + i + ".png", false, 281, 102);
 			levelLabel.scrollFactor.set();
 			levelLabel.scale.set(2, 2);
 			levelLabel.updateHitbox();
@@ -48,7 +48,9 @@ class LevelSelect extends FlxState
 		_selector.scrollFactor.set();
 		add(_selector);
 		
-		_selector.x = 50;
+		_grpLevelLabel.members[0].x = -300;
+		
+		_selector.x = _grpLevelLabel.members[0].x = -50;
 		_selector.y = 70;
 		
 		
@@ -96,12 +98,9 @@ class LevelSelect extends FlxState
 					_camTrack.setPosition(1100, 950);
 			}
 			
-			_selector.y = (selectorPos * 240) + 240;
+			_selector.y = (_grpLevelLabel.members[selectorPos].y) + 50;
 		}
-		
 		#end
-		
-		
 		
 		if (FlxG.keys.anyJustPressed(["SPACE", "ENTER"]))
 		{
@@ -128,16 +127,16 @@ class LevelSelect extends FlxState
 			for (touch in FlxG.touches.list)
 			{
 				if (touch.justPressed) 
+				{
+					if (touch.overlaps(_grpLevelLabel.members[0]))
 					{
-						if (touch.overlaps(_grpLevelLabel.members[0]))
-						{
-							FlxG.switchState(new PlayState());
-						}
-						if (touch.overlaps(_grpLevelLabel.members[1]))
-						{
-							FlxG.switchState(new OutsideState());
-						}
+						FlxG.switchState(new PlayState());
 					}
+					if (touch.overlaps(_grpLevelLabel.members[1]))
+					{
+						FlxG.switchState(new OutsideState());
+					}
+				}
 			}
 		}
 	}
