@@ -95,8 +95,6 @@ class AnvilState extends FlxState
 		add(_rope);
 		
 		
-		
-		
 		super.create();
 	}
 	
@@ -160,10 +158,12 @@ class AnvilState extends FlxState
 			}
 			else
 			{
+				#if flash
 				FlxG.sound.play(AssetPaths.PowerEcho__mp3);
 				FlxG.sound.play(AssetPaths.glassBreak__mp3, 0.4);
 				FlxG.sound.play(AssetPaths.bassDrum__mp3, 1);
 				FlxG.sound.play(AssetPaths.snapBass__mp3, 2);
+				#end
 				
 				new FlxTimer().start(1.8, killMom);
 				
@@ -177,8 +177,11 @@ class AnvilState extends FlxState
 				
 				
 				
+				if (FlxG.sound.music.playing)
+				{
+					FlxG.sound.music.fadeOut(FlxG.elapsed * 10);
+				}
 				
-				FlxG.sound.music.fadeOut(FlxG.elapsed * 10);
 				_rope.animation.play("break");
 				FlxG.camera.flash(FlxColor.WHITE);
 				sfxHit();
@@ -215,7 +218,9 @@ class AnvilState extends FlxState
 	
 	private function sfxHit():Void
 	{
+		#if flash
 		FlxG.sound.play("assets/sounds/hyper" + FlxG.random.int(1, 5) + ".mp3", 0.8);
+		#end
 	}
 	
 	private function finishingGame():Void

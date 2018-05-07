@@ -17,6 +17,7 @@ class Cat extends FlxNapeSprite
 	public var _punched:Bool = false;
 	public var _timesPunched:Int = 0;
 	public var flying:Bool = false;
+	public var goingLeft:Bool = false;
 
 	public function new(X:Float=0, Y:Float=0, ?SimpleGraphic:FlxGraphicAsset, CreateRectangularBody:Bool=true, EnablePhysics:Bool=true) 
 	{
@@ -80,6 +81,20 @@ class Cat extends FlxNapeSprite
 			animation.play("fly");
 			body.shapes.at(0).filter.collisionMask = -1;
 		}
+		
+	}
+	
+	public function resetCat():Void
+	{
+		_cat.goingLeft = FlxG.random.bool();
+		_cat.body.position.y = _cat.y;
+		_cat.acceleration.y = 0;
+		_cat.flying = false;
+		_cat.body.rotation = 0;
+		_cat.body.velocity.y = _cat.body.velocity.x = 0;
+		_cat.velocity.x = _cat.velocity.y = 0;
+		_cat.angularVelocity = 0;
+		_cat.angle = 0;
 		
 	}
 	

@@ -40,7 +40,6 @@ class BaseState extends FlxState
 	
 	//CAT SHIT
 	private var _cat:Cat;
-	private var _catLeft:Bool = false;
 	private var _timerCat:Float = 10;
     private var _catActive:Bool = false;
 	
@@ -472,7 +471,7 @@ class BaseState extends FlxState
 		{
 			if (_cat.animation.frameIndex == 31)
 			{
-				if (_catLeft)
+				if (_cat.goingLeft)
 				{
 					_cat.fly(400, -400);
 				}
@@ -490,19 +489,11 @@ class BaseState extends FlxState
 	{
 		FlxG.log.add("Cat spawned");
 		_cat._punched = false;
-		_catLeft = FlxG.random.bool();
+		_cat.resetCat();
 		_cat.y = 140 + 200;
 		_cat.body.position.y = _cat.y;
-		_cat.acceleration.y = 0;
-		_cat.flying = false;
-		_cat.body.rotation = 0;
-		_cat.body.velocity.y = _cat.body.velocity.x = 0;
-		_cat.velocity.x = _cat.velocity.y = 0;
-		_cat.angularVelocity = 0;
-		_cat.angle = 0;
 		
-		
-		if (_catLeft)
+		if (_cat.goingLeft)
 		{
 			_cat.facing = FlxObject.RIGHT;
 			_cat.x = 35 + _cat.width * 2;
