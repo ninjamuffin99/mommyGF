@@ -21,7 +21,7 @@ import flixel.util.FlxColor;
  * @author ninjaMuffin
  */
  
-class BaseState extends FlxState 
+class StateBaseLevel extends FlxState 
 {
 	//MOM SHIT
 	public var _mom:Mom;
@@ -40,15 +40,12 @@ class BaseState extends FlxState
 	
 	//CAT SHIT
 	private var _cat:Cat;
-	private var _timerCat:Float = 10;
-    private var _catActive:Bool = false;
 	
-	//Cnady Stuff
+	//Candy Stuff
 	private var _candy:Candy;
 	private var _candyMode:Bool = false;
 	private var _candyTimer:Float = 0.6;
 	private var _candyBoost:Float = 0;
-	
 	private var _candyAmount:Int = 0;
 	
 	private var _grpCandyDisplay:FlxTypedGroup<Candy>;
@@ -58,8 +55,6 @@ class BaseState extends FlxState
 	private var _retard:Retard;
 	private var _moped:MopedBoy;
 	private var _mopedWarning:Warning;
-	private var _mopedTimer:Float = 1;
-	private var _asteroidTimer:Float = 1;
 	private var _asteroid:Asteroid;
 	private var _asteroidWarning:WarningAsteroid;
 	
@@ -74,11 +69,8 @@ class BaseState extends FlxState
 	private var _distanceGoal:Float = 0;
 	private var _distaceGoalText:FlxText;
 	
-	
-	
 	//text that shows when leaning too far??
 	private var boostText:FlxText;
-	
 
 	override public function create():Void 
 	{
@@ -109,7 +101,6 @@ class BaseState extends FlxState
 		_cat = new Cat(0 - 200, FlxG.height + 10);
 		add(_cat);
 		
-		
 		_candy = new Candy(-70);
 		add(_candy);
 		
@@ -120,7 +111,6 @@ class BaseState extends FlxState
 		//OBSTACLES AND WHATNOT
 		_moped = new MopedBoy(FlxG.width, 200);
 		add(_moped);
-		_mopedTimer = FlxG.random.float(10, 20);
 		
 		_mopedWarning = new Warning(FlxG.width, 40);
 		add(_mopedWarning);
@@ -130,7 +120,7 @@ class BaseState extends FlxState
 		
 		_asteroid = new Asteroid(0, 0);
 		_asteroid.kill();
-		_asteroidTimer = FlxG.random.float(50, 100);
+		_asteroid.timer = FlxG.random.float(50, 100);
 		add(_asteroid);
 		
 		//_retard = new Retard(0, 300);
@@ -171,7 +161,7 @@ class BaseState extends FlxState
 		add(_timerText);
 		
 		_distanceBar = new FlxSprite(175, 6);
-		_distanceBar.loadGraphic("assets/images/DistanceBar.png", false, 1387, 56);
+		_distanceBar.loadGraphic(AssetPaths.DistanceBar__png, false, 1387, 56);
 		_distanceBar.setGraphicSize(Std.int(_distanceBar.width / 2));
 		_distanceBar.updateHitbox();
 		add(_distanceBar);
@@ -229,9 +219,6 @@ class BaseState extends FlxState
 		candyHandle();
 		
 		boostText.visible = _mom.boosting;
-		
-		
-		
 		
 		if (!_player._pickingUpMom)
 		{
@@ -298,7 +285,7 @@ class BaseState extends FlxState
 		#if !mobile
 		if (FlxG.keys.justPressed.ENTER)
 		{
-			openSubState(new PauseSubState(0xAA000000, this));
+			openSubState(new SubStatePause(0xAA000000, this));
 		}
 		#end
 		
@@ -384,9 +371,6 @@ class BaseState extends FlxState
 			punch();
 		}
 		
-		
-		
-		
 		if (_player.punching)
 		{
 			_player.animation.play("punch");
@@ -462,17 +446,17 @@ class BaseState extends FlxState
 		
 		if (_cat.y >= FlxG.height)
 		{
-			_timerCat -= FlxG.elapsed;
+			_cat.timer -= FlxG.elapsed;
 			_momCatOverlap = false;
 		}
 		
-		if (_timerCat <= 0)
+		if (_cat.timer <= 0)
 		{
-			_timerCat = FlxG.random.float(8, 15);
+			_cat.timer = FlxG.random.float(8, 15);
 			spawnCat();
 		}
 		
-		if (_catActive)
+		if (_cat.peeking)
 		{
 			if (_cat.animation.frameIndex == 31)
 			{
@@ -484,7 +468,7 @@ class BaseState extends FlxState
 				{
 					_cat.fly( -400, -400);
 				}
-				_catActive = false;
+				_cat.peeking = false;
 			}
 		}
 	}
@@ -512,7 +496,7 @@ class BaseState extends FlxState
 			_cat.body.position.x = _cat.x;
 		}
 		_cat.animation.play("peek");
-		_catActive = true;
+		_cat.peeking = true;
 	}
 	
 	private var justSpawnedAsteroid:Bool = false;
@@ -523,9 +507,9 @@ class BaseState extends FlxState
 	private function asteroidCheck():Void
 	{
 		
-		if (_asteroidTimer > 0)
+		if (_asteroid.timer > 0)
 		{
-			_asteroidTimer -= FlxG.elapsed;
+			_asteroid.timer -= FlxG.elapsed;
 			
 			if (!_asteroid.isOnScreen())
 			{
@@ -572,9 +556,9 @@ class BaseState extends FlxState
 		//MOVE THIS EVENTUALLY!!!!!!
 		asteroidCheck();
 		
-		if (_mopedTimer > 0)
+		if (_moped.timer > 0)
 		{
-			_mopedTimer -= FlxG.elapsed;
+			_moped.timer -= FlxG.elapsed;
 			
 			if (!_moped.isOnScreen())
 			{
@@ -662,7 +646,7 @@ class BaseState extends FlxState
 				mopedLeft = _player._left;
 				mopedCollision = false;
 				_mopedWarning.x = _player.x + 100;
-				_mopedTimer = FlxG.random.float(10, 20);
+				_moped.timer = FlxG.random.float(10, 20);
 				_mopedWarning.animation.curAnim.restart();
 				
 				FlxG.sound.play("assets/sounds/MotorBike.wav", 0.7);
@@ -686,7 +670,7 @@ class BaseState extends FlxState
 		_asteroid.y = 0 - _asteroid.height;
 		_asteroid.velocity.y = 4800;
 		_asteroid.left = _player._left;
-		_asteroidTimer = FlxG.random.float( 50, 100);
+		_asteroid.timer = FlxG.random.float( 50, 100);
 		
 		justSpawnedAsteroid = true;
 	}

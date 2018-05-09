@@ -9,7 +9,7 @@ import flixel.math.FlxMath;
  * ...
  * @author ninjaMuffin
  */
-class GameOverState extends FlxState 
+class StateGameOver extends FlxState 
 {
 	private var _gameOver:FlxSprite;
 	
@@ -33,7 +33,7 @@ class GameOverState extends FlxState
 		
 		
 		_no = new FlxSprite(550, 450);
-		_no.loadGraphic("assets/images/noSheet.png", true, 301, 177);
+		_no.loadGraphic(AssetPaths.noSheet__png, true, 301, 177);
 		_no.setGraphicSize(Std.int(_no.width / 2));
 		_no.updateHitbox();
 		_no.animation.add("play", [1, 2, 0], 12);
@@ -41,7 +41,7 @@ class GameOverState extends FlxState
 		add(_no);
 		
 		_yes = new FlxSprite(240, 435);
-		_yes.loadGraphic("assets/images/YesSheet.png", true, 366, 199);
+		_yes.loadGraphic(AssetPaths.YesSheet__png, true, 366, 199);
 		_yes.setGraphicSize(Std.int(_yes.width / 2));
 		_yes.updateHitbox();
 		_yes.animation.add("play", [0, 1, 2], 12);
@@ -50,7 +50,7 @@ class GameOverState extends FlxState
 		
 		
 		_selector = new FlxSprite(_yes.x - 25, _yes.y + 20);
-		_selector.loadGraphic("assets/images/Selector.png", false, 99, 166);
+		_selector.loadGraphic(AssetPaths.Selector__png, false, 99, 166);
 		_selector.setGraphicSize(Std.int(_selector.width / 2));
 		_selector.updateHitbox();
 		add(_selector);
@@ -66,11 +66,6 @@ class GameOverState extends FlxState
 	{
 		
 		super.update(elapsed);
-		
-		FlxG.watch.addQuick("no", _no.getPosition());
-		FlxG.watch.addQuick("yes", _yes.getPosition());
-		FlxG.watch.addQuick("selection", _selectionInt);
-		
 		
 		#if !mobile
 		if (FlxG.keys.justPressed.RIGHT || FlxG.keys.justPressed.LEFT)
@@ -103,11 +98,11 @@ class GameOverState extends FlxState
 		{
 			if (_selectionInt == 0)
 			{
-				FlxG.switchState(new PlayState());
+				FlxG.switchState(new StateHouse());
 			}
 			if (_selectionInt == 1)
 			{
-				FlxG.switchState(new PlayState());
+				FlxG.switchState(new StateHouse());
 			}
 		}
 		#end

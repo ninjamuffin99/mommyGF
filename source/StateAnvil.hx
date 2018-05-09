@@ -4,11 +4,6 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.effects.FlxTrailArea;
-import flixel.addons.nape.FlxNapeSpace;
-import flixel.effects.particles.FlxEmitter;
-import flixel.graphics.frames.FlxFrame;
-import flixel.group.FlxGroup;
-import flixel.system.FlxSound;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 
@@ -16,19 +11,12 @@ import flixel.util.FlxTimer;
  * ...
  * @author ninjaMuffin
  */
-class AnvilState extends FlxState 
+class StateAnvil extends FlxState 
 {
 	private var _player:Player;
 	private var _playerTrail:FlxTrailArea;
 	
 	private var _mom:Mom;
-	
-	private var wallLeft:FlxSprite;
-	private var wallDown:FlxSprite;
-	private var wallRight:FlxSprite;
-	private var _grpWalls:FlxGroup;
-	
-	private var _caseEmitter:FlxEmitter;
 	
 	private var _rope:FlxSprite;
 	private var _ropeHP:Float = 1;
@@ -45,7 +33,6 @@ class AnvilState extends FlxState
 	{
 		FlxG.camera.fade(FlxColor.BLACK, 0.3, true);
 		FlxG.log.add("Before Emitter");
-		CasesEffects();
 		
 		_anvil = new FlxSprite(FlxG.width * 0.6, FlxG.width * 0);
 		_anvil.loadGraphic(AssetPaths.anvil__png, false, 1024, 512);
@@ -57,8 +44,6 @@ class AnvilState extends FlxState
 		
 		add(_mom);
 		add(_anvil);
-		
-		
 		
 		test = new Explosion();
 		add(test);
@@ -76,7 +61,6 @@ class AnvilState extends FlxState
 		_playerTrail = new FlxTrailArea(0, 0, FlxG.width, FlxG.height, 0.75);
 		_playerTrail.add(_player);
 		add(_playerTrail);
-		
 		
 		_rope = new FlxSprite(FlxG.width * 0.35);
 		_rope.loadGraphic(AssetPaths.ropeSheet__png, true, 713, 1080);
@@ -96,42 +80,6 @@ class AnvilState extends FlxState
 		
 		
 		super.create();
-	}
-	
-	private function CasesEffects():Void
-	{
-		_grpWalls = new FlxGroup();
-		
-		wallLeft = new FlxSprite(-10);
-		wallLeft.makeGraphic(10, FlxG.height);
-		wallLeft.immovable = true;
-		wallLeft.solid = true;
-		_grpWalls.add(wallLeft);
-		
-		wallDown = new FlxSprite(0, FlxG.height);
-		wallDown.makeGraphic(FlxG.width, 10);
-		wallDown.immovable = true;
-		wallDown.solid = true;
-		_grpWalls.add(wallDown);
-		
-		
-		wallRight = new FlxSprite(FlxG.width);
-		wallRight.makeGraphic(10, FlxG.height);
-		wallRight.immovable = true;
-		wallRight.solid = true;
-		_grpWalls.add(wallRight);
-		
-		add(_grpWalls);
-		
-		_caseEmitter = new FlxEmitter(FlxG.width / 2, -10);
-		_caseEmitter.makeParticles(40, 60, FlxColor.WHITE, 600);
-		_caseEmitter.solid = true;
-		_caseEmitter.acceleration.set(0, 500);
-		_caseEmitter.velocity.set( -50, 50, 50, 100);
-		_caseEmitter.angularVelocity.set( -720, 720);
-		//add(_caseEmitter);
-		
-		FlxG.log.add("added walls and emitter");
 	}
 	
 	override public function update(elapsed:Float):Void 
@@ -187,8 +135,6 @@ class AnvilState extends FlxState
 				sfxHit();
 				FlxG.camera.shake();
 				_ropeBroke = true;
-				
-				_caseEmitter.start(false, 0.025);
 			}
 		}
 		else
@@ -229,15 +175,13 @@ class AnvilState extends FlxState
 		{
 			if (_endTimer <= 0)
 			{
-				FlxG.camera.fade(FlxColor.BLACK, 2, false, function(){FlxG.switchState(new WinState()); });
+				FlxG.camera.fade(FlxColor.BLACK, 2, false, function(){FlxG.switchState(new StateWin()); });
 			}
 			else
 			{
 				_endTimer -= FlxG.elapsed;
 			}
-			
 		}
-		
 	}
 }
 

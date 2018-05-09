@@ -11,7 +11,7 @@ import flixel.text.FlxText;
  * ...
  * @author ninjaMuffin
  */
-class LevelSelect extends FlxState 
+class StateLevelSelect extends FlxState 
 {
 	private var levels:FlxText;
 	
@@ -27,32 +27,7 @@ class LevelSelect extends FlxState
 	{
 		_map = new FlxSprite(0, 0);
 		_map.loadGraphic(AssetPaths.map__png, false, 2400, 1350);
-		add(_map);	
-		
-		_grpLevelLabel = new FlxTypedGroup<FlxSprite>();
-		add(_grpLevelLabel);
-		
-		for (i in 1...4)
-		{
-			var levelLabel:FlxSprite = new FlxSprite(-300, (i * 240) - 170).loadGraphic("assets/images/level_label_" + i + ".png", false, 281, 102);
-			levelLabel.scrollFactor.set();
-			levelLabel.scale.set(2, 2);
-			levelLabel.updateHitbox();
-			_grpLevelLabel.add(levelLabel);
-		}
-		
-		_selector = new FlxSprite();
-		_selector.loadGraphic("assets/images/Selector.png", false, 99, 166);
-		_selector.setGraphicSize(Std.int(_selector.width / 2));
-		_selector.updateHitbox();
-		_selector.scrollFactor.set();
-		add(_selector);
-		
-		_grpLevelLabel.members[0].x = -300;
-		
-		_selector.x = _grpLevelLabel.members[0].x = -50;
-		_selector.y = 70;
-		
+		add(_map);
 		
 		FlxG.camera.zoom = 0.5;
 		_camTrack = new FlxObject(0, 0, 16, 16);
@@ -61,6 +36,32 @@ class LevelSelect extends FlxState
 		FlxG.camera.follow(_camTrack);
 		FlxG.camera.followLerp = 0.04;
 		FlxG.camera.setScrollBounds(0, _map.width, 0, _map.height);
+		
+		
+		_grpLevelLabel = new FlxTypedGroup<FlxSprite>();
+		add(_grpLevelLabel);
+		
+		for (i in 0...3)
+		{
+			var levelLabel:FlxSprite = new FlxSprite(-400, (i * 240) - 170).loadGraphic("assets/images/UI/level_label_" + i + ".png", false, 281, 102);
+			levelLabel.scrollFactor.set();
+			levelLabel.scale.set(2, 2);
+			levelLabel.updateHitbox();
+			_grpLevelLabel.add(levelLabel);
+			
+			FlxG.log.add(levelLabel.x + " " + i);
+		}
+		
+		_selector = new FlxSprite();
+		_selector.loadGraphic(AssetPaths.Selector__png, false, 99, 166);
+		_selector.setGraphicSize(Std.int(_selector.width / 2));
+		_selector.updateHitbox();
+		_selector.scrollFactor.set();
+		add(_selector);
+		
+		
+		_selector.x = _grpLevelLabel.members[0].x - 50;
+		_selector.y = 70;
 		
 		super.create();
 	}
@@ -107,9 +108,9 @@ class LevelSelect extends FlxState
 			switch (selectorPos) 
 			{
 				case 0:
-					FlxG.switchState(new PlayState());
+					FlxG.switchState(new StateHouse());
 				case 1:
-					FlxG.switchState(new OutsideState());
+					FlxG.switchState(new StateOutside());
 				default:
 					FlxG.log.add("Defualt selection???");
 			}
@@ -130,11 +131,11 @@ class LevelSelect extends FlxState
 				{
 					if (touch.overlaps(_grpLevelLabel.members[0]))
 					{
-						FlxG.switchState(new PlayState());
+						FlxG.switchState(new StateHouse());
 					}
 					if (touch.overlaps(_grpLevelLabel.members[1]))
 					{
-						FlxG.switchState(new OutsideState());
+						FlxG.switchState(new StateOutside());
 					}
 				}
 			}

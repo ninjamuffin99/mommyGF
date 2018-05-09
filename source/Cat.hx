@@ -18,6 +18,9 @@ class Cat extends FlxNapeSprite
 	public var _timesPunched:Int = 0;
 	public var flying:Bool = false;
 	public var goingRight:Bool = false;
+	public var peeking:Bool = false;
+	
+	public var timer:Float = 0;
 
 	public function new(X:Float=0, Y:Float=0, ?SimpleGraphic:FlxGraphicAsset, CreateRectangularBody:Bool=true, EnablePhysics:Bool=true) 
 	{
@@ -43,6 +46,8 @@ class Cat extends FlxNapeSprite
 		body.allowRotation = false;
 		
 		setBodyMaterial(1, 0.2, 0.4, 10);
+		
+		timer = 10;
 		
 	}
 	

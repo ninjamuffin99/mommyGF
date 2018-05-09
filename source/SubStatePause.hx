@@ -14,7 +14,7 @@ import flixel.ui.FlxButton;
  * ...
  * @author ninjaMuffin
  */
-class PauseSubState extends FlxSubState 
+class SubStatePause extends FlxSubState 
 {
 	private var _pauseText:FlxText;
 	
@@ -26,10 +26,10 @@ class PauseSubState extends FlxSubState
 	private var menuButton:FlxButton;
 	private var tempRotVel:Float = 0;
 	
-	private var theState:BaseState;
+	private var theState:StateBaseLevel;
 	
 	//the hex is an translucent black
-	public function new(BGColor:FlxColor = 0xAA000000, curState:BaseState) 
+	public function new(BGColor:FlxColor = 0xAA000000, curState:StateBaseLevel) 
 	{
 		super(BGColor);
 		
@@ -55,7 +55,7 @@ class PauseSubState extends FlxSubState
 		
 		_soundVolumeSlider.clickSound = "assets/sounds/oof.mp3";
 		
-		menuButton = new FlxButton(50, 50, "main Menu", function(){FlxG.switchState(new MenuState()); });
+		menuButton = new FlxButton(50, 50, "main Menu", function(){FlxG.switchState(new StateMenu()); });
 		add(menuButton);
 		
 		FlxG.mouse.visible = true;

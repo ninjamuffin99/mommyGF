@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
@@ -8,7 +9,7 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  * ...
  * @author ninjaMuffin
  */
-class MopedBoy extends FlxSprite 
+class MopedBoy extends ObstacleBase
 {
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
@@ -22,6 +23,8 @@ class MopedBoy extends FlxSprite
 		setFacingFlip(FlxObject.RIGHT, true, false);
 		
 		width -= 150;
+		
+		timer = FlxG.random.float(10, 20);
 	}
 	
 }

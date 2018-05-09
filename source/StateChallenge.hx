@@ -13,7 +13,7 @@ import flixel.util.FlxColor;
  * ...
  * @author ninjaMuffin
  */
-class ChallengeState extends FlxState 
+class StateChallenge extends FlxState 
 {
 	private var boxOpened:FlxSpriteGroup;
 	private var _grpThumbnails:FlxTypedGroup<FlxSpriteButton>;

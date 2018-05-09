@@ -8,7 +8,7 @@ import flixel.text.FlxText;
  * ...
  * @author ninjaMuffin
  */
-class CreditsState extends FlxState 
+class StateCredits extends FlxState 
 {
 	
 	private var _txtCreds:FlxText;
@@ -35,7 +35,7 @@ class CreditsState extends FlxState
 		
 		if (FlxG.keys.justPressed.ANY)
 		{
-			FlxG.switchState(new MenuState());
+			FlxG.switchState(new StateMenu());
 		}
 		
 	}

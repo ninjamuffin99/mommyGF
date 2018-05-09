@@ -7,7 +7,7 @@ import flixel.math.FlxMath;
  * ...
  * @author ninjaMuffin
  */
-class OutsideState extends BaseState 
+class StateOutside extends StateBaseLevel 
 {
 	private var _BG1:FlxSprite;
 	private var _BG2:FlxSprite;

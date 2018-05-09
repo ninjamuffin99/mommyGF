@@ -10,7 +10,7 @@ import flixel.tweens.FlxTween;
  * ...
  * @author ninjaMuffin
  */
-class WinState extends FlxState 
+class StateWin extends FlxState 
 {
 
 	private var _videoGame = ["SUPER SMASH BROTHERS BRAWL FOR \nTHE NINTENDO WII", 
@@ -54,7 +54,7 @@ class WinState extends FlxState
 		#if !mobile
 		if (FlxG.keys.justReleased.ENTER)
 		{
-			FlxG.switchState(new PlayState());
+			FlxG.switchState(new StateHouse());
 		}
 		#end
 	}

@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.system.FlxAssets.FlxGraphicAsset;
@@ -8,9 +9,8 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  * ...
  * @author ninjaMuffin
  */
-class Asteroid extends FlxSprite 
+class Asteroid extends ObstacleBase
 {
-	
 	public var left:Bool = false;
 
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
@@ -25,6 +25,9 @@ class Asteroid extends FlxSprite
 		
 		animation.play("crash");
 		
+		timer = FlxG.random.float(50, 100);
+		
 	}
+	
 	
 }

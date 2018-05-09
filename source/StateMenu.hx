@@ -14,7 +14,7 @@ import openfl.media.Video;
 import openfl.net.NetConnection;
 import openfl.net.NetStream;
 
-class MenuState extends FlxState
+class StateMenu extends FlxState
 {
 	private var _titleStart:FlxSprite;
 	private var _titleChallenges:FlxSprite;
@@ -50,7 +50,7 @@ class MenuState extends FlxState
 		createMenu();
 		
 		_selector = new FlxSprite(25, 20);
-		_selector.loadGraphic("assets/images/Selector.png", false, 99, 166);
+		_selector.loadGraphic(AssetPaths.Selector__png, false, 99, 166);
 		_selector.setGraphicSize(Std.int(_selector.width / 2));
 		_selector.updateHitbox();
 		add(_selector);
@@ -108,9 +108,9 @@ class MenuState extends FlxState
 			}
 			
 			if (selectorPos < 0)
-			selectorPos = 3;
+				selectorPos = 3;
 			if (selectorPos > 3)
-			selectorPos = 0;
+				selectorPos = 0;
 			
 			var selectorOffset:Float = 50;
 			switch (selectorPos) 
@@ -129,30 +129,25 @@ class MenuState extends FlxState
 					_selector.x = _titleStart.x - selectorOffset;
 					_selector.y = _titleStart.y;
 			}
-			
 		}
-		
 		#end
-		
-		
 		
 		if (FlxG.keys.anyJustPressed(["SPACE", "ENTER"]))
 		{
 			switch (selectorPos) 
 			{
 				case 0:
-					FlxG.switchState(new LevelSelect());
+					FlxG.switchState(new StateLevelSelect());
 				case 1:
-					FlxG.switchState(new ChallengeState());
+					FlxG.switchState(new StateChallenge());
 				case 2: 
 					FlxG.log.add("Options Slected");
 				case 3:
-					FlxG.switchState(new CreditsState());
+					FlxG.switchState(new StateCredits());
 				default:
 					FlxG.log.add("Defualt selection???");
 			}
 		}
-		
 		
 		if (FlxG.onMobile)
 		{
@@ -160,13 +155,9 @@ class MenuState extends FlxState
 			{
 				if (touch.justPressed)
 				{
-					FlxG.switchState(new LevelSelect());
+					FlxG.switchState(new StateLevelSelect());
 				}	
 			}
 		}
-		
-		
-		
-		
 	}
 }

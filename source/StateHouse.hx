@@ -22,7 +22,7 @@ import flixel.util.FlxTimer;
 import nape.geom.Vec2;
 import openfl.Assets;
 
-class PlayState extends BaseState
+class StateHouse extends StateBaseLevel
 {
 	//BACKGROUND
 	private var _BG:FlxSprite;
@@ -164,7 +164,7 @@ class PlayState extends BaseState
 	{
 		super.onFocusLost();
 		
-		openSubState(new PauseSubState(0xAA000000, this));
+		openSubState(new SubStatePause(0xAA000000, this));
 		
 	}
 	
@@ -183,7 +183,7 @@ class PlayState extends BaseState
 		
 		
 		var save:String = FlxG.vcr.stopRecording(false);
-		FlxG.vcr.loadReplay(save, new PlayState(), ["ANY"], 0, startRecording);
+		FlxG.vcr.loadReplay(save, new StateHouse(), ["ANY"], 0, startRecording);
 		
 	}
 	
@@ -192,13 +192,13 @@ class PlayState extends BaseState
 	{
 		if (_timer <= 0 || _mom._timesFell >= 5)
 		{
-			FlxG.switchState(new GameOverState());
+			FlxG.switchState(new StateGameOver());
 		}
 		
 		#if !mobile
 		if (_mom._distanceX >= _distanceGoal || FlxG.keys.justPressed.F)
 		{
-			FlxG.camera.fade(FlxColor.BLACK, 0.3, false, function(){FlxG.switchState(new AnvilState());});
+			FlxG.camera.fade(FlxColor.BLACK, 0.3, false, function(){FlxG.switchState(new StateAnvil());});
 			
 		}
 		#end

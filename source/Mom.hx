@@ -92,6 +92,8 @@ class Mom extends FlxNapeSprite
 		
 		FlxG.log.add("mom added");
 		
+		//antialiasing = true;
+		
 		//ogPos.set(offset.x, 0);
 		
 	}

@@ -1,16 +1,13 @@
 package;
 
-import flash.display.BitmapData;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.input.FlxSwipe;
-import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.system.FlxAssets.FlxGraphicAsset;
-import openfl.Assets;
-import openfl.display.Bitmap;
+
 
 /**
  * ...
@@ -367,7 +364,7 @@ class Player extends FlxSprite
 	{
 		if (FlxG.mouse.justPressed)
 		{
-			if (FlxG.mouse.screenX >= FlxG.width/2)
+			if (FlxG.mouse.screenX >= FlxG.width / 2)
 			{
 				
 				rightP = true;
@@ -381,7 +378,7 @@ class Player extends FlxSprite
 		
 		if (FlxG.mouse.pressed)
 		{
-			if (FlxG.mouse.screenX >= FlxG.width/2)
+			if (FlxG.mouse.screenX >= FlxG.width / 2)
 			{
 				
 				right = true;
@@ -396,7 +393,7 @@ class Player extends FlxSprite
 		
 		if (FlxG.mouse.justReleased) 
 		{
-			if (FlxG.mouse.screenX >= FlxG.width/2)
+			if (FlxG.mouse.screenX >= FlxG.width / 2)
 			{
 				
 				rightR = true;
@@ -409,7 +406,6 @@ class Player extends FlxSprite
 		}
 		
 		//swipeManager();
-		
 	}
 	
 	private function swipeManager():Void
@@ -426,10 +422,6 @@ class Player extends FlxSprite
 			{
 				upP = true;
 			}
-			
 		}
-		
-	}
-	
-	
+	}	
 }

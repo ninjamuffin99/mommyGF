@@ -1,10 +1,10 @@
 SecretShush.hx
-export/flash/
-export/html5/
-export/windows/
-export/android
+export/debug/flash/
+export/debug/html5/
+export/debug/windows/
+export/debug/android
 
-release/
+export/release
 
 export/.build
 export/.build
