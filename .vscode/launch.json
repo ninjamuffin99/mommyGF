@@ -5,7 +5,7 @@
 			"name": "Flash",
 			"type": "fdb",
 			"request": "launch",
-			"program": "${workspaceRoot}/export/flash/bin/mommyGF.swf",
+			"program": "${workspaceRoot}/export/debug/flash/bin/mommyGF.swf",
 			"preLaunchTask": "debug: flash"
 		},
 		{

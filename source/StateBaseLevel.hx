@@ -501,7 +501,7 @@ class StateBaseLevel extends FlxState
 		
 		if (FlxG.keys.justPressed.Q)
 		{
-			_asteroid.timer = 0;
+			spawnObstacle(ObstacleBase.ASTEROID);
 		}
 		
 		if (_asteroid.timer > 0)
@@ -655,7 +655,6 @@ class StateBaseLevel extends FlxState
 			default:
 				
 		}
-		
 	}
 	
 	private function spawnAsteroid():Void
