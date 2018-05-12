@@ -1,6 +1,5 @@
 package;
 
-import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -134,9 +133,6 @@ class StateBaseLevel extends FlxState
 		_playerPunchHitBox = new FlxObject(_player.x + 60, _player.y, 75, 75);
 		add(_playerPunchHitBox);
 		
-		
-		hudInit();
-		
 		FlxG.debugger.addTrackerProfile(new TrackerProfile(Mom, ["angleAcceleration", "angleDrag", "timeSwapMin", "timeSwapMax"], []));
 		FlxG.debugger.track(_mom, "Mom");
 		
@@ -144,13 +140,6 @@ class StateBaseLevel extends FlxState
 		FlxG.debugger.track(_player, "Player");
 		
 	}
-	
-	private function hudInit():Void
-	{
-		_grpCandyDisplay = new FlxTypedGroup<Candy>();
-		add(_grpCandyDisplay);
-	}
-	
 	
 	/**
 	 * Gets called in the create state of the OTHER states, like OutsideState, Playstate, rather than in this state.
@@ -192,6 +181,9 @@ class StateBaseLevel extends FlxState
 		boostText.size = 20;
 		boostText.screenCenter(X);
 		add(boostText);
+		
+		_grpCandyDisplay = new FlxTypedGroup<Candy>();
+		add(_grpCandyDisplay);
 		
 		Points.curPoints = 0;
 		Points.curTime = 0;
@@ -507,6 +499,11 @@ class StateBaseLevel extends FlxState
 	private function asteroidCheck():Void
 	{
 		
+		if (FlxG.keys.justPressed.Q)
+		{
+			_asteroid.timer = 0;
+		}
+		
 		if (_asteroid.timer > 0)
 		{
 			_asteroid.timer -= FlxG.elapsed;
@@ -518,7 +515,7 @@ class StateBaseLevel extends FlxState
 		}
 		else
 		{
-			spawnObstacle(1);	
+			spawnObstacle(ObstacleBase.ASTEROID);	
 		}
 		
 		if (justSpawnedAsteroid && _asteroidWarning.animation.curAnim.finished)
@@ -567,7 +564,7 @@ class StateBaseLevel extends FlxState
 		}
 		else
 		{
-			spawnObstacle();
+			spawnObstacle(ObstacleBase.BIKE);
 		}
 		
 		
@@ -631,6 +628,7 @@ class StateBaseLevel extends FlxState
 	 * A handler for spawnin shit
 	 * @param	type
 	 * TYPES:
+	 * -From ObstacleBase class-
 	 * 0 == Bike
 	 * 1 == Asteroid
 	 */
@@ -640,7 +638,7 @@ class StateBaseLevel extends FlxState
 		
 		switch (obType) 
 		{
-			case 0:
+			case ObstacleBase.BIKE:
 				_mopedWarning.revive();
 				_moped.velocity.x = 0;
 				mopedLeft = _player._left;
@@ -652,7 +650,7 @@ class StateBaseLevel extends FlxState
 				FlxG.sound.play("assets/sounds/MotorBike.wav", 0.7);
 				
 				justSpawnedMoped = true;
-			case 1:
+			case ObstacleBase.ASTEROID:
 				spawnAsteroid();
 			default:
 				
@@ -662,7 +660,6 @@ class StateBaseLevel extends FlxState
 	
 	private function spawnAsteroid():Void
 	{
-		
 		_asteroidWarning.revive();
 		_asteroidWarning.animation.curAnim.restart();
 		_asteroidWarning.x = _player.x + 80;

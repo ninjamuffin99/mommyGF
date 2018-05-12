@@ -18,7 +18,6 @@ class Asteroid extends ObstacleBase
 		super(X, Y, SimpleGraphic);
 		
 		var tex = FlxAtlasFrames.fromSpriteSheetPacker(AssetPaths.asteroidSheet__png, AssetPaths.asteroidSheet__txt);
-		
 		frames = tex;
 		
 		animation.add("crash", [0, 2, 3, 3, 4], 24, false);
@@ -26,8 +25,5 @@ class Asteroid extends ObstacleBase
 		animation.play("crash");
 		
 		timer = FlxG.random.float(50, 100);
-		
 	}
-	
-	
 }

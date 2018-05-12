@@ -17,10 +17,10 @@ class StateOutside extends StateBaseLevel
 		super.create();
 		_distanceGoal = 12000;
 		
-		_BG1 = new FlxSprite().loadGraphic("assets/images/Mom_Game_Outide_1_small.png", false, 5500, 540);
+		_BG1 = new FlxSprite().loadGraphic(AssetPaths.Mom_Game_Outide_1_small__png, false, 5500, 540);
 		add(_BG1);
 		
-		_BG2 = new FlxSprite(_BG1.width, 0).loadGraphic("assets/images/Mom_Game_Outide_2_small.png", false, 5500, 540);
+		_BG2 = new FlxSprite(_BG1.width, 0).loadGraphic(AssetPaths.Mom_Game_Outide_2_small__png, false, 5500, 540);
 		add(_BG2);
 		
 		addMainStuff();
