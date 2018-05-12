@@ -31,6 +31,12 @@ class Mom extends FlxNapeSprite
 	public var angleDrag:Float = 0;
 	private var rotateRads:Float = FlxG.random.float( -20 * Math.PI / 180, 20 * Math.PI / 180) / 60;
 	
+	/**
+	   Whether or not the mom can spin freely(false) or if she falls down(true)
+	   
+	**/
+	public var locked:Bool = false;
+	
 	public var timeSwapMin:Float = 0.5;
 	public var timeSwapMax:Float = 2.5;
 	
@@ -39,16 +45,14 @@ class Mom extends FlxNapeSprite
 	public var _lean:Float;
 	public var _distanceX:Float = 0;
 	public var _speedMultiplier:Float = 1;
+	
 	public var boostTimer:Float = 0.5;
 	public var boostBonus:Float = 0;
 	public var boosting:Bool = false;
 	
 	public var _fallenLeft:Bool = false;
-
 	public var _fallenDown:Bool = false;
-	
 	public var _fallAngle:Float = 45 * Math.PI / 180;
-	
 	public var _timesFell:Int = 0;
 	
 	public function new(X:Float=0, Y:Float=0, ?SimpleGraphic:FlxGraphicAsset, CreateRectangularBody:Bool=true, EnablePhysics:Bool=true) 
@@ -206,7 +210,7 @@ class Mom extends FlxNapeSprite
 			swapRotating();
 		}
 		
-		if ((body.rotation >= _fallAngle || body.rotation <= -_fallAngle) && !_fallenDown)
+		if ((body.rotation >= _fallAngle || body.rotation <= -_fallAngle) && !_fallenDown && locked)
 		{
 			fall();
 		}
@@ -249,7 +253,7 @@ class Mom extends FlxNapeSprite
 	
 	public function lowBoost():Void
 	{
-		if ((body.rotation >= _fallAngle - FlxAngle.asRadians(20) || body.rotation <= -_fallAngle + FlxAngle.asRadians(20)) && !_fallenDown)
+		if ((body.rotation >= _fallAngle - FlxAngle.asRadians(20) || body.rotation <= -_fallAngle + FlxAngle.asRadians(20)) && !_fallenDown && locked)
 		{
 			if (boostTimer >= 0)
 			{
@@ -261,6 +265,7 @@ class Mom extends FlxNapeSprite
 				boosting = true;
 			}
 			
+			
 		}
 		else
 		{
@@ -268,7 +273,9 @@ class Mom extends FlxNapeSprite
 			boosting = false;
 		}
 		
-		if ((body.rotation >= _fallAngle - FlxAngle.asRadians(10) || body.rotation <= -_fallAngle + FlxAngle.asRadians(10)) && !_fallenDown)
+		
+		
+		if ((body.rotation >= _fallAngle - FlxAngle.asRadians(10) || body.rotation <= -_fallAngle + FlxAngle.asRadians(10)) && !_fallenDown && locked)
 		{
 			color = FlxColor.RED;
 			boosting = true;
@@ -278,6 +285,8 @@ class Mom extends FlxNapeSprite
 		{
 			color = FlxColor.WHITE;
 		}
+			
+		
 		
 		
 		if (!boosting && boostBonus > 0)

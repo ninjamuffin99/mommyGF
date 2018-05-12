@@ -22,7 +22,7 @@ class BuildInfo extends TextField
 		mouseEnabled = false;
 		defaultTextFormat = new TextFormat ("_sans", 12, color);
 		#if flash
-		text = "build " + ApplicationMain.config.build;
+		//text = "build " + ApplicationMain.main.config.build;
 		#end
 		
 	}
