@@ -61,7 +61,7 @@ class StateLevelSelect extends FlxState
 		
 		
 		_selector.x = _grpLevelLabel.members[0].x - 50;
-		_selector.y = 70;
+		_selector.y = _grpLevelLabel.members[0].y + 50;
 		
 		super.create();
 	}
