@@ -35,7 +35,7 @@ class Mom extends FlxNapeSprite
 	   Whether or not the mom can spin freely(false) or if she falls down(true)
 	   
 	**/
-	public var locked:Bool = false;
+	public var locked:Bool = true;
 	
 	public var timeSwapMin:Float = 0.5;
 	public var timeSwapMax:Float = 2.5;

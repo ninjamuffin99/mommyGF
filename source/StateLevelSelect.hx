@@ -34,7 +34,7 @@ class StateLevelSelect extends FlxState
 		add(_camTrack);
 		
 		FlxG.camera.follow(_camTrack);
-		FlxG.camera.followLerp = 0.04;
+		FlxG.camera.followLerp = 0.06;
 		FlxG.camera.setScrollBounds(0, _map.width, 0, _map.height);
 		
 		
@@ -92,11 +92,11 @@ class StateLevelSelect extends FlxState
 			switch (selectorPos) 
 			{
 				case 0:
-					_camTrack.setPosition(800, 170);
+					_camTrack.setPosition(FlxG.width + 90, FlxG.height);
 				case 1:
-					_camTrack.setPosition(1500, 170);
+					_camTrack.setPosition(_map.width - FlxG.width, FlxG.height + 50);
 				case 2:
-					_camTrack.setPosition(1100, 950);
+					_camTrack.setPosition(1100, _map.height - FlxG.height);
 			}
 			
 			_selector.y = (_grpLevelLabel.members[selectorPos].y) + 50;
