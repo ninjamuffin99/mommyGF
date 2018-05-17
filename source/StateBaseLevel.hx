@@ -18,10 +18,15 @@ import flixel.util.FlxColor;
 /**
  * ...
  * @author ninjaMuffin
+ * 
+ * Where all the magic happens
  */
  
 class StateBaseLevel extends FlxState 
 {
+	//bg shit
+	public var _skyBG:FlxSprite;
+	
 	//MOM SHIT
 	public var _mom:Mom;
 	private var _pickupMom:Float = 0;
@@ -76,12 +81,16 @@ class StateBaseLevel extends FlxState
 		//FlxG.mouse.visible = false;
 		FlxNapeSpace.init();
 		
-		FlxNapeSpace.space.gravity.setxy(0, 0);
+		FlxNapeSpace.space.gravity.setxy(10, 0);
 		
 		FlxG.camera.maxScrollY = FlxG.height;
 		FlxG.camera.minScrollY = 0;
 		
 		FlxG.camera.bgColor = 0xFF222222;
+		
+		_skyBG = new FlxSprite(-50);
+		_skyBG.scrollFactor.x = 0;
+		//_skyBG.visible = false;
 		
 		super.create();
 	}
