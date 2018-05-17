@@ -7,10 +7,12 @@ import flixel.FlxState;
 import flixel.addons.effects.FlxTrailArea;
 import flixel.addons.nape.FlxNapeSpace;
 import flixel.group.FlxGroup;
+import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxAngle;
 import flixel.math.FlxMath;
 import flixel.system.debug.watch.Tracker.TrackerProfile;
 import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
@@ -26,6 +28,11 @@ class StateBaseLevel extends FlxState
 {
 	//bg shit
 	public var _skyBG:FlxSprite;
+	
+	public var _grpBackgrounds:FlxSpriteGroup;
+	
+	//basically the Y position that controls the background elements
+	public var curY:FlxObject;
 	
 	//MOM SHIT
 	public var _mom:Mom;
@@ -87,6 +94,12 @@ class StateBaseLevel extends FlxState
 		FlxG.camera.minScrollY = 0;
 		
 		FlxG.camera.bgColor = 0xFF222222;
+		
+		curY = new FlxObject(0, 0, 1, 1);
+		add(curY);
+		
+		_grpBackgrounds = new FlxSpriteGroup();
+		add(_grpBackgrounds);
 		
 		_skyBG = new FlxSprite(-50);
 		_skyBG.scrollFactor.x = 0;
@@ -220,6 +233,12 @@ class StateBaseLevel extends FlxState
 		candyHandle();
 		
 		boostText.visible = _mom.boosting;
+		
+		_grpBackgrounds.y = curY.y;
+		if (FlxG.keys.justPressed.Y)
+		{
+			asteroidHit();
+		}
 		
 		if (!_player._pickingUpMom)
 		{
@@ -546,7 +565,9 @@ class StateBaseLevel extends FlxState
 		
 		if (FlxG.overlap(_asteroid, _player) && !_player.confused)
 		{
-			_player.disable(FlxG.random.float(6, 15), 1);
+			//_player.disable(FlxG.random.float(6, 15), 1);
+			
+			asteroidHit();
 		}
 		
 	}
@@ -678,6 +699,12 @@ class StateBaseLevel extends FlxState
 		_asteroid.timer = FlxG.random.float( 50, 100);
 		
 		justSpawnedAsteroid = true;
+	}
+	
+	private function asteroidHit():Void
+	{
+		FlxTween.tween(curY, {y: 1460}, 2.8, {ease: FlxEase.quartOut})
+		.then(FlxTween.tween(curY, {y: 0}, 1.7, {ease:FlxEase.quartIn}));
 	}
 	
 	private function candyHandle():Void
