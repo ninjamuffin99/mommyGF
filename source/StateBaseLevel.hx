@@ -33,6 +33,7 @@ class StateBaseLevel extends FlxState
 	
 	//basically the Y position that controls the background elements
 	public var curY:FlxObject;
+	public var flying:Bool = false;
 	
 	//MOM SHIT
 	public var _mom:Mom;
@@ -235,6 +236,9 @@ class StateBaseLevel extends FlxState
 		boostText.visible = _mom.boosting;
 		
 		_grpBackgrounds.y = curY.y;
+		_mom.locked = !flying;
+		
+		
 		if (FlxG.keys.justPressed.Y)
 		{
 			asteroidHit();
@@ -703,8 +707,14 @@ class StateBaseLevel extends FlxState
 	
 	private function asteroidHit():Void
 	{
+		flying = true;
 		FlxTween.tween(curY, {y: 1460}, 2.8, {ease: FlxEase.quartOut})
-		.then(FlxTween.tween(curY, {y: 0}, 1.7, {ease:FlxEase.quartIn}));
+		.then(FlxTween.tween(curY, {y: 0}, 1.7, {ease:FlxEase.quartIn, onComplete: asteroidLand}));
+	}
+	
+	private function asteroidLand(tween:FlxTween):Void
+	{
+		flying = false;
 	}
 	
 	private function candyHandle():Void
