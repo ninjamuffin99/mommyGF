@@ -36,6 +36,7 @@ class Mom extends FlxNapeSprite
 	   
 	**/
 	public var locked:Bool = true;
+	public var flying:Bool = false;
 	
 	public var timeSwapMin:Float = 0.5;
 	public var timeSwapMax:Float = 2.5;
@@ -70,6 +71,7 @@ class Mom extends FlxNapeSprite
 		animation.add("fallRight", [11, 12], 12);
 		animation.add("hitGround", [13, 14, 15], 12, false);
 		animation.add("squished", [18, 19, 20], 12, false);
+		animation.add("flying", [26, 27, 28, 29, 30], 12);
 		
 		animation.play("idle");
 		
@@ -132,6 +134,9 @@ class Mom extends FlxNapeSprite
 		
 		angleAccel(rotateRads);
 		
+		locked = !flying;
+		
+		
 		lowBoost();
 		fallLogic();
 		
@@ -158,6 +163,17 @@ class Mom extends FlxNapeSprite
 			
 		}
 		
+		if (flying)
+		{
+			animation.play("flying");
+			origin.y = 300;
+			// dont know why the hell this offset works, but it's here so that it moves the Mom up???? the higher the value is???
+			offset.y = FlxG.height * 0.55;
+		}
+		else
+		{
+			origin.y = 500;
+		}
 	}
 	
 	private function fallLogic():Void

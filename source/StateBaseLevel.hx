@@ -69,6 +69,7 @@ class StateBaseLevel extends FlxState
 	private var _mopedWarning:Warning;
 	private var _asteroid:Asteroid;
 	private var _asteroidWarning:WarningAsteroid;
+	private var _asteroidJustHit:Bool = false;
 	
 	//HUD STUFF AND WHATNOT
 	private var _timerText:FlxText;
@@ -236,7 +237,7 @@ class StateBaseLevel extends FlxState
 		boostText.visible = _mom.boosting;
 		
 		_grpBackgrounds.y = curY.y;
-		_mom.locked = !flying;
+		_mom.flying = flying;
 		
 		
 		if (FlxG.keys.justPressed.Y)
@@ -330,8 +331,17 @@ class StateBaseLevel extends FlxState
 			var smackPower:Float = FlxAngle.asRadians(_player.smackPower) * _player.punchMultiplier;
 			//converted to rads
 			var pushMultiplier:Float = FlxAngle.asRadians(_player.smackPower) * _player.punchMultiplier;
+			
+			if (flying)
+			{
+				pushMultiplier = 0;
+				smackPower *= 15;
+			}
+			
 			if (_player.poked)
 			{
+				//If flying then pokes are stronger than holding
+				
 				sfxHit();
 				if (_player._left)
 				{
@@ -567,10 +577,9 @@ class StateBaseLevel extends FlxState
 			justSpawnedAsteroid = false;
 		}
 		
-		if (FlxG.overlap(_asteroid, _player) && !_player.confused)
+		if (FlxG.overlap(_asteroid, _player) && !_asteroidJustHit)
 		{
 			//_player.disable(FlxG.random.float(6, 15), 1);
-			
 			asteroidHit();
 		}
 		
@@ -708,6 +717,8 @@ class StateBaseLevel extends FlxState
 	private function asteroidHit():Void
 	{
 		flying = true;
+		_asteroidJustHit = true;
+		_mom.offset.y -= 200;
 		FlxTween.tween(curY, {y: 1460}, 2.8, {ease: FlxEase.quartOut})
 		.then(FlxTween.tween(curY, {y: 0}, 1.7, {ease:FlxEase.quartIn, onComplete: asteroidLand}));
 	}
@@ -715,6 +726,8 @@ class StateBaseLevel extends FlxState
 	private function asteroidLand(tween:FlxTween):Void
 	{
 		flying = false;
+		_asteroidJustHit = false;
+		_mom.offset.y += 200;
 	}
 	
 	private function candyHandle():Void
