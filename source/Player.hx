@@ -85,12 +85,12 @@ class Player extends FlxSprite
 	{
 		super(X, Y);
 		
-		var tex = FlxAtlasFrames.fromSpriteSheetPacker(AssetPaths.kidSheet__png, AssetPaths.kidSheet__txt);
+		var tex = FlxAtlasFrames.fromSpriteSheetPacker(AssetPaths.kidSheetMay22__png, AssetPaths.kidSheetMay22__txt);
 		
 		frames = tex;
 		
 		//loadGraphic(AssetPaths.tempKidsShit__png, true, Std.int(12607/19), 400);
-		animation.add("idle", [0, 0, 1, 2, 3, 4, 5, 5, 6, 7, 8, 9], 12);
+		animation.add("idle", [0, 1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 10, 11], 12);
 		animation.play("idle");
 		
 		animation.add("poke1", [13, 14], 30, false, true);
