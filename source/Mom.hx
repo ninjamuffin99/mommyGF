@@ -37,6 +37,7 @@ class Mom extends FlxNapeSprite
 	**/
 	public var locked:Bool = true;
 	public var flying:Bool = false;
+	public var flyBoost:Float = 0;
 	
 	public var timeSwapMin:Float = 0.5;
 	public var timeSwapMax:Float = 2.5;
@@ -169,6 +170,8 @@ class Mom extends FlxNapeSprite
 			origin.y = 300;
 			// dont know why the hell this offset works, but it's here so that it moves the Mom up???? the higher the value is???
 			offset.y = FlxG.height * 0.55;
+			flyBoost = (FlxAngle.asDegrees(body.rotation) / 360) + 1;
+			FlxG.watch.addQuick("flight boost", flyBoost);
 		}
 		else
 		{

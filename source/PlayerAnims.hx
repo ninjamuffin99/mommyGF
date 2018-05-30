@@ -3,8 +3,6 @@ package;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
-import flixel.system.FlxAssets.FlxGraphicAsset;
-import flixel.util.FlxColor;
 
 /**
  * ...

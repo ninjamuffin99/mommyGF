@@ -725,6 +725,12 @@ class StateBaseLevel extends FlxState
 	
 	private function asteroidLand(tween:FlxTween):Void
 	{
+		FlxG.log.add(FlxAngle.asDegrees(_mom.body.rotation) + " moms angle before");
+		// insert calculation here
+		_mom.body.rotation -= FlxAngle.asRadians(360 * (Math.round(_mom.flyBoost) - 1));
+		FlxG.log.add(FlxAngle.asDegrees(_mom.body.rotation) + " moms angle after");
+		
+		_mom.flyBoost = 0;
 		flying = false;
 		_asteroidJustHit = false;
 		_mom.offset.y += 200;

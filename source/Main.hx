@@ -3,8 +3,6 @@ package;
 import flash.text.TextField;
 import flixel.FlxGame;
 import flixel.FlxState;
-import lime.app.Application;
-import lime.app.Config;
 import openfl.Lib;
 import openfl.display.FPS;
 import openfl.display.Sprite;
