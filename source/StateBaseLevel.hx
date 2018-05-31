@@ -34,6 +34,7 @@ class StateBaseLevel extends FlxState
 	//basically the Y position that controls the background elements
 	public var curY:FlxObject;
 	public var flying:Bool = false;
+	public var txtSpinning:FlxText;
 	
 	//MOM SHIT
 	public var _mom:Mom;
@@ -234,7 +235,7 @@ class StateBaseLevel extends FlxState
 		pickupHandle();
 		candyHandle();
 		
-		boostText.visible = _mom.boosting;
+		boostText.visible = _mom.boosting || _mom.flying;
 		
 		_grpBackgrounds.y = curY.y;
 		_mom.flying = flying;
@@ -263,6 +264,10 @@ class StateBaseLevel extends FlxState
 		if (_mom.boosting)
 		{
 			boostText.text = "Close Call Bonus: " + FlxMath.roundDecimal(_mom.boostBonus, 2);
+		}
+		if (_mom.flying)
+		{
+			boostText.text = "Spin Multiplier: " + FlxMath.roundDecimal(_mom.flyBoost, 2);
 		}
 	}
 	
@@ -725,10 +730,14 @@ class StateBaseLevel extends FlxState
 	
 	private function asteroidLand(tween:FlxTween):Void
 	{
-		FlxG.log.add(FlxAngle.asDegrees(_mom.body.rotation) + " moms angle before");
-		// insert calculation here
 		_mom.body.rotation -= FlxAngle.asRadians(360 * (Math.round(_mom.flyBoost) - 1));
-		FlxG.log.add(FlxAngle.asDegrees(_mom.body.rotation) + " moms angle after");
+		
+		_mom.boostBonus += _mom.flyBoost * FlxG.random.int(10, 17);
+		
+		if (_mom.boostBonus < 0)
+		{
+			_mom.boostBonus = -_mom.boostBonus;
+		}
 		
 		_mom.flyBoost = 0;
 		flying = false;

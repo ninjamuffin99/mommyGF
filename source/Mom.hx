@@ -283,8 +283,6 @@ class Mom extends FlxNapeSprite
 				boostBonus += FlxG.random.float(0.05, 0.2);
 				boosting = true;
 			}
-			
-			
 		}
 		else
 		{
@@ -304,8 +302,6 @@ class Mom extends FlxNapeSprite
 		{
 			color = FlxColor.WHITE;
 		}
-			
-		
 		
 		
 		if (!boosting && boostBonus > 0)
@@ -313,8 +309,6 @@ class Mom extends FlxNapeSprite
 			_distanceX += boostBonus * 0.4;
 			boostBonus -= (boostBonus * 0.025) - 0.001;
 		}
-		
-		
 	}
 	
 	
