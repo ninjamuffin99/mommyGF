@@ -239,6 +239,7 @@ class StateBaseLevel extends FlxState
 		
 		_grpBackgrounds.y = curY.y;
 		_mom.flying = flying;
+		_player.flying = flying;
 		
 		
 		if (FlxG.keys.justPressed.Y)
@@ -391,7 +392,15 @@ class StateBaseLevel extends FlxState
 			}
 			
 			_player.curPostition = _player.getPosition();
-			_player.animation.play("idle");
+			if (!flying)
+			{
+				_player.animation.play("idle");
+			}
+			else
+			{
+				_player.animation.play("flying");
+			}
+			
 		}
 		
 		if (_player.punched)
@@ -712,7 +721,7 @@ class StateBaseLevel extends FlxState
 		_asteroidWarning.x = _player.x + 80;
 		_asteroid.animation.curAnim.restart();
 		_asteroid.y = 0 - _asteroid.height;
-		_asteroid.velocity.y = 4800;
+		_asteroid.velocity.y = 6000;
 		_asteroid.left = _player._left;
 		_asteroid.timer = FlxG.random.float( 50, 100);
 		
@@ -724,6 +733,7 @@ class StateBaseLevel extends FlxState
 		flying = true;
 		_asteroidJustHit = true;
 		_mom.offset.y -= 200;
+		_player.offset.y += 200;
 		FlxTween.tween(curY, {y: 1460}, 2.8, {ease: FlxEase.quartOut})
 		.then(FlxTween.tween(curY, {y: 0}, 1.7, {ease:FlxEase.quartIn, onComplete: asteroidLand}));
 	}
@@ -732,7 +742,7 @@ class StateBaseLevel extends FlxState
 	{
 		_mom.body.rotation -= FlxAngle.asRadians(360 * (Math.round(_mom.flyBoost) - 1));
 		
-		_mom.boostBonus += _mom.flyBoost * FlxG.random.int(10, 17);
+		_mom.boostBonus += _mom.flyBoost * FlxG.random.int(7, 14);
 		
 		if (_mom.boostBonus < 0)
 		{
@@ -743,6 +753,7 @@ class StateBaseLevel extends FlxState
 		flying = false;
 		_asteroidJustHit = false;
 		_mom.offset.y += 200;
+		_player.offset.y -= 200;
 	}
 	
 	private function candyHandle():Void

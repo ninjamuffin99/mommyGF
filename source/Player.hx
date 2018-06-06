@@ -78,25 +78,30 @@ class Player extends FlxSprite
 	private var disableTimer:Float = 0;
 	private var confuseTimer:Float = 0;
 	private var prevAnim:Int = FlxG.random.int(1, 3);
+	public var flying:Bool = false;
 
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
 		super(X, Y);
 		
-		var tex = FlxAtlasFrames.fromSpriteSheetPacker(AssetPaths.kidSheetMay29__png, AssetPaths.kidSheetMay29__txt);
+		var tex = FlxAtlasFrames.fromSpriteSheetPacker(AssetPaths.kidSheetJune6__png, AssetPaths.kidSheetJune6__txt);
 		
 		frames = tex;
 		
-		//loadGraphic(AssetPaths.tempKidsShit__png, true, Std.int(12607/19), 400);
-		animation.add("idle", [0, 1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 10, 11], 12);
+		// OLD CODE LOL I AM WOKE BABY
+ 		//loadGraphic(AssetPaths.tempKidsShit__png, true, Std.int(12607/19), 400);
+		//animation.add("idle", [0, 1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 10, 11], 12);
+		animation.addByIndices("idle", "kidWalkNew", [0, 1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 10, 11], "", 12);
 		animation.play("idle");
 		
-		animation.add("poke1", [47, 47, 48, 48, 49, 49, 50, 51, 52, 53, 54], 24, false, true);
-		animation.add("poke2", [55, 56, 57, 58], 12, false, true);
-		animation.add("poke3", [59, 59, 60, 60, 61, 62, 63, 64], 24, false, true);
-		animation.add("punch", [65, 66, 67, 68], 12, false);
-		animation.add("ducking", [17], 1, false, true);
-		animation.add("pickingUp", [31, 32, 33], 24);
+		animation.addByIndices("poke1", "kidPokeV1", [1, 1, 2, 2, 3, 3, 4, 5, 6, 7, 8], "", 24, false, true);
+		animation.addByIndices("poke2", "kidPokeV2", [1, 2, 3, 4], "",  12, false, true);
+		animation.addByIndices("poke3", "kidPokeV3", [1, 1, 2, 2, 3, 4, 5, 6], "", 24, false, true);
+		animation.add("punch", [66, 67, 68, 69], 12, false);
+		animation.addByNames("ducking", ["kidPokeV30001"], 1, false, true);
+		// animation.add("pickingUp", [31, 32, 33], 24);
+		animation.addByIndices("flying", "kidFalling_", [1, 1, 2, 3, 3, 4, 5, 5, 6, 7, 7, 8], "", 24);
+		
 		
 		width = width / 2;
 		centerOffsets();
