@@ -346,6 +346,7 @@ class StateBaseLevel extends FlxState
 			
 			if (_player.poked)
 			{
+				FlxG.camera.shake(0.005, 0.1);
 				//If flying then pokes are stronger than holding
 				
 				sfxHit();
@@ -506,7 +507,7 @@ class StateBaseLevel extends FlxState
 		
 		if (_cat.peeking)
 		{
-			if (_cat.animation.frameIndex == 31)
+			if (_cat.animation.frameIndex == 30)
 			{
 				if (_cat.goingRight)
 				{
@@ -541,10 +542,12 @@ class StateBaseLevel extends FlxState
 		{
 			_cat.facing = FlxObject.LEFT;
 			_cat.x = FlxG.width + _cat.width * 2;
-			_cat.body.position.x = _cat.x;
+			_cat.body.position.x =_cat.x;
 		}
-		_cat.animation.play("peek");
+		
 		_cat.peeking = true;
+		_cat.animation.play("peek");
+		
 	}
 	
 	private var justSpawnedAsteroid:Bool = false;

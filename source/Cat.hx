@@ -24,7 +24,7 @@ class Cat extends FlxNapeSprite
 
 	public function new(X:Float=0, Y:Float=0, ?SimpleGraphic:FlxGraphicAsset, CreateRectangularBody:Bool=true, EnablePhysics:Bool=true) 
 	{
-		super(X, Y, SimpleGraphic, CreateRectangularBody, EnablePhysics);
+		super(X, Y, null, CreateRectangularBody, EnablePhysics);
 		
 		loadGraphic(AssetPaths.catSpriteSheet__png, true, 710, 429);
 		animation.add("punched", [0, 1], 12, false);
@@ -81,7 +81,7 @@ class Cat extends FlxNapeSprite
 			body.shapes.at(0).filter.collisionMask = 0;
 			
 		}
-		if (!_punched && body.velocity.x != 0)
+		if (!_punched && body.velocity.x != 0 && body.velocity.y != 0)
 		{
 			animation.play("fly");
 			body.shapes.at(0).filter.collisionMask = -1;
@@ -97,7 +97,6 @@ class Cat extends FlxNapeSprite
 		flying = false;
 		body.rotation = 0;
 		body.velocity.y = body.velocity.x = 0;
-		velocity.x = velocity.y = 0;
 		angularVelocity = 0;
 		angle = 0;
 	}

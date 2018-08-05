@@ -31,10 +31,9 @@ class StateOutside extends StateBaseLevel
 		
 		
 		_grpBackgrounds.add(_skyBG);
+		
 		addMainStuff();
-		
-		//spawnCat();
-		
+		spawnCat();
 		createHUD();
 		
 	}
