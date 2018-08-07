@@ -1,0 +1,2 @@
+musicSlider = 0 0 43 62
+musicSliderSelected = 43 0 43 60

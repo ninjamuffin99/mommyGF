@@ -1,0 +1,5 @@
+sfxNormal = 0 0 252 56
+sfxSelected0001 = 0 56 252 56
+sfxSelected0002 = 0 112 252 56
+sfxSelected0003 = 0 168 252 56
+sfxSelected0004 = 252 0 252 56

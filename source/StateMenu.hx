@@ -142,6 +142,7 @@ class StateMenu extends FlxState
 					FlxG.switchState(new StateChallenge());
 				case 2: 
 					FlxG.log.add("Options Slected");
+					openSubState(new SubstateOptions());
 				case 3:
 					FlxG.switchState(new StateCredits());
 				default:

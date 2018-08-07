@@ -1,0 +1,5 @@
+antialiasing = 0 0 269 55
+antialiasingSelected0001 = 0 55 269 55
+antialiasingSelected0002 = 0 110 269 55
+antialiasingSelected0003 = 0 165 269 55
+antialiasingSelected0004 = 0 220 269 55
