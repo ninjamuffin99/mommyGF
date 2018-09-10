@@ -1,5 +1,5 @@
-musicVol = 0 0 269 51
-musicVolSelected0001 = 0 51 269 51
-musicVolSelected0002 = 0 102 269 51
-musicVolSelected0003 = 0 153 269 51
-musicVolSelected0004 = 0 204 269 51
+musicVol.png = 0 0 388 74
+musicVolSelected0001 = 0 74 388 74
+musicVolSelected0002 = 0 148 388 74
+musicVolSelected0003 = 0 222 388 74
+musicVolSelected0004 = 0 296 388 74

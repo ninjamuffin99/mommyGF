@@ -1,5 +1,5 @@
-masterVol = 0 0 260 54
-masterVolSelected0001 = 0 54 260 54
-masterVolSelected0002 = 0 108 260 54
-masterVolSelected0003 = 0 162 260 54
-masterVolSelected0004 = 0 216 260 54
+masterVol = 0 0 376 78
+masterVolSelected0001 = 0 78 376 78
+masterVolSelected0002 = 0 156 376 78
+masterVolSelected0003 = 0 234 376 78
+masterVolSelected0004 = 0 312 376 78

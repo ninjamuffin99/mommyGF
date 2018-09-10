@@ -1,4 +1,4 @@
-OptionsTxt0001 = 0 0 263 72
-OptionsTxt0002 = 0 72 263 72
-OptionsTxt0003 = 0 144 263 72
-OptionsTxt0004 = 0 216 263 72
+OptionsTxt0001 = 0 0 379 104
+OptionsTxt0002 = 0 104 379 104
+OptionsTxt0003 = 0 208 379 104
+OptionsTxt0004 = 0 312 379 104

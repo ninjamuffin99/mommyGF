@@ -1,5 +1,5 @@
-antialiasing = 0 0 269 55
-antialiasingSelected0001 = 0 55 269 55
-antialiasingSelected0002 = 0 110 269 55
-antialiasingSelected0003 = 0 165 269 55
-antialiasingSelected0004 = 0 220 269 55
+antialiasing.png = 0 0 389 80
+antialiasingSelected0001 = 0 80 389 80
+antialiasingSelected0002 = 0 160 389 80
+antialiasingSelected0003 = 0 240 389 80
+antialiasingSelected0004 = 0 320 389 80

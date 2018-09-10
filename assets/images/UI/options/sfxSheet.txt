@@ -1,5 +1,5 @@
-sfxNormal = 0 0 252 56
-sfxSelected0001 = 0 56 252 56
-sfxSelected0002 = 0 112 252 56
-sfxSelected0003 = 0 168 252 56
-sfxSelected0004 = 252 0 252 56
+sfxNormal.png = 0 0 365 81
+sfxSelected0001 = 0 81 365 81
+sfxSelected0002 = 0 162 365 81
+sfxSelected0003 = 0 243 365 81
+sfxSelected0004 = 0 324 365 81

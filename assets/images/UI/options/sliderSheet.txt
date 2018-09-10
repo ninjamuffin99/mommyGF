@@ -1,2 +1,2 @@
-musicSlider = 0 0 258 12
-musicSliderSelected = 0 12 258 12
+musicSlider = 0 0 373 18
+musicSliderSelected = 0 18 373 18
