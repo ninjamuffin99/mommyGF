@@ -44,6 +44,8 @@ class SubstateOptions extends FlxSubState
 		blueShit.alpha = 0.7;
 		add(blueShit);
 		
+		// NOTE TO SELF: This will have to be redone at some point in the future,
+		// since it does some weird shit on the windows build
 		scrollingHeads = new FlxTiledSprite(AssetPaths.HeadPattern__png, 968, 540);
 		// scrollingHeads.blend = "lighten";
 		add(scrollingHeads);

@@ -16,3 +16,8 @@ Notes/ideas:
 	out the timings of the enemies
 	
 	For some reason in the windows build, the cats sprite is loading as a black square
+	In windows build, the FlxTiledSprite (used in main menu and options) doesnt repeat correctly
+
+	what is this game about:
+			Poking to keep mom balanced
+			using different tthings to gain speed

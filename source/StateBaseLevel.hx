@@ -343,6 +343,12 @@ class StateBaseLevel extends FlxState
 				pushMultiplier = 0;
 				smackPower *= 15;
 			}
+			else if (!_mom._fallenDown)
+			{
+				_mom._distanceX += 1;
+				// multiplier goes up every second gradually
+				_mom._speedMultiplier += 0.25 * FlxG.elapsed;
+			}
 			
 			if (_player.poked)
 			{
@@ -361,14 +367,16 @@ class StateBaseLevel extends FlxState
 				
 				if (!_mom._fallenDown)
 				{
-					_mom._distanceX += FlxG.random.float(0, 5);
-					_mom._speedMultiplier += FlxG.random.float(0, 0.01);
+					_mom._distanceX += FlxG.random.float(0, 20);
+					//_mom._speedMultiplier += 1;
+					_mom._speedMultiplier += FlxG.random.float(0, 0.3);
 					_player.punchMultiplier += FlxG.random.float(0, 0.025);
 				}
 				
 				_mom.swapRotating();
 				
 			}
+			
 			if (_player._left)
 			{
 				_player.setPosition(_player.curPostition.x + FlxG.width * 0.1, _playerY);

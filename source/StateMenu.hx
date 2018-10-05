@@ -3,6 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.addons.display.FlxTiledSprite;
 import flixel.system.scaleModes.FillScaleMode;
 import flixel.system.scaleModes.FixedScaleMode;
 import flixel.system.scaleModes.PixelPerfectScaleMode;
@@ -10,6 +11,7 @@ import flixel.system.scaleModes.StageSizeScaleMode;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
+import flixel.util.FlxColor;
 import openfl.media.Video;
 import openfl.net.NetConnection;
 import openfl.net.NetStream;
@@ -22,14 +24,20 @@ class StateMenu extends FlxState
 	private var _titleCredits:FlxSprite;
 	private var _selector:FlxSprite;
 	
+	private var bg:FlxTiledSprite;
+	
 	private var selectorPos:Int = 0;
 
 	override public function create():Void
 	{
-		var bg:FlxSprite = new FlxSprite();
-		bg.loadGraphic(AssetPaths.TitleScreen__png, false, 1927, 1080);
+		bg = new FlxTiledSprite(AssetPaths.Mom_Game_Outide_1_small__png, 5500, 540);
+		//bg.loadGraphic(AssetPaths.Mom_Game_Outide_1_small__png);
+		bg.scrollX = -60;
+		/*
+		 * old stuff
 		bg.setGraphicSize(960, 540);
 		bg.updateHitbox();
+		*/
 		add(bg);
 		
 		var _titleText:FlxSprite = new FlxSprite(0, FlxG.height * 0.03);
@@ -94,6 +102,8 @@ class StateMenu extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
+		
+		bg.scrollX -= 60 * FlxG.elapsed;
 		
 		#if !mobile
 		if (FlxG.keys.anyJustPressed(["UP", "W", "I", "DOWN", "S", "K"]))

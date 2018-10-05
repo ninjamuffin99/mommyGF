@@ -262,11 +262,11 @@ class Mom extends FlxNapeSprite
 	 */
 	private function updateAngleAccel():Void
 	{
-		rotateRads = FlxAngle.asRadians(FlxG.random.float(-angleAcceleration , angleAcceleration)) * _speedMultiplier;
+		rotateRads = FlxAngle.asRadians(FlxG.random.float(-angleAcceleration , angleAcceleration)) * (_speedMultiplier * 0.30);
 		
 		if (FlxG.random.bool())
 		{
-			rotateRads *= FlxG.random.float(1.5, 3) * _speedMultiplier;
+			rotateRads *= FlxG.random.float(1.5, 3) * (_speedMultiplier * 0.30);
 		}
 	}
 	

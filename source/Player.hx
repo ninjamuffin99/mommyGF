@@ -84,6 +84,9 @@ class Player extends FlxSprite
 	{
 		super(X, Y);
 		
+		// NOTE TO FUTURE SELF: USE THE SPARROW SPRITESHEET EXPORT IN ADOBE ANIMATE!!!
+		// THEN USE `FlxAtlasFrames.fromSparrow()` IN THIS NEXT LINE
+		// AND THEN USE `animation.addByPrefix()` to load in animations EZ!!!!
 		var tex = FlxAtlasFrames.fromSpriteSheetPacker(AssetPaths.kidSheetJune6__png, AssetPaths.kidSheetJune6__txt);
 		
 		frames = tex;
@@ -91,6 +94,8 @@ class Player extends FlxSprite
 		// OLD CODE LOL I AM WOKE BABY
  		//loadGraphic(AssetPaths.tempKidsShit__png, true, Std.int(12607/19), 400);
 		//animation.add("idle", [0, 1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 10, 11], 12);
+		
+		
 		animation.addByIndices("idle", "kidWalkNew", [0, 1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 10, 11], "", 12);
 		animation.play("idle");
 		
