@@ -2,7 +2,7 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 	
-	<app title="mommyGF" file="mommyGF" main="Main" version="0.0.1" company="ninjaMuffin" package="com.mommy.gf" />
+	<app title="Must Murder Mommy" file="mommyGF" main="Main" version="0.0.1" company="ninjaMuffin" package="com.ninjamuffin.mommygf" />
 	
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
@@ -30,7 +30,8 @@
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
 	<classpath name="source" />
-	<assets path="assets" />
+	<assets path="assets/data" />
+	<assets path="assets/images" />
 	<assets path="assets/music" include="*.mp3" if="flash" />
 	<assets path="assets/music" include="*.ogg" unless="flash" />
 	<assets path="assets/sounds" include="*.mp3" if="flash" />
@@ -86,5 +87,7 @@
 	<!-- _________________________________ Custom _______________________________ -->
 	
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
+	<icon path="assets/images/icon.png" />
+	<haxelib name="haxe-hardware" if="android"/>
 
 </project>

@@ -1,17 +1,20 @@
-package;
+package states;
 
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.math.FlxRect;
 import flixel.text.FlxText;
+import states.StateHouse;
 
 /**
  * ...
  * @author ninjaMuffin
  */
-class StateLevelSelect extends FlxState 
+class StateLevelSelect extends FlxTransitionableState 
 {
 	private var levels:FlxText;
 	
@@ -29,9 +32,14 @@ class StateLevelSelect extends FlxState
 		_map.loadGraphic(AssetPaths.map__png, false, 2400, 1350);
 		add(_map);
 		
-		FlxG.camera.zoom = 0.5;
+		FlxG.camera.zoom = 0.5 * FlxG.initialZoom;
 		_camTrack = new FlxObject(0, 0, 16, 16);
 		add(_camTrack);
+		
+		var regionRect:FlxRect = new FlxRect(-FlxG.width * FlxG.camera.zoom, -FlxG.height * FlxG.camera.zoom, FlxG.width * 2, FlxG.height * 2);
+		
+		transIn.region = regionRect;
+		transOut.region = regionRect;
 		
 		FlxG.camera.follow(_camTrack);
 		FlxG.camera.followLerp = 0.06;
@@ -62,6 +70,8 @@ class StateLevelSelect extends FlxState
 		
 		_selector.x = _grpLevelLabel.members[0].x - 50;
 		_selector.y = _grpLevelLabel.members[0].y + 50;
+		
+		persistentUpdate = true;
 		
 		super.create();
 	}
@@ -108,9 +118,9 @@ class StateLevelSelect extends FlxState
 			switch (selectorPos) 
 			{
 				case 0:
-					FlxG.switchState(new StateHouse());
+					FlxG.switchState(new states.StateHouse());
 				case 1:
-					FlxG.switchState(new StateOutside());
+					FlxG.switchState(new states.StateOutside());
 				default:
 					FlxG.log.add("Defualt selection???");
 			}
@@ -131,11 +141,11 @@ class StateLevelSelect extends FlxState
 				{
 					if (touch.overlaps(_grpLevelLabel.members[0]))
 					{
-						FlxG.switchState(new StateHouse());
+						FlxG.switchState(new states.StateHouse());
 					}
 					if (touch.overlaps(_grpLevelLabel.members[1]))
 					{
-						FlxG.switchState(new StateOutside());
+						FlxG.switchState(new states.StateOutside());
 					}
 				}
 			}

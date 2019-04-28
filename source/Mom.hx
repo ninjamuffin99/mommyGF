@@ -11,6 +11,7 @@ import flixel.math.FlxPoint;
 import flixel.math.FlxVelocity;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.util.FlxColor;
+import flixel.util.FlxSignal;
 import nape.geom.AABB;
 import nape.geom.Vec2;
 import nape.phys.Body;
@@ -57,6 +58,8 @@ class Mom extends FlxNapeSprite
 	public var _fallAngle:Float = 45 * Math.PI / 180;
 	public var _timesFell:Int = 0;
 	
+	public var justFell(default, null):FlxSignal = new FlxSignal();
+	
 	public function new(X:Float=0, Y:Float=0, ?SimpleGraphic:FlxGraphicAsset, CreateRectangularBody:Bool=true, EnablePhysics:Bool=true) 
 	{
 		super(X, Y, SimpleGraphic, CreateRectangularBody, EnablePhysics);
@@ -83,7 +86,7 @@ class Mom extends FlxNapeSprite
 		origin.y = 500;
 		
 		createRectangularBody(width, FlxG.height - y);
-		offset.set(25);
+		offset.set(25); //y offset is set throughout code
 		body.translateShapes(Vec2.get(0, -120));
 		
 		setFacingFlip(FlxObject.RIGHT, false, false);
@@ -124,6 +127,7 @@ class Mom extends FlxNapeSprite
 		super.update(elapsed);
 		
 		
+		
 		//animation.curAnim.frameRate = Std.int(12 * _speedMultiplier);
 		
 		//_lean = angle;
@@ -144,11 +148,11 @@ class Mom extends FlxNapeSprite
 		if (animation.curAnim.name == "idle")
 		{
 			_distanceX += 1 * _speedMultiplier * FlxG.timeScale;
-			offset.y = 0;
+			offset.y = 20;
 		}
 		if (animation.curAnim.name == "fallLeft" || animation.curAnim.name == "fallRight")
 		{
-			_distanceX += FlxG.random.float(0.25, 0.5) * _speedMultiplier * FlxG.timeScale;
+			_distanceX += FlxG.random.float(0.35, 0.6) * _speedMultiplier * FlxG.timeScale;
 			//shake();
 		}
 		if (animation.curAnim.name == "hitGround")
@@ -246,6 +250,8 @@ class Mom extends FlxNapeSprite
 	
 	private function fall():Void
 	{
+		justFell.dispatch();
+		
 		FlxG.camera.shake(0.05, 0.02);
 		
 		_lean = 0;
@@ -266,7 +272,7 @@ class Mom extends FlxNapeSprite
 		
 		if (FlxG.random.bool())
 		{
-			rotateRads *= FlxG.random.float(1.5, 3) * (_speedMultiplier * 0.30);
+			rotateRads *= FlxG.random.float(1.5, 3) * (_speedMultiplier * 0.33);
 		}
 	}
 	

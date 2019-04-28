@@ -1,22 +1,27 @@
-package;
+package states;
 
+import flash.display.BitmapData;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.display.FlxTiledSprite;
+import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
+import flixel.addons.transition.FlxTransitionableState;
+import flixel.addons.transition.TransitionData;
+import flixel.graphics.FlxGraphic;
+import flixel.math.FlxPoint;
+import flixel.math.FlxRect;
 import flixel.system.scaleModes.FillScaleMode;
 import flixel.system.scaleModes.FixedScaleMode;
 import flixel.system.scaleModes.PixelPerfectScaleMode;
 import flixel.system.scaleModes.StageSizeScaleMode;
 import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
-import openfl.media.Video;
-import openfl.net.NetConnection;
-import openfl.net.NetStream;
 
-class StateMenu extends FlxState
+class StateMenu extends FlxTransitionableState
 {
 	private var _titleStart:FlxSprite;
 	private var _titleChallenges:FlxSprite;
@@ -27,9 +32,35 @@ class StateMenu extends FlxState
 	private var bg:FlxTiledSprite;
 	
 	private var selectorPos:Int = 0;
+	
+	static var initialized:Bool = false;
 
 	override public function create():Void
 	{
+		if (!initialized)
+		{
+			var diamond:FlxGraphic = FlxGraphic.fromClass(GraphicTransTileDiamond);
+			diamond.persist = true;
+			diamond.destroyOnNoUse = false;
+			
+			FlxTransitionableState.defaultTransIn = new TransitionData(TILES, FlxColor.BLACK, 1, new FlxPoint(1, 1), { asset: diamond, width: 32, height: 32}, new FlxRect(0, 0, FlxG.width, FlxG.height));
+			FlxTransitionableState.defaultTransOut = new TransitionData(TILES, FlxColor.BLACK, 1, new FlxPoint(1, 1), { asset: diamond, width: 32, height: 32}, new FlxRect(0, 0, FlxG.width, FlxG.height));
+			initialized = true;
+			
+			transIn = FlxTransitionableState.defaultTransIn;
+			transOut = FlxTransitionableState.defaultTransOut;
+		}
+		
+		persistentUpdate = true;
+		
+		#if (flash || html5)
+			Global.soundEXT = ".mp3";
+		#else
+			Global.soundEXT = ".ogg";
+		#end
+		
+		FlxG.camera.fade(FlxColor.BLACK, 1, true);
+		
 		bg = new FlxTiledSprite(AssetPaths.Mom_Game_Outide_1_small__png, 5500, 540);
 		//bg.loadGraphic(AssetPaths.Mom_Game_Outide_1_small__png);
 		bg.scrollX = -60;
@@ -65,6 +96,7 @@ class StateMenu extends FlxState
 		
 		_selector.x = _titleStart.x - 25;
 		_selector.y = _titleStart.y;
+		
 		super.create();
 	}
 	

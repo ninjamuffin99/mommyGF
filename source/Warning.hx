@@ -34,7 +34,7 @@ class Warning extends FlxSprite
 	{
 		super.revive();
 		
-		FlxG.sound.play(AssetPaths.Car_Warning__wav, 0.8);
+		FlxG.sound.play("assets/sounds/Car_Warning" + Global.soundEXT, 0.8);
 		
 	}
 	

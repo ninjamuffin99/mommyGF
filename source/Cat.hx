@@ -105,7 +105,7 @@ class Cat extends FlxNapeSprite
 	private var prevSound:Int = FlxG.random.int(1, 3);
 	public function smackedSound():Void
 	{
-		FlxG.sound.play("assets/sounds/CatPain" + prevSound + ".wav");
+		FlxG.sound.play("assets/sounds/CatPain" + prevSound + Global.soundEXT);
 		prevSound = FlxG.random.int(1, 3, [prevSound]);
 	}
 	

@@ -7,6 +7,7 @@ import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.input.FlxSwipe;
 import flixel.math.FlxPoint;
 import flixel.system.FlxAssets.FlxGraphicAsset;
+import openfl.Assets;
 
 
 /**
@@ -87,15 +88,29 @@ class Player extends FlxSprite
 		// NOTE TO FUTURE SELF: USE THE SPARROW SPRITESHEET EXPORT IN ADOBE ANIMATE!!!
 		// THEN USE `FlxAtlasFrames.fromSparrow()` IN THIS NEXT LINE
 		// AND THEN USE `animation.addByPrefix()` to load in animations EZ!!!!
-		var tex = FlxAtlasFrames.fromSpriteSheetPacker(AssetPaths.kidSheetJune6__png, AssetPaths.kidSheetJune6__txt);
+		//var tex = FlxAtlasFrames.fromSpriteSheetPacker(AssetPaths.kidSheetJune6__png, AssetPaths.kidSheetJune6__txt);
+		
+		var tex = FlxAtlasFrames.fromSparrow(AssetPaths.kidSheetFeb18__png, Assets.getText("assets/images/kidSheetFeb18.xml"));
 		
 		frames = tex;
 		
-		// OLD CODE LOL I AM WOKE BABY
- 		//loadGraphic(AssetPaths.tempKidsShit__png, true, Std.int(12607/19), 400);
-		//animation.add("idle", [0, 1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 10, 11], 12);
+		animation.addByPrefix("idle", "Kid Walking Left", 24);
+		animation.play("idle");
+		
+		animation.addByPrefix("poke1", "Poke 1", 24, false, true);
+		animation.addByPrefix("poke2", "Poke 2", 24, false, true);
+		animation.addByPrefix("poke3", "Poke 3", 24, false, true);
+		animation.addByPrefix("punch", "Kid Cat Punch", 24, false);
+		animation.addByPrefix("ducking", "Poke 3", 24, false, true);
+		animation.addByPrefix("pickingUp", "Kid Lifting", 24);
+		animation.addByPrefix("flying", "Kid Falling", 24);
+		animation.addByPrefix("momFalls", "Kid Panic at Fall Mom", 24, false, true);
 		
 		
+		setGraphicSize(Std.int(width * 0.45));
+		updateHitbox();
+		
+		/*
 		animation.addByIndices("idle", "kidWalkNew", [0, 1, 2, 3, 4, 5, 5, 6, 7, 8, 9, 10, 11], "", 12);
 		animation.play("idle");
 		
@@ -106,13 +121,13 @@ class Player extends FlxSprite
 		animation.addByNames("ducking", ["kidPokeV30001"], 1, false, true);
 		// animation.add("pickingUp", [31, 32, 33], 24);
 		animation.addByIndices("flying", "kidFalling_", [1, 1, 2, 3, 3, 4, 5, 5, 6, 7, 7, 8], "", 24);
-		
+		*/
 		
 		width = width / 2;
 		centerOffsets();
 		
-		offset.y = -50;
-		offset.x = 50;
+		offset.y += -40;
+		offset.x -= 30;
 		
 		setFacingFlip(FlxObject.LEFT, false, false);
 		setFacingFlip(FlxObject.RIGHT, true, false);
@@ -122,7 +137,7 @@ class Player extends FlxSprite
 		super.update(elapsed);
 		
 		//Updates the points as long as the player is on screen
-		Points.curTime += FlxG.elapsed * FlxG.timeScale;
+		Global.curTime += FlxG.elapsed * FlxG.timeScale;
 		
 		statusChecks();
 		
@@ -191,9 +206,20 @@ class Player extends FlxSprite
 		if (FlxG.onMobile)
 		{
 			mobileControls();
+					
+			
 		}
 		
 		spamP = (leftP || rightP);
+		
+		#if android
+			if (spamP)
+			{
+				Hardware.vibrate(FlxG.random.int(50, 90));
+			}
+			
+		#end
+		
 		
 		if (confused)
 		{
@@ -323,12 +349,14 @@ class Player extends FlxSprite
 	
 	private function mobileControls():Void
 	{
+		leftP = rightP = upP = leftR = rightR = upR = left = right = up = false;
+		
 		//Touch controls
 		for (touch in FlxG.touches.list)
 		{
 			if (touch.justPressed) 
 			{
-				if (touch.screenX >= FlxG.width / 2)
+				if (touch.x <= FlxG.width / 2)
 				{
 					leftP = true;
 				}
@@ -336,11 +364,16 @@ class Player extends FlxSprite
 				{
 					rightP = true;
 				}
+				
+				if (touch.y <= FlxG.height * 0.15)
+				{
+					upP = true;
+				}
 			}
 			
 			if (touch.pressed)
 			{
-				if (touch.screenX >= FlxG.width / 2)
+				if (touch.x <= FlxG.width / 2)
 				{
 					left = true;
 				}
@@ -348,17 +381,27 @@ class Player extends FlxSprite
 				{
 					right = true;
 				}
+				
+				if (touch.y <= FlxG.height * 0.15)
+				{
+					up = true;
+				}
 			}
 			
 			if (touch.justReleased) 
 			{
-				if (touch.screenX >= FlxG.width / 2)
+				if (touch.x <= FlxG.width / 2)
 				{
 					leftR = true;
 				}
 				else
 				{
 					rightR = true;
+				}
+				
+				if (touch.y <= FlxG.height * 0.15)
+				{
+					upR = true;
 				}
 			}
 		}

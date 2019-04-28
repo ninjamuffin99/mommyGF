@@ -1,10 +1,11 @@
-package;
+package states;
 
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import states.StateHouse;
 
 /**
  * ...
@@ -34,10 +35,10 @@ class StateWin extends FlxState
 		
 		FlxTween.tween(_winText, {y: FlxG.height * 0.45}, 0.75, {ease:FlxEase.quadInOut, type:FlxTween.PINGPONG});
 		
-		var winMin:Float = Points.curTime / 60;
+		var winMin:Float = Global.curTime / 60;
 		
 		FlxG.log.add(winMin);
-		var winSec:Float = Points.curTime % 60;
+		var winSec:Float = Global.curTime % 60;
 		FlxG.log.add(winSec);
 		
 		_winText.text += "\nYou killed mom in ";
@@ -51,12 +52,10 @@ class StateWin extends FlxState
 	{
 		super.update(elapsed);
 		
-		#if !mobile
 		if (FlxG.keys.justReleased.ENTER)
 		{
-			FlxG.switchState(new StateHouse());
+			FlxG.switchState(new StateMenu());
 		}
-		#end
 	}
 	
 }

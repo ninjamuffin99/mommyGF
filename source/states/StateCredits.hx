@@ -1,4 +1,4 @@
-package;
+package states;
 
 import flixel.FlxG;
 import flixel.FlxState;
@@ -35,7 +35,7 @@ class StateCredits extends FlxState
 		
 		if (FlxG.keys.justPressed.ANY)
 		{
-			FlxG.switchState(new StateMenu());
+			FlxG.switchState(new states.StateMenu());
 		}
 		
 	}

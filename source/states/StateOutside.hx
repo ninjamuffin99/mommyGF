@@ -1,13 +1,16 @@
-package;
+package states;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.math.FlxMath;
+import flixel.util.FlxColor;
+import states.StateBaseLevel;
 
 /**
  * ...
  * @author ninjaMuffin
  */
-class StateOutside extends StateBaseLevel 
+class StateOutside extends states.StateBaseLevel 
 {
 	private var _BG1:FlxSprite;
 	private var _BG2:FlxSprite;
@@ -44,5 +47,14 @@ class StateOutside extends StateBaseLevel
 		
 		_BG1.x = -FlxMath.remapToRange(_mom._distanceX, 0, _distanceGoal, 0, (_BG1.width * 2) - FlxG.width);
 		_BG2.x = -FlxMath.remapToRange(_mom._distanceX, 0, _distanceGoal, 0, (_BG2.width * 2) - FlxG.width) + _BG1.width;
+		
+		if (_mom._distanceX >= _distanceGoal)
+		{
+			FlxG.camera.fade(FlxColor.BLACK, 0.3, false, function()
+			{
+				FlxG.switchState(new StateAnvil());
+			});
+			
+		}
 	}
 }

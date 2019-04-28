@@ -7,6 +7,7 @@ import openfl.Lib;
 import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
+import states.StateMenu;
 
 class Main extends Sprite
 {	
@@ -18,7 +19,7 @@ class Main extends Sprite
 	var skipSplash:Bool = false; // Whether to skip the flixel splash screen that appears in release mode.
 	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
 	
-	// You can pretty much ignore everything from here on - your code should go in your states.
+	// You can pretty much ignore everything from here on - your code should go in your 
 	
 	public static function main():Void
 	{	

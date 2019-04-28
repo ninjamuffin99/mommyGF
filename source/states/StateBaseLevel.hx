@@ -1,4 +1,4 @@
-package;
+package states;
 
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -6,6 +6,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.effects.FlxTrailArea;
 import flixel.addons.nape.FlxNapeSpace;
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxAngle;
@@ -24,7 +25,7 @@ import flixel.util.FlxColor;
  * Where all the magic happens
  */
  
-class StateBaseLevel extends FlxState 
+class StateBaseLevel extends FlxTransitionableState 
 {
 	//bg shit
 	public var _skyBG:FlxSprite;
@@ -69,7 +70,7 @@ class StateBaseLevel extends FlxState
 	private var _moped:MopedBoy;
 	private var _mopedWarning:Warning;
 	private var _asteroid:Asteroid;
-	private var _asteroidWarning:WarningAsteroid;
+	private var _asteroidWarning:EffectBase;
 	private var _asteroidJustHit:Bool = false;
 	
 	//HUD STUFF AND WHATNOT
@@ -78,8 +79,6 @@ class StateBaseLevel extends FlxState
 	private var _distanceBar:FlxSprite;
 	private var _momIcon:FlxSprite;
 	
-	private var _pointsText:FlxText;
-	private var _highScoreText:FlxText;
 	private var _distanceGoal:Float = 0;
 	private var _distaceGoalText:FlxText;
 	
@@ -108,6 +107,7 @@ class StateBaseLevel extends FlxState
 		_skyBG.scrollFactor.x = 0;
 		//_skyBG.visible = false;
 		
+		
 		super.create();
 	}
 	
@@ -132,6 +132,13 @@ class StateBaseLevel extends FlxState
 		add(_player);
 		
 		
+		_mom.justFell.add(function()
+			{
+				_player.animation.play("momFalls", true);
+				FlxG.log.add("shoulda animated");
+			});
+		
+		
 		//OBSTACLES AND WHATNOT
 		_moped = new MopedBoy(FlxG.width, 200);
 		add(_moped);
@@ -139,7 +146,7 @@ class StateBaseLevel extends FlxState
 		_mopedWarning = new Warning(FlxG.width, 40);
 		add(_mopedWarning);
 		
-		_asteroidWarning = new WarningAsteroid(FlxG.width, -60);
+		_asteroidWarning = new EffectBase(FlxG.width, -60, EffectBase.ASTEROIDWARNING);
 		add(_asteroidWarning);
 		
 		_asteroid = new Asteroid(0, 0);
@@ -158,12 +165,13 @@ class StateBaseLevel extends FlxState
 		_playerPunchHitBox = new FlxObject(_player.x + 60, _player.y, 75, 75);
 		add(_playerPunchHitBox);
 		
+		/*
 		FlxG.debugger.addTrackerProfile(new TrackerProfile(Mom, ["angleAcceleration", "angleDrag", "timeSwapMin", "timeSwapMax"], []));
 		FlxG.debugger.track(_mom, "Mom");
 		
 		FlxG.debugger.addTrackerProfile(new TrackerProfile(Player, ["punchMultiplier", "smackPower", "pushMultiplier"], []));
 		FlxG.debugger.track(_player, "Player");
-		
+		*/
 	}
 	
 	/**
@@ -191,17 +199,6 @@ class StateBaseLevel extends FlxState
 		_distaceGoalText = new FlxText(25, 15, 0, "", 20);
 		add(_distaceGoalText);
 		
-		
-		_pointsText = new FlxText(0, 30, 0, "Current Time: " + Math.floor(Points.curTime), 20);
-		_pointsText.screenCenter(X);
-		_pointsText.scrollFactor.x = 0;
-		//add(_pointsText);
-		
-		_highScoreText = new FlxText(0, 52, 0, "Highscore: " + Points.highScoreTime, 20);
-		_highScoreText.screenCenter(X);
-		_highScoreText.scrollFactor.x = 0;
-		//add(_highScoreText);
-		
 		boostText = new FlxText(0, 50);
 		boostText.size = 20;
 		boostText.screenCenter(X);
@@ -209,10 +206,6 @@ class StateBaseLevel extends FlxState
 		
 		_grpCandyDisplay = new FlxTypedGroup<Candy>();
 		add(_grpCandyDisplay);
-		
-		Points.curPoints = 0;
-		Points.curTime = 0;
-		
 		
 		_distanceBar.scrollFactor.x = 0;
 		_timerText.scrollFactor.x = 0;
@@ -255,7 +248,11 @@ class StateBaseLevel extends FlxState
 		if (FlxG.keys.anyJustPressed(["E", "O", "CTRL", "SHIFT"]) && _candyAmount >= 1)
 		{
 			_grpCandyDisplay.remove(_grpCandyDisplay.getFirstExisting(), true);
-			_grpCandyDisplay.forEachExists(candyGroupMove);
+			_grpCandyDisplay.forEachExists(function(c:Candy)
+			{
+				c.x -= 48;
+				
+			});
 			
 			activateCandy();
 			_candyAmount -= 1;
@@ -290,9 +287,6 @@ class StateBaseLevel extends FlxState
 		_winText.text += Std.int(winMin) + ":" + Std.int(winSec) + "!!";
 		*/
 		
-		_pointsText.text = "Current Time: " + Math.floor(Points.curTime);
-		_highScoreText.text = "Highscore: " + Points.highScoreTime;
-		
 	}
 	
 	private function activateCandy():Void
@@ -300,9 +294,7 @@ class StateBaseLevel extends FlxState
 		FlxG.camera.color = 0xFFFEFEFE;
 		_player.clearStatus();
 		FlxTween.tween(FlxG.camera, {color:FlxColor.WHITE}, _candyTimer);
-		#if flash
-		FlxG.sound.play("assets/sounds/CandyMode.mp3", 0.7);
-		#end
+		FlxG.sound.play("assets/sounds/CandyMode" + Global.soundEXT, 0.7);
 		
 		_candyMode = true;
 		FlxG.camera.flash(FlxColor.WHITE, 0.075);
@@ -347,7 +339,7 @@ class StateBaseLevel extends FlxState
 			{
 				_mom._distanceX += 1;
 				// multiplier goes up every second gradually
-				_mom._speedMultiplier += 0.25 * FlxG.elapsed;
+				_mom._speedMultiplier += 0.10 * FlxG.elapsed;
 			}
 			
 			if (_player.poked)
@@ -367,9 +359,9 @@ class StateBaseLevel extends FlxState
 				
 				if (!_mom._fallenDown)
 				{
-					_mom._distanceX += FlxG.random.float(0, 20);
+					_mom._distanceX += FlxG.random.float(0, 15);
 					//_mom._speedMultiplier += 1;
-					_mom._speedMultiplier += FlxG.random.float(0, 0.3);
+					_mom._speedMultiplier += FlxG.random.float(0, 0.10);
 					_player.punchMultiplier += FlxG.random.float(0, 0.025);
 				}
 				
@@ -403,7 +395,17 @@ class StateBaseLevel extends FlxState
 			_player.curPostition = _player.getPosition();
 			if (!flying)
 			{
-				_player.animation.play("idle");
+				if (_player.animation.curAnim.name != "momFalls")
+					_player.animation.play("idle");
+				else
+				{
+					if (_player.animation.curAnim.finished)
+					{
+						_player.animation.play("idle");
+						
+					}
+				
+				}
 			}
 			else
 			{
@@ -471,6 +473,33 @@ class StateBaseLevel extends FlxState
 			_playerAnims.updateCurSprite(_playerAnims.pickingUp, null, 260);
 		}
 		#end
+		
+		if (FlxG.onMobile && _mom._fallenDown && !_player._pickingUpMom)
+		{
+			for (touches in FlxG.touches.list)
+			{
+				if (touches.y > FlxG.height * 0.9)
+				{
+					_player._pickingUpMom = true;
+					_player.visible = false;
+					
+					if (_mom._fallenLeft)
+					{
+						_playerAnims.pickingUp.facing = FlxObject.RIGHT;
+						_playerAnims.x = 100;
+					}
+					
+					else
+					{
+						_playerAnims.pickingUp.facing = FlxObject.LEFT;
+						_playerAnims.x = 600;
+					}
+					
+					_playerAnims.updateCurSprite(_playerAnims.pickingUp, null, 260);
+				}
+			}
+		}
+		
 		
 		if (_player._pickingUpMom && _player.spamP)
 		{
@@ -679,9 +708,7 @@ class StateBaseLevel extends FlxState
 				_playerAnims.x = 497;
 			}
 			
-			#if flash
-			FlxG.sound.play("assets/sounds/hit_by_vehicle.mp3", 0.7);
-			#end
+			FlxG.sound.play("assets/sounds/hit_by_vehicle" + Global.soundEXT, 0.7);
 			
 			_playerAnims.hitByVehicle.animation.curAnim.restart();
 			_playerAnims.updateCurSprite(_playerAnims.hitByVehicle, _playerAnims.x, -32);
@@ -715,7 +742,7 @@ class StateBaseLevel extends FlxState
 				_moped.timer = FlxG.random.float(10, 20);
 				_mopedWarning.animation.curAnim.restart();
 				
-				FlxG.sound.play("assets/sounds/MotorBike.wav", 0.7);
+				FlxG.sound.play("assets/sounds/MotorBike" + Global.soundEXT, 0.7);
 				
 				justSpawnedMoped = true;
 			case ObstacleBase.ASTEROID:
@@ -902,18 +929,14 @@ class StateBaseLevel extends FlxState
 	
 	private function sfxHit():Void
 	{
-		#if flash
-		
 		if (_timer >= 30)
 		{
-			FlxG.sound.play("assets/sounds/smack" + FlxG.random.int(1, 3) + ".mp3", 0.7);
+			FlxG.sound.play("assets/sounds/smack" + FlxG.random.int(1, 3) + Global.soundEXT, 0.7);
 		}
 		else
 		{
-			FlxG.sound.play("assets/sounds/hyper" + FlxG.random.int(1, 5) + ".mp3", 0.8);
+			FlxG.sound.play("assets/sounds/hyper" + FlxG.random.int(1, 5) + Global.soundEXT, 0.8);
 		}
-		
-		#end
 	}
 	
 	private function resetMultipliers():Void
@@ -923,10 +946,5 @@ class StateBaseLevel extends FlxState
 		
 		_playerAnims.visible = false;
 		_player.visible = true;
-	}
-	
-	private function candyGroupMove(c:Candy):Void
-	{
-		c.x -= 48;
 	}
 }

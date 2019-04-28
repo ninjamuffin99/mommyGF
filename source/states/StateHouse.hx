@@ -1,26 +1,10 @@
-package;
+package states;
 
-import flixel.FlxBasic;
 import flixel.FlxG;
-import flixel.FlxObject;
 import flixel.FlxSprite;
-import flixel.FlxState;
-import flixel.addons.effects.FlxTrailArea;
-import flixel.addons.nape.FlxNapeSpace;
-import flixel.math.FlxAngle;
-import flixel.system.debug.watch.Tracker.TrackerProfile;
-import flixel.text.FlxText;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.ui.FlxButton;
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.math.FlxMath;
-import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
-import flixel.util.FlxHorizontalAlign;
-import flixel.util.FlxSort;
-import flixel.util.FlxTimer;
-import nape.geom.Vec2;
-import openfl.Assets;
 
 class StateHouse extends StateBaseLevel
 {
@@ -36,14 +20,14 @@ class StateHouse extends StateBaseLevel
 
 	override public function create():Void
 	{
+		FlxTransitionableState.skipNextTransOut = true;
+		
 		super.create();
 		
 		//set this variable per level
 		_distanceGoal = 6000;
 		
-		#if flash
-		FlxG.sound.playMusic("assets/music/MainTheme.mp3", 1);
-		#end
+		FlxG.sound.playMusic("assets/music/MainTheme" + Global.soundEXT, 1);
 		
 		/*
 		pitchedSound.MP3Pitch("https://audio.ngfiles.com/778000/778677_Alice-Mako-IM-SORRY.mp3");
@@ -164,7 +148,7 @@ class StateHouse extends StateBaseLevel
 	{
 		super.onFocusLost();
 		
-		openSubState(new SubStatePause(0xAA000000, this));
+		openSubState(new states.SubStatePause(0xAA000000, this));
 		
 	}
 	
@@ -192,16 +176,18 @@ class StateHouse extends StateBaseLevel
 	{
 		if (_timer <= 0 || _mom._timesFell >= 5)
 		{
-			FlxG.switchState(new StateGameOver());
+			FlxG.switchState(new states.StateGameOver());
 		}
 		
-		#if !mobile
-		if (_mom._distanceX >= _distanceGoal || FlxG.keys.justPressed.F)
+		if (_mom._distanceX >= _distanceGoal)
 		{
-			FlxG.camera.fade(FlxColor.BLACK, 0.3, false, function(){FlxG.switchState(new StateAnvil());});
+			FlxTransitionableState.skipNextTransOut = true;
+			FlxG.camera.fade(FlxColor.BLACK, 0.3, false, function()
+			{
+				FlxG.switchState(new StateAnvil());
+			});
 			
 		}
-		#end
 	}
 	
 	

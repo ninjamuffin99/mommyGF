@@ -1,6 +1,7 @@
 package;
 
 import flixel.FlxSprite;
+import flixel.addons.nape.FlxNapeSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 
 /**

@@ -1,4 +1,4 @@
-package;
+package states;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -22,8 +22,8 @@ class StateAnvil extends FlxState
 	private var _ropeHP:Float = 1;
 	private var _ropeBroke:Bool = false;
 	
-	private var test:Explosion;
-	private var hellYeah:HellYeah;
+	private var explosion:EffectBase;
+	private var hellYeah:EffectBase;
 	
 	private var _anvil:FlxSprite;
 	
@@ -45,12 +45,12 @@ class StateAnvil extends FlxState
 		add(_mom);
 		add(_anvil);
 		
-		test = new Explosion();
-		add(test);
-		test.visible = false;
-		test.animation.pause();
+		explosion = new EffectBase(0, 0, EffectBase.EXPLOSION);
+		add(explosion);
+		explosion.visible = false;
+		explosion.animation.pause();
 		
-		hellYeah= new HellYeah(0, 0);
+		hellYeah = new EffectBase(0, 0, EffectBase.HELLYEAH);
 		add(hellYeah);
 		hellYeah.animation.pause();
 		hellYeah.visible = false;
@@ -120,14 +120,17 @@ class StateAnvil extends FlxState
 				hellYeah.visible = true;
 				hellYeah.animation.play("play", true);
 				
-				test.visible = true;
-				test.animation.play("test", true);
+				explosion.visible = true;
+				explosion.animation.play("test", true);
 				
 				
-				
-				if (FlxG.sound.music.playing)
+				if (FlxG.sound.music != null)
 				{
-					FlxG.sound.music.fadeOut(FlxG.elapsed * 10);
+					if (FlxG.sound.music.playing)
+					{
+						FlxG.sound.music.fadeOut(FlxG.elapsed * 10);
+					}
+					
 				}
 				
 				_rope.animation.play("break");
